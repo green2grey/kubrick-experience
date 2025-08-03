@@ -56,47 +56,6 @@ kubrick-experience/
 └── Work and life of Stanley Kubrick — */  # Film stills and images
 ```
 
-## 🎨 Customization
-
-### Modify Content
-- Edit `index.html` to change text, images, or animations
-- The essay text is embedded in the HTML sections
-
-### Change Audio
-- Replace `ElevenLabs_Untitled_Project.mp3` with your own narration
-- Update the filename in the JavaScript section
-
-### Adjust Animations
-- GSAP animations are in the JavaScript section
-- Modify timing, effects, and triggers as needed
-
-## 📱 Browser Compatibility
-
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
-
-**Note**: Audio features require a local server or web hosting due to browser security policies.
-
-## 🛠️ Technologies Used
-
-- HTML5 & CSS3
-- JavaScript (ES6+)
-- GSAP (GreenSock Animation Platform)
-- ScrollTrigger
-- Howler.js (Audio Library)
-- Web Audio API (Visualization)
-
-## 📄 License
-
-This project is for educational purposes. All film imagery and references belong to their respective copyright holders.
-
-## 🙏 Acknowledgments
-
-- Stanley Kubrick for the cinematic inspiration
-- Film stills from various sources
-- Audio narration generated with ElevenLabs
 
 ---
 
