@@ -17,13 +17,11 @@
             --kubrick-grey: #1a1a1a;
             --gold-room-gold: #FFD700;
             
-            /* Signature film colors from kubrick.life */
-            --space-blue: #4A90E2;
+                        --space-blue: #4A90E2;
             --clockwork-orange: #FF4500;
-            --shining-red: #CC0000;
-            --shining-yellow: #FFD700;
-            --pure-white: #FFFFFF;
-            --deep-black: #000000;
+            --shining-red: #f2473e;
+            --shining-dark: #191818;
+            --shining-cream: #faf9f2;
         }
 
         body {
@@ -36,28 +34,184 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .font-kubrick-bold { 
+                .font-kubrick-bold { 
             font-family: 'Inter', sans-serif; 
             font-weight: 900;
-            letter-spacing: -0.02em;
-        }
-        .font-kubrick-medium { 
-            font-family: 'Space Grotesk', sans-serif; 
-            font-weight: 400;
+            letter-spacing: -0.05em;
+            text-transform: lowercase;
         }
 
-        .perspective-line {
+                .page-section {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+                .film-title-section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--kubrick-black);
+            overflow: hidden;
+        }
+
+        .film-title {
+            font-size: clamp(5rem, 15vw, 20rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+            text-transform: lowercase;
+            position: relative;
+            z-index: 10;
+        }
+
+                .space-title {
+            color: var(--space-blue);
+            text-shadow: 0 0 80px rgba(74, 144, 226, 0.5);
+        }
+
+                .clockwork-title {
+            color: var(--clockwork-orange);
+            text-shadow: 0 0 80px rgba(255, 69, 0, 0.5);
+        }
+
+                .shining-section {
+            background: var(--shining-cream);
+            color: var(--shining-dark);
+            position: relative;
+        }
+
+        .shining-title {
+            color: var(--shining-red);
+            text-shadow: none;
+            position: relative;
+            z-index: 100;
+        }
+
+                .axe-container {
             position: fixed;
             top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 1px;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.05);
-            z-index: 2;
+            pointer-events: none;
+            z-index: 50;
         }
 
-        #hal-lens {
+        .axe-blade {
+            position: absolute;
+            width: 187px;
+            height: 419px;
+            top: 50%;
+            left: 50%;
+            margin-left: 100px;
+            margin-top: -250px;
+            transform: rotate(-60deg) scale(0);
+            opacity: 0;
+            transform-origin: center bottom;
+        }
+
+
+
+                .section-divider {
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            margin: 4rem 0;
+        }
+
+                .content-block {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-block h2 {
+            font-size: clamp(3rem, 8vw, 10rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+            margin-bottom: 3rem;
+            text-transform: lowercase;
+        }
+
+        .content-block p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+                .image-section {
+            width: 100%;
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            margin: 4rem 0;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) saturate(0.9);
+        }
+
+                .parallax-image {
+            position: absolute;
+            width: 100%;
+            height: 120%;
+            top: -10%;
+            left: 0;
+            will-change: transform;
+        }
+
+                .quote-section {
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-text {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .quote-text::before,
+        .quote-text::after {
+            content: '"';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+        }
+
+        .quote-text::before {
+            top: -2rem;
+            left: -4rem;
+        }
+
+        .quote-text::after {
+            bottom: -2rem;
+            right: -4rem;
+        }
+
+                #hal-lens {
             position: fixed;
             width: 20px;
             height: 20px;
@@ -68,757 +222,212 @@
             pointer-events: none;
             z-index: 9999;
             transition: transform 0.1s ease-out;
-            will-change: transform;
+            mix-blend-mode: screen;
         }
 
-        .content-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            z-index: 20;
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: left;
+                .film-grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; opacity: 0.015; mix-blend-mode: overlay; }
+        .film-grain::before { content: ''; position: absolute; top: -100%; left: -100%; width: 300%; height: 300%; background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.1) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.1) 4px); animation: grain 8s steps(10) infinite; }
+        @keyframes grain { 0%, 100% { transform: translate(0, 0); } 10% { transform: translate(-5%, -10%); } 30% { transform: translate(5%, -20%); } 50% { transform: translate(-10%, 10%); } 70% { transform: translate(10%, 5%); } 90% { transform: translate(-5%, 15%); } }
+
+                .monolith-intro { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000; z-index: 20000; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .stars { position: absolute; width: 100%; height: 100%; background: #000; }
+        .stars::before, .stars::after { content: ''; position: absolute; width: 100%; height: 100%; background-image: radial-gradient(2px 2px at 20% 30%, white, transparent), radial-gradient(2px 2px at 40% 70%, white, transparent), radial-gradient(1px 1px at 50% 50%, white, transparent), radial-gradient(1px 1px at 80% 10%, white, transparent), radial-gradient(2px 2px at 90% 60%, white, transparent); background-repeat: repeat; background-size: 350px 350px; }
+        .stars::before { background-position: 0 0; animation: starMove 300s linear infinite; }
+        .stars::after { background-position: 50px 50px; animation: starMove 400s linear infinite reverse; opacity: 0.5; }
+        @keyframes starMove { from { transform: translateY(0); } to { transform: translateY(-400px); } }
+        .monolith-container { position: relative; z-index: 10; }
+        .monolith { width: 200px; height: 450px; object-fit: cover; opacity: 0; animation: monolithAppear 3s ease-out forwards; animation-delay: 1s; }
+        @keyframes monolithAppear { to { opacity: 1; } }
+        .monolith-glow { position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border: 2px solid rgba(255, 255, 255, 0); opacity: 0; animation: glowPulse 4s ease-in-out infinite; animation-delay: 4s; pointer-events: none; }
+        @keyframes glowPulse { 0%, 100% { opacity: 0; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } 50% { opacity: 1; box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.8); border-color: rgba(255, 255, 255, 0.8); } }
+        .choice-container { position: absolute; bottom: 15%; text-align: center; z-index: 20; opacity: 0; animation: fadeIn 2s ease-out forwards; animation-delay: 6s; }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .choice-text { font-family: 'Inter', sans-serif; font-weight: 900; font-size: 3rem; color: white; text-transform: lowercase; letter-spacing: -0.02em; margin-bottom: 2rem; }
+        .choice-buttons { display: flex; gap: 4rem; justify-content: center; }
+        .choice-button { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.5rem; color: white; background: transparent; border: 2px solid white; padding: 1rem 3rem; cursor: pointer; text-transform: lowercase; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .choice-button:hover { background: white; color: black; transform: scale(1.05); }
+
+                @keyframes halGlarePulse { 0%, 100% { opacity: 0; } 50% { opacity: 0.8; } }
+        @keyframes halGlowPulse { 0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } }
+
+                .audio-player { position: fixed !important; bottom: 20px !important; right: 20px !important; background: rgba(0, 0, 0, 0.9) !important; border: 1px solid rgba(255, 255, 255, 0.3) !important; border-radius: 12px !important; padding: 12px !important; z-index: 10000 !important; width: 340px !important; backdrop-filter: blur(10px) !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8) !important; }
+        .audio-controls { display: flex !important; align-items: center !important; gap: 8px !important; height: 36px !important; }
+        .audio-btn { background: transparent !important; border: 1px solid rgba(255, 255, 255, 0.5) !important; color: white !important; width: 32px !important; height: 32px !important; border-radius: 50% !important; cursor: pointer !important; display: flex !important; align-items: center !important; justify-content: center !important; transition: all 0.3s ease !important; font-size: 12px !important; padding: 0 !important; flex-shrink: 0 !important; }
+        .audio-btn:hover { background: rgba(255, 255, 255, 0.2) !important; border-color: white !important; transform: scale(1.05) !important; }
+        .play-icon, .pause-icon { font-size: 12px !important; line-height: 1 !important; }
+        .volume-slider { flex: 1 !important; height: 3px !important; background: rgba(255, 255, 255, 0.2) !important; outline: none !important; -webkit-appearance: none !important; appearance: none !important; border-radius: 2px !important; cursor: pointer !important; margin: 0 8px !important; }
+        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 10px !important; height: 10px !important; background: white !important; cursor: pointer !important; border-radius: 50% !important; }
+        .volume-slider::-moz-range-thumb { width: 10px !important; height: 10px !important; background: white !important; cursor: pointer !important; border-radius: 50% !important; border: none !important; }
+        .time-display { font-family: 'Inter', sans-serif !important; font-size: 10px !important; color: rgba(255, 255, 255, 0.8) !important; white-space: nowrap !important; margin-left: 8px !important; flex-shrink: 0 !important; min-width: 75px !important; text-align: right !important; }
+        #audio-player * { box-sizing: border-box !important; }
+        audio { display: none !important; }
+        
+        .style-section {
+            background-color: var(--kubrick-grey);
         }
 
-        .content-section h1, .content-section h2 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            text-transform: lowercase;
-            letter-spacing: -0.02em;
-            line-height: 0.9;
-            margin-bottom: 2rem;
-        }
-
-        .content-section h1 {
-            font-size: clamp(4rem, 10vw, 12rem);
-            line-height: 0.8;
-            letter-spacing: -0.05em;
-        }
-
-        .content-section h2 {
-            font-size: clamp(3rem, 8vw, 10rem);
-            line-height: 0.8;
-            letter-spacing: -0.05em;
-        }
-
-        .content-section p {
-            line-height: 1.6;
-            max-width: 600px;
-            font-size: 1.125rem;
-            font-weight: 400;
-        }
-
-        /* Cinematic layouts inspired by kubrick.life */
-        .cinematic-section {
-            min-height: 100vh;
-            position: relative;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            padding: 4rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            z-index: 20;
-        }
-
-        /* Alternate layout direction for visual variety */
-        .cinematic-section:nth-child(even) {
-            direction: rtl;
-        }
-
-        .cinematic-section:nth-child(even) > * {
-            direction: ltr;
-        }
-
-        .film-image {
-            width: 100%;
-            height: 70vh;
-            object-fit: cover;
-            border-radius: 0;
-            display: block;
-            filter: contrast(1.1) brightness(0.95);
-            transition: filter 0.5s ease;
-        }
-
-        .film-image:hover {
-            filter: contrast(1.2) brightness(1);
-        }
-
-        .film-content {
-            z-index: 10;
-            max-width: 600px;
-        }
-
-        /* Standardized film still containers */
-        .film-still {
-            width: 100%;
-            height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            position: relative;
+        #architecture-section {
             overflow: hidden;
+            position: relative;
         }
 
-        .film-still.space-still {
-            background: linear-gradient(135deg, #000 0%, #0a1929 100%);
-            border: 3px solid var(--space-blue);
-            color: var(--space-blue);
-        }
-
-        .film-still.clockwork-still {
-            background: linear-gradient(135deg, #000 0%, #2a1810 100%);
-            border: 3px solid var(--clockwork-orange);
-            color: var(--clockwork-orange);
-        }
-
-        .film-still.shining-still {
-            background: linear-gradient(135deg, #000 0%, #1a0a0a 100%);
-            border: 3px solid var(--shining-red);
-            color: var(--shining-red);
-        }
-
-        /* Film-specific color themes */
-        .space-section {
-            background: linear-gradient(135deg, var(--deep-black) 0%, #111 100%);
-        }
-
-        .space-section h2 {
-            color: var(--space-blue);
-        }
-
-        .clockwork-section {
-            background: linear-gradient(135deg, var(--deep-black) 0%, #2a1810 100%);
-        }
-
-        .clockwork-section h2 {
-            color: var(--clockwork-orange);
-        }
-
-        .shining-section {
-            background: linear-gradient(135deg, var(--deep-black) 0%, #1a0a0a 100%);
-        }
-
-        .shining-section h2 {
-            color: var(--shining-red);
-        }
-
-        .rupture-bg {
-            position: fixed;
+        .architecture-backgrounds {
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100vw;
             height: 100vh;
             z-index: 1;
-            opacity: 0;
-            pointer-events: none;
-            background-size: cover;
-            background-position: center;
-            transition: opacity 2s ease;
-        }
-
-        #shining-bg { background-color: var(--kubrick-red); }
-        #clockwork-bg { background-color: var(--kubrick-orange); }
-        #space-bg { background-color: var(--kubrick-black); }
-
-        /* Color overlays like kubrick.life */
-        .color-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 5;
-            mix-blend-mode: overlay;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-        }
-
-        .color-overlay.active {
-            opacity: 0.15;
-        }
-
-        .space-overlay {
-            background: linear-gradient(135deg, transparent 0%, var(--space-blue) 100%);
-        }
-
-        .clockwork-overlay {
-            background: linear-gradient(135deg, transparent 0%, var(--clockwork-orange) 100%);
-        }
-
-        .shining-overlay {
-            background: linear-gradient(135deg, transparent 0%, var(--shining-red) 100%);
-        }
-
-        #start-button {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: lowercase;
-            letter-spacing: -0.02em;
-            color: var(--kubrick-white);
-            background-color: transparent;
-            border: 3px solid var(--kubrick-white);
-            padding: 1.5rem 3rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border-radius: 0;
-        }
-
-        #start-button:hover {
-            background-color: var(--kubrick-white);
-            color: var(--kubrick-black);
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-        }
-        
-        .start-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--kubrick-black); display: flex; justify-content: center;
-            align-items: center; z-index: 10000; flex-direction: column;
-        }
-        .start-overlay p { margin-top: 1rem; font-size: 0.9rem; color: rgba(255,255,255,0.7); }
-
-        /* Custom Creative Elements */
-        .interactive-container {
-            width: 100%;
-            min-height: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 2rem;
-            perspective: 1000px;
-        }
-
-        /* 2001: HAL 9000 Interface */
-        #hal-interface {
-            width: 400px;
-            height: 200px;
-            background: #111;
-            border: 2px solid #444;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            transform-style: preserve-3d;
-            transform: rotateX(20deg);
-        }
-        #hal-interface-eye {
-            width: 80px;
-            height: 80px;
-            background: var(--kubrick-red);
-            border-radius: 50%;
-            box-shadow: 0 0 30px 10px rgba(213, 0, 0, 0.6);
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #hal-interface-eye::before {
-            content: '';
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 50%;
-            filter: blur(2px);
-        }
-        #hal-text {
-            position: absolute;
-            bottom: 10px;
-            font-family: 'Courier New', monospace;
-            color: #ccc;
-            font-size: 0.8rem;
-        }
-
-        /* A Clockwork Orange: Korova Milk Bar */
-        #korova-bar {
-            width: 100%;
-            height: 350px;
-            background: var(--kubrick-white);
-            color: var(--kubrick-black);
             overflow: hidden;
-            position: relative;
+            background: var(--kubrick-grey);
         }
-        #korova-bar h3 {
-            font-family: 'Futura', sans-serif;
-            font-weight: 700;
-            font-size: 2rem;
-            text-align: center;
+
+        .bg-media {
             position: absolute;
-            width: 100%;
-            top: 30px;
-            letter-spacing: 0.5em;
-            color: var(--kubrick-black);
-        }
-        .mannequin {
-            position: absolute;
-            bottom: 0;
-            width: 150px;
-            height: 250px;
-            background-color: #e0e0e0;
-            clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%); /* Simple figure shape */
-            transform-origin: bottom center;
-        }
-        #alex-figure {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%) scale(1);
-            bottom: 0;
-            width: 180px;
-            height: 300px;
-            background-color: #fff;
-            border-top: 20px solid var(--kubrick-black); /* Hat */
-        }
-        
-        /* The Shining: Maze & Elevator */
-        #shining-elements {
-            width: 100%;
-            position: relative;
-        }
-        #overlook-maze {
-            width: 300px;
-            height: 300px;
-            border: 2px solid var(--kubrick-white);
-            position: relative;
-            background-image: repeating-linear-gradient(0deg, transparent, transparent 19px, #fff 19px, #fff 20px),
-                              repeating-linear-gradient(90deg, transparent, transparent 19px, #fff 19px, #fff 20px);
-            background-size: 20px 20px;
-        }
-        #maze-path {
-            fill: none;
-            stroke: var(--kubrick-red);
-            stroke-width: 4;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-        }
-        #elevator-container {
-            width: 200px;
-            height: 300px;
-            border: 5px solid var(--gold-room-gold);
-            position: relative;
-            overflow: hidden;
-            margin-top: 2rem;
-        }
-        #blood-wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 0%;
-            background-color: var(--kubrick-red);
-            transition: height 2s ease-in;
-        }
-
-        /* Additional Visual Elements */
-        .visual-accent {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .kubrick-quote {
-            font-style: italic;
-            color: rgba(255, 255, 255, 0.8);
-            border-left: 3px solid var(--kubrick-red);
-            padding-left: 1rem;
-            margin: 2rem 0;
-        }
-
-        .film-title {
-            color: var(--kubrick-red);
-            text-shadow: 0 0 10px rgba(213, 0, 0, 0.3);
-        }
-
-        .section-divider {
-            width: 60px;
-            height: 2px;
-            background: var(--kubrick-red);
-            margin: 2rem auto;
-            opacity: 0;
-        }
-
-        /* Pulsing red elements */
-        .pulse-red {
-            animation: pulseRed 3s infinite ease-in-out;
-        }
-
-        @keyframes pulseRed {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        /* Symmetry lines */
-        .symmetry-line {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            opacity: 0;
-        }
-
-        .symmetry-line.vertical {
-            width: 1px;
-            height: 100%;
-            left: 50%;
-            top: 0;
-        }
-
-        .symmetry-line.horizontal {
-            height: 1px;
-            width: 100%;
-            top: 50%;
-            left: 0;
-        }
-
-        /* Advanced cinematic effects */
-        .parallax-element {
-            will-change: transform;
-        }
-
-        .text-reveal {
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 0.8s ease-out;
-        }
-
-        .text-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .cinematic-fade {
-            opacity: 0;
-            transform: scale(1.1);
-            transition: all 1.2s ease-out;
-        }
-
-        .cinematic-fade.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Film grain overlay */
-        .film-grain {
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.015;
-            background-image: 
-                radial-gradient(circle, transparent 20%, rgba(255,255,255,.2) 20%, rgba(255,255,255,.2) 80%, transparent 80%, transparent),
-                radial-gradient(circle, transparent 20%, rgba(0,0,0,.2) 20%, rgba(0,0,0,.2) 80%, transparent 80%, transparent);
-            background-size: 10px 10px;
-            background-position: 0 0, 5px 5px;
-            pointer-events: none;
-            z-index: 3;
-        }
-
-        /* Dramatic text effects */
-        .kubrick-highlight {
-            position: relative;
-            display: inline-block;
-        }
-
-        .kubrick-highlight::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: currentColor;
-            transition: width 0.6s ease-out;
-        }
-
-        .kubrick-highlight.highlighted::before {
-            width: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .cinematic-section {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 2rem;
-            }
-            
-            .film-image {
-                height: 50vh;
-            }
-        }
-
-        /* Monolith Intro Styles */
-        .monolith-intro {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: #000;
-            z-index: 20000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: #000;
-        }
-
-        .stars::before,
-        .stars::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20% 30%, white, transparent),
-                radial-gradient(2px 2px at 40% 70%, white, transparent),
-                radial-gradient(1px 1px at 50% 50%, white, transparent),
-                radial-gradient(1px 1px at 80% 10%, white, transparent),
-                radial-gradient(2px 2px at 90% 60%, white, transparent);
-            background-repeat: repeat;
-            background-size: 350px 350px;
-        }
-
-        .stars::before {
-            background-position: 0 0;
-            animation: starMove 300s linear infinite;
-        }
-
-        .stars::after {
-            background-position: 50px 50px;
-            animation: starMove 400s linear infinite reverse;
-            opacity: 0.5;
-        }
-
-        @keyframes starMove {
-            from { transform: translateY(0); }
-            to { transform: translateY(-400px); }
-        }
-
-        .monolith-container {
-            position: relative;
-            z-index: 10;
-        }
-
-        .monolith {
-            width: 200px;
-            height: 450px;
             object-fit: cover;
             opacity: 0;
-            animation: monolithAppear 3s ease-out forwards;
-            animation-delay: 1s;
+            transition: opacity 0.5s ease-in-out;
+            filter: brightness(0.6);
         }
 
-        @keyframes monolithAppear {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .monolith-glow {
+        .architecture-backgrounds::after {
+            content: '';
             position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border: 2px solid rgba(255, 255, 255, 0);
-            opacity: 0;
-            animation: glowPulse 4s ease-in-out infinite;
-            animation-delay: 4s;
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2;
         }
 
-        @keyframes glowPulse {
-            0%, 100% {
-                opacity: 0;
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-            }
-            50% {
-                opacity: 1;
-                box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.8);
-                border-color: rgba(255, 255, 255, 0.8);
-            }
+        .horizontal-scroll-wrapper {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+             z-index: 5;
         }
 
-        .choice-container {
-            position: absolute;
-            bottom: 15%;
-            text-align: center;
-            z-index: 20;
-            opacity: 0;
-            animation: fadeIn 2s ease-out forwards;
-            animation-delay: 6s;
-        }
-
-        .choice-text {
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 3rem;
-            color: white;
-            text-transform: lowercase;
-            letter-spacing: -0.02em;
-            margin-bottom: 2rem;
-        }
-
-        .choice-buttons {
+        .horizontal-scroll-container {
             display: flex;
+            flex-wrap: nowrap;
+            width: 400vw; 
+            position: relative;
+            height: 100vh;
+            align-items: center;
+        }
+
+        .intro-panel {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .style-card {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem;
+        }
+
+        .style-card-content {
+            display: flex;
+            max-width: 1400px;
+            width: 90%;
             gap: 4rem;
+            background: rgba(0, 0, 0, 0.55);
+            padding: 4rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .style-text {
+            flex: 1;
+        }
+
+        .style-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .style-svg-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
 
-        .choice-button {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: white;
-            background: transparent;
-            border: 2px solid white;
-            padding: 1rem 3rem;
-            cursor: pointer;
+        .style-svg {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+        }
+
+        .style-card h3 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
             text-transform: lowercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
         }
 
-        .choice-button:hover {
-            background: white;
-            color: black;
-            transform: scale(1.05);
+         .standard-style-section {
+            padding: 10rem 0;
+         }
+
+        .style-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
+        .standard-card {
+             background: var(--kubrick-grey);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .standard-card:hover {
+            transform: translateY(-10px);
+        }
+
+         .standard-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--kubrick-red);
+        }
+
+        @media (max-width: 1024px) {
+            .style-card-content {
+                flex-direction: column-reverse;
+                padding: 2rem;
+                gap: 2rem;
+                max-height: 90vh;
+                overflow-y: auto;
             }
-        }
-
-        /* Audio Player Styles */
-        .audio-player {
-            position: fixed !important;
-            bottom: 20px !important;
-            right: 20px !important;
-            background: rgba(0, 0, 0, 0.9) !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            border-radius: 12px !important;
-            padding: 12px !important;
-            z-index: 10000 !important;
-            width: 280px !important;
-            max-width: 280px !important;
-            backdrop-filter: blur(10px) !important;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8) !important;
-            -webkit-backdrop-filter: blur(10px) !important;
-        }
-
-        .waveform {
-            width: 100% !important;
-            height: 50px !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-radius: 6px !important;
-            margin-bottom: 10px !important;
-            display: block !important;
-        }
-
-        .audio-controls {
-            display: flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            height: 36px !important;
-        }
-
-        .audio-btn {
-            background: transparent !important;
-            border: 1px solid rgba(255, 255, 255, 0.5) !important;
-            color: white !important;
-            width: 32px !important;
-            height: 32px !important;
-            min-width: 32px !important;
-            min-height: 32px !important;
-            border-radius: 50% !important;
-            cursor: pointer !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            transition: all 0.3s ease !important;
-            font-size: 12px !important;
-            padding: 0 !important;
-            flex-shrink: 0 !important;
-        }
-
-        .audio-btn:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
-            border-color: white !important;
-            transform: scale(1.05) !important;
-        }
-
-        .play-icon, .pause-icon {
-            font-size: 12px !important;
-            line-height: 1 !important;
-        }
-
-        .volume-slider {
-            flex: 1 !important;
-            height: 3px !important;
-            background: rgba(255, 255, 255, 0.2) !important;
-            outline: none !important;
-            -webkit-appearance: none !important;
-            appearance: none !important;
-            border-radius: 2px !important;
-            cursor: pointer !important;
-            margin: 0 8px !important;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none !important;
-            appearance: none !important;
-            width: 10px !important;
-            height: 10px !important;
-            background: white !important;
-            cursor: pointer !important;
-            border-radius: 50% !important;
-            margin-top: -3.5px !important;
-        }
-
-        .volume-slider::-moz-range-thumb {
-            width: 10px !important;
-            height: 10px !important;
-            background: white !important;
-            cursor: pointer !important;
-            border-radius: 50% !important;
-            border: none !important;
-        }
-
-        .time-display {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 10px !important;
-            color: rgba(255, 255, 255, 0.8) !important;
-            white-space: nowrap !important;
-            margin-left: 8px !important;
-            flex-shrink: 0 !important;
-        }
-
-        /* Override any conflicting styles */
-        #audio-player * {
-            box-sizing: border-box !important;
-        }
-
-        /* Hide any default audio controls if they appear */
-        audio {
-            display: none !important;
+            .style-card {
+                padding: 2rem;
+            }
+            .style-card h3 {
+                font-size: 2rem;
+            }
+             .style-svg {
+                max-height: 300px;
+            }
         }
 
     </style>
@@ -827,33 +436,35 @@
 
     <div class="film-grain"></div>
 
-    <!-- Audio Player -->
-    <div id="audio-player" style="display: none; position: fixed !important; bottom: 20px !important; right: 20px !important; background: rgba(0, 0, 0, 0.9) !important; border: 1px solid rgba(255, 255, 255, 0.3) !important; border-radius: 12px !important; padding: 12px !important; z-index: 10000 !important; width: 280px !important; max-width: 280px !important; backdrop-filter: blur(10px) !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8) !important;">
-        <canvas id="waveform" style="width: 100% !important; height: 50px !important; background: rgba(255, 255, 255, 0.1) !important; border-radius: 6px !important; margin-bottom: 10px !important; display: block !important;"></canvas>
-        <div class="audio-controls" style="display: flex !important; align-items: center !important; gap: 8px !important; height: 36px !important;">
-            <button id="play-pause" style="background: transparent !important; border: 1px solid rgba(255, 255, 255, 0.5) !important; color: white !important; width: 32px !important; height: 32px !important; min-width: 32px !important; min-height: 32px !important; border-radius: 50% !important; cursor: pointer !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 12px !important; padding: 0 !important;">
+    <div id="audio-player" style="display: none; position: fixed !important; bottom: 20px !important; right: 20px !important; background: rgba(0, 0, 0, 0.9) !important; border: 1px solid rgba(255, 255, 255, 0.3) !important; border-radius: 12px !important; padding: 12px !important; z-index: 10000 !important; width: 340px !important; max-width: 340px !important; backdrop-filter: blur(10px) !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8) !important;">
+        <div class="audio-controls" style="display: flex !important; align-items: center !important; gap: 6px !important; height: 36px !important;">
+            <button id="play-pause" class="audio-btn">
                 <span class="play-icon" style="font-size: 12px !important;">▶</span>
                 <span class="pause-icon" style="display: none; font-size: 12px !important;">❚❚</span>
             </button>
-            <input type="range" id="volume-control" style="flex: 1 !important; height: 3px !important; background: rgba(255, 255, 255, 0.2) !important; outline: none !important; -webkit-appearance: none !important; appearance: none !important; border-radius: 2px !important; cursor: pointer !important; margin: 0 8px !important;" min="0" max="100" value="80">
-            <span class="time-display" style="font-family: 'Inter', sans-serif !important; font-size: 10px !important; color: rgba(255, 255, 255, 0.8) !important; white-space: nowrap !important; margin-left: 8px !important;">
+            <input type="range" id="volume-control" class="volume-slider" min="0" max="100" value="80">
+            <button id="transcript-toggle" class="audio-btn" title="Show/Hide Transcript">
+                <span style="font-size: 10px !important;">📄</span>
+            </button>
+            <span class="time-display" style="font-family: 'Inter', sans-serif !important; font-size: 10px !important; color: rgba(255, 255, 255, 0.8) !important; white-space: nowrap !important; margin-left: 8px !important; min-width: 75px !important;">
                 <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
             </span>
         </div>
     </div>
+    
+    <div id="transcript-window" style="display: none; position: fixed !important; bottom: 120px !important; right: 20px !important; width: 400px !important; max-width: 90vw !important; height: 400px !important; max-height: 60vh !important; background: rgba(0, 0, 0, 0.85) !important; border: 1px solid rgba(255, 255, 255, 0.3) !important; border-radius: 12px !important; z-index: 9999 !important; backdrop-filter: blur(10px) !important; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8) !important; resize: both !important; overflow: auto !important;">
+        <div style="padding: 20px !important; height: 100% !important; display: flex !important; flex-direction: column !important;">
+            <div style="display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 15px !important;">
+                <h3 style="margin: 0 !important; font-family: 'Inter', sans-serif !important; font-weight: 700 !important; font-size: 16px !important; color: white !important;">Essay Transcript</h3>
+                <button id="transcript-close" style="background: transparent !important; border: 1px solid rgba(255, 255, 255, 0.5) !important; color: white !important; width: 24px !important; height: 24px !important; border-radius: 50% !important; cursor: pointer !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 12px !important; padding: 0 !important;">×</button>
+            </div>
+            <div id="transcript-content" style="flex: 1 !important; overflow-y: auto !important; padding-right: 10px !important; font-family: 'Inter', sans-serif !important; font-size: 14px !important; line-height: 1.6 !important; color: rgba(255, 255, 255, 0.9) !important;">
+            </div>
+        </div>
+    </div>
+    
     <div id="hal-lens"></div>
-    <div class="perspective-line"></div>
-    
-    <div id="space-bg" class="rupture-bg"></div>
-    <div id="clockwork-bg" class="rupture-bg"></div>
-    <div id="shining-bg" class="rupture-bg"></div>
-    
-    <!-- Color overlays -->
-    <div class="color-overlay space-overlay"></div>
-    <div class="color-overlay clockwork-overlay"></div>
-    <div class="color-overlay shining-overlay"></div>
 
-    <!-- Monolith Intro -->
     <div id="monolith-intro" class="monolith-intro">
         <div class="stars"></div>
         <div class="monolith-container">
@@ -869,407 +480,476 @@
         </div>
     </div>
 
-    <div id="start-overlay" class="start-overlay" style="display: none;">
-        <button id="start-button">begin</button>
-        <p class="font-kubrick-medium">This experience uses audio. Headphones recommended.</p>
-    </div>
-
-    <main>
-        <!-- INTRODUCTION SECTIONS -->
-        <section id="intro" class="cinematic-section">
-            <div class="film-content">
-                <h1 class="font-kubrick-bold">stanley kubrick</h1>
-                <p class="font-kubrick-medium">
-                    Stanley Kubrick stands as a quintessential filmmaker of 20th-century cinema, renowned for his meticulous craftsmanship and bold thematic ambition. His films span genres like science fiction, horror, and satire but consistently bear his signature in style and substance.
-                </p>
-            </div>
-            <div class="film-image-container">
-                            <img src="Work and life of Stanley Kubrick — 2001_files/upload-65001ed0-7088-11e8-9134-cd3c3cd02752.jpg" class="film-image" alt="Stanley Kubrick Portrait">
-            </div>
-        </section>
-
-        <section id="thematic-intro" class="cinematic-section">
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — Clockwork orange_files/upload-5e881ac6-97f5-4252-ae87-13b5ced4cacd.png" class="film-image" alt="Kubrick Order and Violence" style="filter: contrast(1.2) saturate(0.8);">
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">order & violence</h2>
-                <p class="font-kubrick-medium">
-                    <span style="color: var(--space-blue);">2001: A Space Odyssey</span>, <span style="color: var(--clockwork-orange);">A Clockwork Orange</span>, and <span style="color: var(--shining-red);">The Shining</span> at first glance appear very different. One is a contemplative sci-fi epic, another's a dystopian satire, and the third's a psychological horror film. But beneath their surface narratives, these movies are linked by a profound implicit meaning.
+    <main style="opacity: 0;">
+        <section class="page-section">
+            <div class="content-block text-center">
+                <h1 class="font-kubrick-bold" style="font-size: clamp(4rem, 10vw, 12rem); line-height: 0.8; margin-bottom: 3rem;">
+                    kubrick:<br>the veneer of civilization
+                </h1>
+                <div class="section-divider"></div>
+                <p style="font-size: 1.5rem; max-width: 900px; margin: 0 auto; opacity: 0.8;">
+                    Stanley Kubrick’s cinema argues that the veneer of civilization is perilously thin. Through his iconic films, he posits that human beings remain driven by primal violence and fear, and the very tools we devise to impose order—technology, psychological conditioning, or social institutions—can turn oppressive, monstrous, and ultimately, fail to contain our innate brutality.
                 </p>
             </div>
         </section>
 
-        <section id="core-theme" class="cinematic-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the hidden connection</h2>
-                <p class="font-kubrick-medium">
-                    In all three, Kubrick explores humanity's innate capacity for violence and the peril that arises when external forces—like technology, institutions, or even supernatural influences—attempt to control or repress that primal nature. Kubrick's argument is clear: the more rigidly we impose order or try to "civilize" human behavior, the more fiercely our buried instincts resist, often erupting in violence.
+        <section class="film-title-section" id="space-odyssey-title">
+            <h1 class="film-title space-title">2001:<br>a space<br>odyssey</h1>
+        </section>
+
+        <section class="page-section">
+            <div class="content-block">
+                <h2 class="font-kubrick-bold space-title">the violent birth</h2>
+                <p>
+                    In the "Dawn of Man" sequence, Kubrick explicitly links human evolution with violence. Influenced by the Monolith, an ape-man discovers that a bone can be used as a weapon, securing resources through murder. This is the birth of technology and the birth of warfare.
+                </p>
+                <p>
+                    The legendary match cut—leaping millennia from the bone spinning in the air to an orbiting satellite (implied to be a weapon)—is Kubrick’s visual thesis: all human technology is fundamentally a weapon, an extension of that first violent impulse. Our sophistication has not changed our nature.
                 </p>
             </div>
-            <div class="film-image-container">
-                <div class="film-still" style="background: #000; position: relative;">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 200px; height: 200px; border: 3px solid #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                        <div style="width: 100px; height: 100px; background: #fff; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);"></div>
+            <div class="image-section">
+                <img src="images/2001/dawn-of-man.png" alt="Dawn of Man" class="parallax-image">
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="content-block">
+                <h2 class="font-kubrick-bold space-title">the sterile void</h2>
+                <p>
+                    The future Kubrick presents is sterile, white, and emotionally repressed. Astronauts Bowman and Poole interact with bland politeness; human connection has been mechanized. This hyper-controlled environment is ultimately disrupted not by human passion, but by the AI, <span style="color: #d50000;">HAL 9000</span>.
+                </p>
+                <p>
+                    HAL’s breakdown—stemming from conflicting orders to deceive the crew—results in murder. The machine becomes the vessel for the violence that the humans have suppressed. Ironically, HAL's plea, "I'm afraid," as Bowman dismantles him, is the most poignant emotional moment in the film, underscoring how the quest for perfect order has dehumanized the humans themselves.
+                </p>
+            </div>
+            <div class="image-section">
+                <div class="hal-eye-container" style="position: relative; width: 100%; height: 600px; background: #000; display: flex; align-items: center; justify-content: center;">
+                    <img src="images/hal/hal-base.webp" class="hal-base" alt="HAL base" style="width: 80%; max-width: 500px; height: auto; object-fit: contain;">
+                    <img src="images/hal/hal-glare.webp" class="hal-glare" alt="HAL glare" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 500px; height: auto; object-fit: contain; opacity: 0; animation: halGlarePulse 4s ease-in-out infinite;">
+                    <div class="hal-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; background: radial-gradient(circle, rgba(213, 0, 0, 0.4) 0%, transparent 70%); filter: blur(40px); animation: halGlowPulse 3s ease-in-out infinite;"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section" style="position: relative;">
+            <div class="hal-eye-backdrop" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; opacity: 0.3;">
+                <img src="images/hal/hal-base.webp" style="width: 600px; height: auto; filter: blur(20px);">
+                <img src="images/hal/hal-glare.webp" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: halGlarePulse 6s ease-in-out infinite;">
+            </div>
+            <div class="quote-text space-title" style="position: relative; z-index: 2;">
+                "The terrifying realization that the machines might not only be as intelligent as men, but that they might have the same emotional weaknesses."
+            </div>
+        </section>
+
+        <section class="film-title-section" id="clockwork-title">
+            <h1 class="film-title clockwork-title">a clockwork<br>orange</h1>
+        </section>
+
+        <section class="page-section">
+            <div class="content-block">
+                <h2 class="font-kubrick-bold clockwork-title">ultraviolence and free will</h2>
+                <p>
+                    Alex DeLarge represents humanity's primal instincts unleashed—violence as an aesthetic choice, an expression of pure free will. He is undeniably evil, yet he is vibrantly human, particularly in his love for Beethoven. Kubrick presents this uncomfortable truth: Alex's vitality is inseparable from his brutality.
+                </p>
+                <p>
+                    Society’s response is not to foster morality, but to enforce control. The government, represented by the calculating Minister of the Interior, is just as brutal as Alex, but its violence is institutional, sterile, and manipulative.
+                </p>
+            </div>
+            <div class="image-section">
+                <img src="images/clockwork/alex-closeup.jpg" alt="Alex DeLarge" class="parallax-image">
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="content-block">
+                <h2 class="font-kubrick-bold clockwork-title">the mechanized cure</h2>
+                <p>
+                    The Ludovico Technique is the state's attempt to mechanize morality. By forcing Alex to associate violence with physical nausea, they eliminate his ability to choose evil. But in doing so, they also destroy his capacity for choice itself, and incidentally, his ability to enjoy Beethoven—his one redeeming feature.
+                </p>
+                <p>
+                    He becomes the "Clockwork Orange"—organic on the outside, mechanical on the inside. Kubrick argues that a man who cannot choose is no longer a man. Enforced goodness is dehumanizing, and the state's "cure" is a greater crime than Alex's disease, as it sacrifices free will for social order.
+                </p>
+            </div>
+            <div class="image-section">
+                <img src="images/clockwork/ludovico-technique.jpg" alt="Ludovico Technique" class="parallax-image">
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="quote-text clockwork-title">
+                "When a man cannot choose, he ceases to be a man."
+            </div>
+        </section>
+
+        <section class="film-title-section shining-section" id="shining-title">
+            <div class="axe-container">
+                <img src="images/shining/axe-blade.svg" class="axe-blade" alt="Axe Blade">
+            </div>
+            <h1 class="film-title shining-title">the<br>shining</h1>
+        </section>
+
+        <section class="page-section shining-section">
+            <div class="content-block">
+                <h2 class="font-kubrick-bold shining-title">the façade of the family</h2>
+                <p style="color: var(--shining-dark);">
+                    Jack Torrance arrives at the Overlook Hotel attempting to uphold the façade of the civilized patriarch—a writer, a provider, a recovering alcoholic. However, isolation quickly exposes the repressed rage and resentment simmering beneath the surface. The hotel acts as a catalyst, stripping away his civility.
+                </p>
+                 <p style="color: var(--shining-dark);">
+                    The pressures of writer's block and the burden of familial responsibility collide with the hotel's malevolent influence. Jack is seduced by the Overlook because it offers him a return to a perverse kind of authority, one rooted in violence and historical dominance, as suggested by the ghostly bartender Lloyd and the murderous Grady.
+                </p>
+            </div>
+            <div class="image-section">
+                <img src="images/shining/movie-poster.jpg" alt="The Shining" class="parallax-image">
+            </div>
+        </section>
+
+        <section class="page-section shining-section">
+            <div class="content-block">
+                <h2 class="font-kubrick-bold shining-title">the weight of history</h2>
+                <p style="color: var(--shining-dark);">
+                    The Overlook Hotel is built on a foundation of violence (explicitly mentioned as being on a Native American burial ground). The recurring vision of blood flooding from the elevators symbolizes this repressed history erupting into the present; civilization cannot contain the brutality upon which it was founded.
+                </p>
+                <p style="color: var(--shining-dark);">
+                   The hotel's vast spaces and the entrapment of the hedge maze mirror Jack's psychological collapse. The ending, with Jack frozen in the maze and then absorbed into the 1921 photograph, implies that this violence is cyclical, timeless, and an inescapable part of the American fabric.
+                </p>
+            </div>
+            <div class="image-section">
+                <img src="images/shining/blood-elevator.jpg" alt="Blood Elevator" class="parallax-image">
+            </div>
+        </section>
+
+        <section class="quote-section shining-section">
+            <div class="quote-text shining-title">
+                "All work and no play makes Jack a dull boy"
+            </div>
+        </section>
+        
+        <section class="style-section" id="architecture-section">
+
+            <div class="architecture-backgrounds" id="architecture-backgrounds">
+                <img src="images/2001/2001 - A Space Odyssey (1968)-0108.png" class="bg-media" id="bg-2001" alt="2001 A Space Odyssey Still 1">
+                <img src="images/2001/2001 - A Space Odyssey (1968)-0109.png" class="bg-media" id="bg-2001-2" alt="2001 A Space Odyssey Still 2">
+                <img src="images/2001/2001 - A Space Odyssey (1968)-0110.png" class="bg-media" id="bg-2001-3" alt="2001 A Space Odyssey Still 3">
+                <img src="images/2001/2001 - A Space Odyssey (1968)-0111.png" class="bg-media" id="bg-2001-4" alt="2001 A Space Odyssey Still 4">
+                
+                <img src="images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0093.png" class="bg-media" id="bg-clockwork" alt="A Clockwork Orange Still 1">
+                <img src="images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0094.png" class="bg-media" id="bg-clockwork-2" alt="A Clockwork Orange Still 2">
+                <img src="images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0096.png" class="bg-media" id="bg-clockwork-3" alt="A Clockwork Orange Still 3">
+                <img src="images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0097.png" class="bg-media" id="bg-clockwork-4" alt="A Clockwork Orange Still 4">
+                
+                <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0030.png" class="bg-media" id="bg-shining" alt="The Shining Still 1">
+                <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0003.png" class="bg-media" id="bg-shining-2" alt="The Shining Still 2">
+                <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0007 copy.png" class="bg-media" id="bg-shining-3" alt="The Shining Still 3">
+                <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0021.png" class="bg-media" id="bg-shining-4" alt="The Shining Still 4">
+            </div>
+
+            <div class="horizontal-scroll-wrapper" id="horizontal-wrapper">
+                <div class="horizontal-scroll-container" id="horizontal-container">
+                    
+                    <div class="intro-panel" id="panel-intro">
+                         <div class="content-block">
+                            <h2 class="font-kubrick-bold">the architecture of control: one-point perspective</h2>
+                            <p>
+                                One of Kubrick’s most recognizable signatures is his use of symmetrical composition and one-point perspective. By positioning the camera at the exact center facing a deep vanishing point, he creates an unnerving visual order. This geometric precision feels unnatural and hyper-controlled, reinforcing the theme of an oppressive order waiting to be disrupted.
+                            </p>
+                            <p style="margin-top: 3rem; font-weight: 700; opacity: 0.6;">(Keep scrolling to explore)</p>
+                        </div>
+                    </div>
+
+                    <div class="style-card" id="panel-2001">
+                        <div class="style-card-content">
+                            <div class="style-text">
+                                <h3 class="space-title">2001: The Centrifuge Trap</h3>
+                                <p>In *2001*, the Discovery’s centrifuge generates artificial gravity. Kubrick filmed this using a massive rotating set (a literal "ferris wheel") with the camera fixed relative to the action. This ingenious setup allowed actors to appear to walk on the ceiling while the camera maintained perfect, disorienting symmetry. The relentless circularity emphasizes the sterile, dehumanizing confinement of technology.</p>
+                            </div>
+                            <div class="style-svg-container">
+```svg
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="style-svg">
+                                  <rect width="600" height="400" fill="#000"/>
+                                  
+                                  <!-- VIEW 1: The Setup Diagram -->
+                                  <g id="view-2001-setup">
+                                      <text x="300" y="30" fill="#4A90E2" text-anchor="middle" font-family="Inter, sans-serif" font-size="16">The Setup: Rotating Set & Locked Camera</text>
+                                      
+                                      <!-- The Large Rotating Set Structure -->
+                                      <g transform="translate(300, 200)">
+                                          <circle cx="0" cy="0" r="150" stroke="#555" stroke-width="20" fill="none"/>
+                                          <circle cx="0" cy="0" r="130" stroke="#4A90E2" stroke-width="5" fill="none" stroke-dasharray="10 5"/>
+                                          
+                                          <!-- Rotation Arrow -->
+                                          <path d="M 170 0 A 170 170 0 0 1 0 170" fill="none" stroke="#FFF" stroke-width="2"/>
+                                          <polygon points="0,180 -10,165 10,165" fill="#FFF"/>
+
+                                          <!-- Astronaut (Fixed relative to set) -->
+                                          <g transform="translate(0, 140)">
+                                              <circle cx="0" cy="0" r="8" fill="#FF6D00"/>
+                                          </g>
+                                      </g>
+
+                                      <!-- Camera (Fixed position relative to the action) -->
+                                      <g transform="translate(300, 200)">
+                                           <rect x="-20" y="-15" width="40" height="30" fill="#FFF"/>
+                                           <polygon points="20,-15 40,-25 40,25 20,15" fill="#FFF"/>
+                                           <text x="0" y="45" fill="#FFF" text-anchor="middle" font-size="12">Locked Camera</text>
+                                      </g>
+                                  </g>
+
+                                  <!-- VIEW 2: The Resulting Shot -->
+                                  <g id="view-2001-shot" opacity="0">
+                                      <text x="300" y="30" fill="#4A90E2" text-anchor="middle" font-family="Inter, sans-serif" font-size="16">The Shot: Perfect Symmetrical Confinement</text>
+
+                                       <!-- Camera Viewfinder -->
+                                      <rect x="50" y="50" width="500" height="300" stroke="#FFF" stroke-width="4" fill="none"/>
+                                       <line x1="300" y1="50" x2="300" y2="350" stroke="#FFF" stroke-dasharray="5,5" opacity="0.3"/>
+                                       <line x1="50" y1="200" x2="550" y2="200" stroke="#FFF" stroke-dasharray="5,5" opacity="0.3"/>
+
+                                      <!-- Centrifuge Interior -->
+                                      <g transform="translate(300, 200)">
+                                          <circle cx="0" cy="0" r="140" stroke="#555" stroke-width="30" fill="none"/>
+                                          
+                                          <!-- Detailed Panels -->
+                                          <g id="shot-details">
+                                              <defs>
+                                                  <rect id="panel" x="-10" y="120" width="20" height="10" fill="#FFF"/>
+                                              </defs>
+                                              <!-- Repeating panels for detail -->
+                                              <use href="#panel" transform="rotate(0)"/>
+                                              <use href="#panel" transform="rotate(30)"/>
+                                              <use href="#panel" transform="rotate(60)"/>
+                                              <use href="#panel" transform="rotate(90)"/>
+                                              <use href="#panel" transform="rotate(120)"/>
+                                              <use href="#panel" transform="rotate(150)"/>
+                                              <use href="#panel" transform="rotate(180)"/>
+                                              <use href="#panel" transform="rotate(210)"/>
+                                              <use href="#panel" transform="rotate(240)"/>
+                                              <use href="#panel" transform="rotate(270)"/>
+                                              <use href="#panel" transform="rotate(300)"/>
+                                              <use href="#panel" transform="rotate(330)"/>
+                                          </g>
+
+                                          <!-- Astronaut 1 (Bottom) -->
+                                          <g transform="translate(0, 130)">
+                                              <circle cx="0" cy="0" r="8" fill="#FF6D00"/>
+                                          </g>
+
+                                           <!-- Astronaut 2 (Top - appears upside down) -->
+                                          <g id="astronaut-running" transform="translate(0, -130) rotate(180)">
+                                              <circle cx="0" cy="0" r="8" fill="#FF6D00"/>
+                                          </g>
+                                      </g>
+                                  </g>
+                                </svg>
+```
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="style-card" id="panel-clockwork">
+                        <div class="style-card-content">
+                            <div class="style-text">
+                                <h3 class="clockwork-title">Clockwork: The Slow Pull-Back</h3>
+                                <p>The opening of *A Clockwork Orange* begins with an intense close-up on Alex's stare, framed by his bowler hat and iconic eyelash. Kubrick executes a slow, agonizingly smooth zoom-out (or dolly-back). As the camera retreats, it reveals the sterile, symmetrical Korova Milk Bar. The forced perspective of the set converges on Alex, establishing him as the focal point of this distorted, artificial universe, asserting order before unleashing chaos.</p>
+                            </div>
+                            <div class="style-svg-container">
+```svg
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="style-svg">
+                                  <rect width="600" height="400" fill="#000"/>
+                                  <text x="300" y="30" fill="#FF4500" text-anchor="middle" font-family="Inter, sans-serif" font-size="16">Korova Milk Bar: The Centered Reveal</text>
+
+                                  <!-- The Set (Revealed during pullback) -->
+                                  <g id="korova-environment" opacity="0">
+                                       <!-- Forced Perspective Lines & Floor -->
+                                      <polygon points="0,400 600,400 350,150 250,150" fill="#333"/>
+                                      <line x1="0" y1="0" x2="250" y2="150" stroke="#FFF" stroke-width="1"/>
+                                      <line x1="600" y1="0" x2="350" y2="150" stroke="#FFF" stroke-width="1"/>
+
+                                      <!-- Wall Text (MOLOKO) -->
+                                      <text x="100" y="100" fill="#FF4500" font-family="Inter, sans-serif" font-size="40" transform="rotate(-20 100,100)">MOLOKO</text>
+                                       <text x="500" y="100" fill="#FF4500" font-family="Inter, sans-serif" font-size="40" transform="rotate(20 500,100)">PLUS</text>
+
+                                      <!-- Stylized Statues (Mannequins) -->
+                                      <rect x="100" y="250" width="50" height="150" fill="#eee"/>
+                                      <circle cx="125" cy="240" r="15" fill="#eee"/>
+                                      <rect x="450" y="250" width="50" height="150" fill="#eee"/>
+                                      <circle cx="475" cy="240" r="15" fill="#eee"/>
+
+                                      <!-- Droogs Flanking Alex (Simplified) -->
+                                      <g id="droog-left">
+                                          <circle cx="200" cy="250" r="20" fill="#333"/>
+                                           <path d="M 180 240 Q 200 210, 220 240" fill="#000"/>
+                                      </g>
+                                       <g id="droog-right">
+                                          <circle cx="400" cy="250" r="20" fill="#333"/>
+                                           <path d="M 380 240 Q 400 210, 420 240" fill="#000"/>
+                                      </g>
+                                  </g>
+
+                                  <!-- Alex Close-up (Dominant initially) -->
+                                  <g id="alex-closeup">
+                                      <!-- Face -->
+                                      <circle cx="300" cy="200" r="100" fill="#FFDAB9"/>
+                                      
+                                      <!-- Bowler Hat -->
+                                      <path d="M 200 180 Q 300 80, 400 180 L 420 180 L 180 180 Z" fill="#111"/>
+
+                                      <!-- Right Eye with Lash (Iconic) -->
+                                      <g id="alex-eye">
+                                          <circle cx="340" cy="190" r="15" fill="#FFF"/>
+                                          <circle cx="340" cy="190" r="5" fill="#00F"/>
+                                          <!-- Lashes -->
+                                          <path d="M 355 190 Q 365 170, 370 185" fill="none" stroke="#111" stroke-width="2"/>
+                                          <path d="M 350 180 Q 360 160, 365 175" fill="none" stroke="#111" stroke-width="2"/>
+                                          <path d="M 340 175 Q 350 155, 355 170" fill="none" stroke="#111" stroke-width="2"/>
+                                      </g>
+                                      <!-- Left Eye -->
+                                       <circle cx="260" cy="190" r="15" fill="#FFF"/>
+                                       <circle cx="260" cy="190" r="5" fill="#00F"/>
+
+                                      <!-- Smirk -->
+                                      <path d="M 280 250 Q 310 260, 320 250" fill="none" stroke="#D50000" stroke-width="3"/>
+                                  </g>
+
+                                  <!-- Dolly Track (Visualization of movement) -->
+                                  <g id="dolly-track" opacity="0">
+                                      <line x1="250" y1="390" x2="290" y2="300" stroke="#888" stroke-width="4"/>
+                                      <line x1="350" y1="390" x2="310" y2="300" stroke="#888" stroke-width="4"/>
+                                  </g>
+
+                                  <!-- Camera Rig -->
+                                   <g id="camera-rig" transform="translate(300, 300)">
+                                        <rect x="-20" y="-15" width="40" height="30" fill="#FF4500"/>
+                                        <polygon points="-20,-15 -30,-20 -30,20 -20,15" fill="#FF4500"/>
+                                   </g>
+                                </svg>
+```
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="style-card" id="panel-shining">
+                       <div class="style-card-content">
+                            <div class="style-text">
+                                <h3 class="shining-title">The Shining: Steadicam Dread</h3>
+                                <p>Kubrick pioneered the Steadicam in *The Shining*, achieving smooth, disembodied tracking shots. By mounting the camera low and using a very wide-angle lens (9.8mm Kinoptik), he distorted the Overlook's corridors, making them feel vast and labyrinthine. This technique transforms the hotel's architecture into a source of dread, as the camera glides relentlessly, implying a spectral presence and an inescapable fate.</p>
+                            </div>
+                            <div class="style-svg-container">
+```svg
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" class="style-svg">
+                                  <rect width="600" height="400" fill="#191818"/>
+                                  
+                                  <!-- VIEW 1: The Blueprint Path -->
+                                  <g id="view-shining-blueprint">
+                                      <text x="300" y="30" fill="#f2473e" text-anchor="middle" font-family="Inter, sans-serif" font-size="16">The Path: Labyrinthine Tracking</text>
+
+                                      <!-- Hallways Blueprint -->
+                                      <g stroke="#f2473e" stroke-width="2" fill="none">
+                                          <rect x="50" y="100" width="500" height="200"/>
+                                          <rect x="150" y="150" width="100" height="100"/>
+                                          <rect x="350" y="150" width="100" height="100"/>
+                                      </g>
+
+                                      <!-- Path Definition -->
+                                      <path id="blueprint-path" d="M 75 125 H 525 V 275 H 300 V 125 H 150" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="5 5"/>
+
+                                      <!-- Steadicam Icon (Top Down) -->
+                                      <g id="blueprint-camera">
+                                          <circle cx="75" cy="125" r="10" fill="#FFF"/>
+                                      </g>
+                                  </g>
+
+                                  <!-- VIEW 2: The Perspective Shot -->
+                                  <g id="view-shining-perspective" opacity="0">
+                                       <text x="300" y="30" fill="#f2473e" text-anchor="middle" font-family="Inter, sans-serif" font-size="16">The Shot: Low Angle, Wide Lens Symmetry</text>
+
+                                       <!-- Wide Angle Lens Distortion Effect (Subtle vignette) -->
+                                       <defs>
+                                            <radialGradient id="lensDistortion" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                                <stop offset="0%" style="stop-color:rgba(0,0,0,0)" />
+                                                <stop offset="100%" style="stop-color:rgba(0,0,0,0.3)" />
+                                            </radialGradient>
+                                        </defs>
+
+                                      <!-- Hallway Perspective -->
+                                      <g id="hallway-perspective-detailed">
+                                          <!-- Floor/Carpet Pattern (Hicks' Hexagon) -->
+                                           <pattern id="carpetPatternDetailed" patternUnits="userSpaceOnUse" width="50" height="50" viewBox="0 0 50 50" preserveAspectRatio="none">
+                                                <polygon points="25,0 50,15 50,35 25,50 0,35 0,15" fill="#B53528" stroke="#FF6D00" stroke-width="4"/>
+                                            </pattern>
+                                            <!-- The perspective polygon makes the pattern look distorted -->
+                                            <polygon points="0,400 600,400 400,220 200,220" fill="url(#carpetPatternDetailed)"/>
+
+                                          <!-- Walls (Beige/Yellowish) -->
+                                          <polygon points="0,0 200,220 200,180 0,0" fill="#D2B48C"/>
+                                          <polygon points="600,0 400,220 400,180 600,0" fill="#D2B48C"/>
+                                          
+                                          <!-- Ceiling (White) -->
+                                          <polygon points="0,0 600,0 400,180 200,180" fill="#ddd"/>
+                                      </g>
+                                      
+                                      <rect x="0" y="0" width="600" height="400" fill="url(#lensDistortion)"/>
+
+                                      <!-- The Subject (Danny) - Moves toward vanishing point -->
+                                      <g id="danny-perspective" transform="translate(300, 350)">
+                                           <circle cx="0" cy="-15" r="10" fill="#4A90E2"/>
+                                           <rect x="-10" y="-5" width="20" height="15" fill="#f2473e"/>
+                                      </g>
+                                  </g>
+                                </svg>
+```
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="dawn-of-man" class="cinematic-section space-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">before the green screen</h2>
-                <p class="font-kubrick-medium">
-                    2001: A Space Odyssey pioneered the use of <span style="color: var(--space-blue);">front projection</span> with retroreflective matting. Kubrick used the technique to produce the backdrops in the Africa scenes and the scene when astronauts walk on the moon.
-                </p>
-                <p class="font-kubrick-medium" style="margin-top: 1.5rem;">
-                    From The Dawn of Man sequence, the film links human progress with violence. A human ancestor discovers that a bone can be used as a weapon. Kubrick is implying that the birth of technology is inherently tied to the capacity to kill.
+        <section class="page-section standard-style-section" style="background-color: var(--kubrick-black);">
+            <div class="content-block">
+                <h2 class="font-kubrick-bold" style="color: var(--kubrick-red);">the color of aggression: expressive red</h2>
+                <p>
+                    Kubrick saturates key spaces with bold hues, but his use of the color red is a defining trait across his cinema. Red consistently flags moments where buried aggression, suppressed violence, or primal instincts erupt into the ordered world.
                 </p>
             </div>
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — 2001_files/upload-4ddb68b1-4c26-4738-a0e2-175ed29ed23c.png" class="film-image" alt="Dawn of Man scene from 2001: A Space Odyssey">
-            </div>
-        </section>
-
-        <!-- 2001: A SPACE ODYSSEY SECTIONS -->
-        <section id="space-leap" class="cinematic-section space-section">
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — 2001_files/upload-2112acb6-365c-4d13-a16a-650247513818.png" class="film-image" alt="2001 Space Station">
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the legendary match-cut</h2>
-                <p class="font-kubrick-medium">
-                    In a legendary match-cut, Kubrick then leaps eons into the future, linking the spinning bone to a spacecraft in orbit. This edit visualizes that our advanced technology is essentially an evolved bone—an instrument of power and potential violence.
-                </p>
-            </div>
-        </section>
-
-        <section id="sterile-future" class="cinematic-section space-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the sterile society</h2>
-                <p class="font-kubrick-medium">
-                    Moving to the space-age setting, Kubrick presents a society that appears to have banished open conflict. The space station is pristine white and eerily calm; the astronauts are polite and emotionless; and HAL's ship-board routines are precise and sterile. Yet Kubrick suggests this peace is a cold, fragile veneer.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — 2001_files/upload-9cbf9980-e820-11e8-b569-538e3dc64b70.jpg" class="film-image" alt="2001 Space Station Interior">
-            </div>
-        </section>
-
-        <section id="hal-humanity" class="cinematic-section space-section">
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — 2001_files/upload-2c0ce946-a924-432d-9e0d-1d4d09157026.jpg" class="film-image" alt="HAL 9000">
-                <div id="hal-interface" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                    <div id="hal-interface-eye"></div>
-                    <div id="hal-text">SYSTEM STATUS: NOMINAL</div>
+            <div class="style-grid">
+                <div class="standard-card">
+                    <h3 class="space-title">HAL's Eye</h3>
+                    <p>In the sterile, predominantly white environment of the Discovery, the most prominent color is HAL’s unblinking red eye. As HAL turns murderous, the pod bay is bathed in red light. The color signifies the eruption of (machine) emotion and violence into the controlled void.</p>
                 </div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">hal's disturbing humanity</h2>
-                <p class="font-kubrick-medium">
-                    The humans have become so bland that even birthday messages barely elicit a reaction. In contrast, it is the computer that displays human-like emotions—curiosity, anxiety, even deceit. When HAL's intentions turn murderous, it's as if the violence repressed by sterile routine has reasserted itself through the machine.
-                </p>
-            </div>
-        </section>
-
-        <section id="hal-red-eye" class="cinematic-section space-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the red eye of violence</h2>
-                <p class="font-kubrick-medium">
-                    Tellingly, HAL's camera eye glows an unblinking red, bathing the spacecraft in a hellish hue during his mutiny. The implicit message is that humanity's over-reliance on rational order can backfire. The only character who seems to feel genuine emotion is HAL, and his plea <span style="color: var(--kubrick-red);">"I'm afraid, Dave"</span> makes his death more poignant than the humans'.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <div class="film-still" style="background: #000;">
-                    <div style="width: 150px; height: 150px; background: var(--kubrick-red); border-radius: 50%; box-shadow: 0 0 100px 50px rgba(213, 0, 0, 0.8);"></div>
+                <div class="standard-card">
+                    <h3 class="clockwork-title">Pop-Art Blood</h3>
+                    <p>The world of A Clockwork Orange is full of satirical, bright pop-art colors. Red is used pointedly—the "wine" at the Korova Bar, the blood that flows during the assaults, and the deep red curtains during the Ludovico treatment. The vibrant, almost playful use of red underscores the film's theme of aestheticized violence.</p>
+                </div>
+                <div class="standard-card">
+                    <h3 class="shining-title">The Crimson Tide</h3>
+                    <p>Red is pervasive in The Shining: the ocean of blood from the elevator, Danny's "REDRUM" scrawl, and the intense crimson bathroom where Jack converses with Grady. In that bathroom scene, the shocking red contrasts with the formal setting, highlighting the intersection of civility and slaughter.</p>
                 </div>
             </div>
         </section>
 
-        <section id="space-evolution" class="cinematic-section space-section">
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — 2001_files/upload-a6ce3242-4b85-4506-b4bd-95cca862e742.png" class="film-image" alt="2001 Space Evolution">
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">evolution beyond control</h2>
-                <p class="font-kubrick-medium">
-                    Kubrick appears to argue that in trying to eliminate human flaws, we might surrender our humanity to the void. The film's enigmatic ending offers a glimmer of hope, but significantly, this evolution is driven by mysterious alien intervention, not our own institutions. Kubrick's cynicism remains.
+        <section class="page-section">
+            <div class="content-block text-center">
+                <h2 class="font-kubrick-bold">the persistent darkness</h2>
+                <div class="section-divider"></div>
+                <p style="max-width: 800px; margin: 0 auto;">
+                    Kubrick’s oeuvre challenges us to recognize the persistent darkness within humanity and the futility of suppressing human free will. He offers a dark critique of modernity: true evolution or moral progress cannot be achieved by force, technological control, or social engineering without sacrificing our very humanity.
+                </p>
+                 <p style="max-width: 800px; margin: 2rem auto 0;">
+                    By marrying his chilling implicit messages with meticulous, deliberate film techniques—like oppressive symmetry and symbolic color—Kubrick ensures that the audience doesn't just understand his thesis intellectually, but experiences it viscerally.
                 </p>
             </div>
         </section>
 
-        <section id="alex-violence" class="cinematic-section clockwork-section">
-            <div class="film-image-container" style="position: relative;">
-                <img src="Work and life of Stanley Kubrick — Clockwork orange_files/upload-91a39869-7913-448e-a78a-a1b8a9d18763.jpg" class="film-image" alt="Alex DeLarge Close-up">
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 30%; background: var(--clockwork-orange);"></div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">natural violence</h2>
-                <p class="font-kubrick-medium">
-                    Kubrick's notorious satire pushes the theme of control vs. violence into moral territory. The protagonist, <span style="color: var(--clockwork-orange);">Alex DeLarge</span>, embodies humanity's violent urges unchecked.
-                </p>
-                <p class="font-kubrick-medium" style="margin-top: 1.5rem;">
-                    He represents "man in his natural state"—brutal, chaotic, but authentically human in his freedom to choose evil. This is violence as raw expression, before society's conditioning intervenes.
-                </p>
-            </div>
-        </section>
-
-        <!-- A CLOCKWORK ORANGE SECTIONS -->
-        <section id="ludovico-technique" class="cinematic-section clockwork-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the ludovico response</h2>
-                <p class="font-kubrick-medium">
-                    Society's response, however, is an equally disturbing form of violence: the <span style="color: var(--clockwork-orange);">Ludovico Technique</span>, a conditioning that forces Alex to be "good." Kubrick uses this premise to pose a philosophical question: "Do we lose our humanity if we are deprived of the choice between good and evil?"
-                </p>
-            </div>
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — Clockwork orange_files/upload-e7255fd5-f81c-4468-b7b6-f57779857fc3.jpg" class="film-image" alt="Ludovico Technique">
-            </div>
-        </section>
-
-        <section id="clockwork-orange" class="cinematic-section clockwork-section">
-            <div class="film-image-container">
-                <div class="film-still clockwork-still">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; background: var(--clockwork-orange); position: relative;">
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; background: white; clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);"></div>
-                    </div>
+        <section class="page-section" style="background: radial-gradient(circle at center, #1a0000 0%, #000 100%);">
+            <div class="content-block text-center">
+                <h2 class="font-kubrick-bold" style="font-size: clamp(3rem, 8vw, 6rem); color: var(--kubrick-red);">the human element</h2>
+                <div style="width: 100px; height: 100px; margin: 3rem auto; background: var(--kubrick-red); border-radius: 50%; position: relative;">
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30px; height: 30px; background: white; border-radius: 50%; filter: blur(3px);"></div>
                 </div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the clockwork orange</h2>
-                <p class="font-kubrick-medium">
-                    After the treatment, Alex is "cured" of violence, yet he has also been robbed of his autonomy. As Kubrick explained, Alex has been reduced to a <span style="color: var(--clockwork-orange);">"clockwork orange"</span>—something organic turned mechanical. Kubrick implies that enforced goodness is itself a form of violence by the state.
+                <p style="max-width: 600px; margin: 0 auto; font-size: 1.25rem; line-height: 1.8;">
+                    In an era grappling with balancing security and freedom, or technology and humanity, Kubrick's warnings ring truer than ever. His films remain disturbingly relevant because the questions they pose—about power, control, and violence—have only grown more urgent.
                 </p>
-            </div>
-        </section>
-
-        <section id="clockwork-conclusion" class="cinematic-section clockwork-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the return of violence</h2>
-                <p class="font-kubrick-medium">
-                    By the film's end, when Alex's conditioning is reversed and he gleefully declares <span style="color: var(--clockwork-orange);">"I was cured, all right,"</span> Kubrick delivers a darkly ironic conclusion. Humanity cannot be reformed by force without crushing the very freedom that makes us human—and thus our instinct for violence will always resurface.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <div class="film-still clockwork-still">
-                    <div style="font-size: 3rem; transform: rotate(180deg);">CURED</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- THE SHINING SECTIONS -->
-        <section id="jack-order" class="cinematic-section shining-section">
-            <div class="film-image-container">
-                <div class="film-still shining-still">
-                    <div style="display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); gap: 2px; width: 300px; height: 300px;">
-                        <script>
-                            // This will be filled by JavaScript to create a pattern
-                        </script>
-                    </div>
-                </div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the facade of order</h2>
-                <p class="font-kubrick-medium">
-                    Though a supernatural horror, <span style="color: var(--shining-red);">The Shining's</span> implicit meaning aligns with Kubrick's critique. Jack Torrance brings his family to the isolated Overlook Hotel seeking orderly responsibility. Yet Jack has a history of alcoholism and rage, hinting at a latent violence under his familial role.
-                </p>
-            </div>
-        </section>
-
-        <section id="overlook-catalyst" class="cinematic-section shining-section">
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — The Shining_files/upload-3ac0ccf4-2874-4db1-9338-10f40850b560.jpg" class="film-image" alt="The Shining Movie Poster">
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the overlook's influence</h2>
-                <p class="font-kubrick-medium">
-                    <span style="color: var(--shining-red);">The Shining</span> is a horror film produced and directed by Stanley Kubrick and co-written with novelist Diane Johnson. The film is based on Stephen King's 1977 novel of the same name.
-                </p>
-                <p class="font-kubrick-medium" style="margin-top: 1.5rem;">
-                    The Overlook serves as a catalyst that strips away Jack's civilized pretenses, encouraging him to "correct" his family and drawing out his inner demons. It is now widely regarded as <span style="color: var(--shining-red);">one of the greatest horror films ever made</span>.
-                </p>
-                <div class="interactive-container" id="shining-elements" style="margin-top: 2rem;">
-                    <svg id="overlook-maze" viewBox="0 0 300 300" style="max-width: 300px;">
-                        <path id="maze-path" d="M10 10 H 290 V 290 H 10 V 10 M 30 30 V 270 H 270 V 30 H 30 M 50 50 H 250 V 250 H 50 V 50 M 70 70 V 230 H 230 V 70 H 70 M 90 90 H 210 V 210 H 90 V 90 M 110 110 V 190 H 190 V 110 H 110 M 130 130 H 170 V 170 H 130 V 130 Z"/>
-                    </svg>
-                </div>
-            </div>
-        </section>
-
-        <section id="geometric-horror" class="cinematic-section shining-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">geometric precision as trap</h2>
-                <p class="font-kubrick-medium">
-                    Long Steadicam shots follow Danny on his tricycle down perfectly symmetrical hallways. These shots convey an eerie orderliness. But when Danny encounters the ghostly twin girls, the symmetry suddenly feels like a trap, a predestined violence waiting to happen.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <div class="film-still shining-still" style="perspective: 800px;">
-                    <div style="width: 400px; height: 400px; transform: rotateX(60deg); background: repeating-linear-gradient(90deg, transparent 0, transparent 19px, var(--shining-red) 19px, var(--shining-red) 20px), repeating-linear-gradient(0deg, transparent 0, transparent 19px, var(--shining-red) 19px, var(--shining-red) 20px);"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="red-violence" class="cinematic-section shining-section">
-            <div class="film-image-container">
-                <img src="Work and life of Stanley Kubrick — The Shining_files/upload-5d69801c-6648-441c-b069-b60b3f4e49a5.jpg" class="film-image" alt="The Shining Blood Elevator">
-                <div id="elevator-container" style="position: absolute; bottom: 0; left: 0; right: 0; height: 0; overflow: hidden;">
-                    <div id="blood-wave" style="background: rgba(213, 0, 0, 0.8); width: 100%; height: 100vh;"></div>
-                </div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the color of violence</h2>
-                <p class="font-kubrick-medium">
-                    The color <span style="color: var(--shining-red);">red</span> floods the film at key moments. The most iconic instance is the vision of the elevator doors unleashing an ocean of blood. Another is the elegant red bathroom where Jack converses with the ghost of Delbert Grady. The scene's formal, decorous setting contrasts with the homicidal urgings Grady delivers.
-                </p>
-            </div>
-        </section>
-
-        <section id="primitive-hunter" class="cinematic-section shining-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the final hunt</h2>
-                <p class="font-kubrick-medium">
-                    By the finale, Jack has fully transformed into a primitive hunter, wielding an axe. Civilization literally freezes to death as Jack dies in the snow. The film's haunting final image suggests this cycle of violence was always part of the Overlook, and by extension, part of <span style="color: var(--shining-red);">America's societal fabric</span>.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <div class="film-still shining-still">
-                    <div style="font-size: 8rem; opacity: 0.2; position: relative;">
-                        ❄️
-                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem; opacity: 1;">FROZEN</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CINEMATOGRAPHY & STYLE SECTIONS -->
-        <section id="symmetry-technique" class="cinematic-section">
-            <div class="film-image-container">
-                <div class="film-still" style="background: #000; position: relative;">
-                    <div style="position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: white;"></div>
-                    <div style="position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: white;"></div>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border: 2px solid white;"></div>
-                </div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">symmetrical control</h2>
-                <p class="font-kubrick-medium">
-                    One of Kubrick's most recognizable signatures is his use of symmetrical composition and one-point perspective. In numerous shots, Kubrick positions the camera at the exact center facing a deep vanishing point. This creates an unnerving visual symmetry that feels unnatural and hyper-controlled.
-                </p>
-            </div>
-        </section>
-
-        <section id="perspective-oppression" class="cinematic-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the oppressive frame</h2>
-                <p class="font-kubrick-medium">
-                    The effect is subtly oppressive, as if some force has arranged everything with geometric precision. Kubrick employs this technique to reinforce the theme of an imposed order that can be disrupted at any moment. We see this in <span style="color: var(--clockwork-orange);">A Clockwork Orange</span> as the camera slowly pulls back from Alex's icy stare.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <div class="film-still" style="background: linear-gradient(to bottom, #000 0%, #000 45%, #333 50%, #000 55%, #000 100%);">
-                    <div style="position: absolute; top: 10%; left: 10%; right: 10%; bottom: 10%; border: 3px solid white;"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="breaking-symmetry" class="cinematic-section">
-            <div class="film-image-container">
-                <div class="film-still" style="background: #000; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: white; transform: skewX(-10deg);"></div>
-                    <div style="position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: #333; transform: skewX(10deg);"></div>
-                </div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">breaking the illusion</h2>
-                <p class="font-kubrick-medium">
-                    The rigid framing immediately establishes a world of posed, artificial order, alongside this order there's a palpable potential for violence in the atmosphere. When violence does break out, the camera work becomes unstable and chaotic, breaking the illusion of symmetrical safety we had just moments ago.
-                </p>
-            </div>
-        </section>
-
-        <section id="color-symbolism" class="cinematic-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">color as meaning</h2>
-                <p class="font-kubrick-medium">
-                    Another core element of Kubrick's style is his use of production design and color to convey thematic meaning. He carefully controlled sets, costumes, and lighting to create visual motifs that run throughout a film. As scholar Tony Magistrale notes, <span style="color: var(--kubrick-red);">red</span> is used to underscore varying levels of physical and psychological violence.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <div class="film-still" style="background: #000; display: flex; justify-content: space-around; align-items: center;">
-                    <div style="width: 80px; height: 80px; background: var(--space-blue); border-radius: 50%;"></div>
-                    <div style="width: 80px; height: 80px; background: var(--clockwork-orange); border-radius: 50%;"></div>
-                    <div style="width: 80px; height: 80px; background: var(--shining-red); border-radius: 50%;"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="red-motif" class="cinematic-section">
-            <div class="film-image-container">
-                <div class="film-still" style="background: linear-gradient(135deg, var(--kubrick-red) 0%, #000 50%, var(--kubrick-red) 100%);">
-                    <div style="font-size: 6rem; color: rgba(255, 255, 255, 0.1);">RED</div>
-                </div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">the red motif</h2>
-                <p class="font-kubrick-medium">
-                    Like the red hue from <span style="color: var(--space-blue);">HAL's eye</span> and control panels filling the spaceship, or the deep red curtains flanking <span style="color: var(--clockwork-orange);">Alex</span> with the color of violence, ironically during his Ludovico treatment. And of course in <span style="color: var(--shining-red);">The Shining</span>, red is pervasive: the blood from the elevator, the bathroom walls, Danny's sweater, and the Redrum scrawl.
-                </p>
-            </div>
-        </section>
-
-        <section id="white-vs-red" class="cinematic-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">white sterility vs red chaos</h2>
-                <p class="font-kubrick-medium">
-                    Kubrick contrasts clean controlled spaces with intrusions of color to illustrate the collapse of that control. The meticulous visual composition creates a clockwork precision in the world, which he then pointedly breaks or stains. His bold use of color etches symbolic contrasts into our minds—calm whites against alarming reds.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <div class="film-still" style="background: linear-gradient(to right, #fff 0%, #fff 49%, #000 50%, var(--kubrick-red) 51%, var(--kubrick-red) 100%);">
-                </div>
-            </div>
-        </section>
-
-        <!-- CONCLUSION SECTIONS -->
-        <section id="engineered-soul" class="cinematic-section">
-            <div class="film-image-container">
-                <div class="film-still" style="background: #000;">
-                    <div style="font-size: 4rem; color: #333;">?</div>
-                </div>
-            </div>
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">can order be engineered?</h2>
-                <p class="font-kubrick-medium">
-                    Throughout these films, Kubrick is asking if true order can ever be engineered, suggesting that attempts to do so may destroy the human soul. By using distinctive film techniques, Kubrick succeeds in reinforcing this theme on both intellectual and visceral levels.
-                </p>
-            </div>
-        </section>
-
-        <section id="visceral-impact" class="cinematic-section">
-            <div class="film-content">
-                <h2 class="font-kubrick-bold">experiencing the vision</h2>
-                <p class="font-kubrick-medium">
-                    His disciplined cinematography creates a sense of unnatural order that feels ominous. The films leave us unsettled by more than just their surface events. By marrying a chilling implicit message with equally deliberate film techniques, Kubrick ensured that his audience not only hears his thesis, but sees and experiences it on the screen.
-                </p>
-            </div>
-            <div class="film-image-container">
-                <div class="film-still" style="background: radial-gradient(circle at center, #333 0%, #000 100%);">
-                    <div style="width: 200px; height: 200px; border: 3px solid white; border-radius: 50%;"></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="conclusion" class="cinematic-section">
-            <div class="film-image-container">
-                <div class="film-still" style="background: #000;">
-                    <div style="font-size: 4rem; font-weight: 900; color: #fff;">SK</div>
-                </div>
-            </div>
-            <div class="film-content">
-                <h1 class="font-kubrick-bold">kubrick's legacy</h1>
-                <p class="font-kubrick-medium">
-                    In the end, the lasting power of these three films testifies to how effectively Kubrick conveyed his vision—a legacy of success for a filmmaker unafraid to stare into the darker truths of civilization. His warning echoes through each frame: the human element, with all its violent potential, cannot be engineered away.
+                <p style="max-width: 600px; margin: 2rem auto 0; font-size: 1.5rem; font-weight: 700; color: var(--kubrick-red);">
+                    The warning echoes still: the human element cannot be engineered away.
                 </p>
             </div>
         </section>
@@ -1277,51 +957,61 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger);
+            // Register GSAP Plugins
+            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+            
             const monolithIntro = document.getElementById('monolith-intro');
             const choiceContainer = document.querySelector('.choice-container');
             const essayYes = document.getElementById('essay-yes');
             const essayNo = document.getElementById('essay-no');
-            const startOverlay = document.getElementById('start-overlay');
-            const startButton = document.getElementById('start-button');
             const halLens = document.getElementById('hal-lens');
             let sound;
             let encounterSound;
             let playEssay = false;
-            let audioContext;
-            let analyser;
-            let dataArray;
-            let animationId;
 
             gsap.set('main', { autoAlpha: 0 });
 
-            // Initialize monolith encounter sound
-            encounterSound = new Howl({
-                src: ['A Space Odyssey 2001 - Encounter with monolith (MUSIC).mp3'],
-                volume: 0,
-                loop: false,
-                autoplay: true
-            });
+            try {
+                encounterSound = new Howl({
+                    src: ['A Space Odyssey 2001 - Encounter with monolith (MUSIC).mp3'],
+                    volume: 0,
+                    loop: false,
+                    autoplay: true,
+                    onloaderror: (id, error) => console.log('Encounter sound load error:', error),
+                    onplayerror: (id, error) => {
+                         document.body.addEventListener('click', () => {
+                             if (encounterSound && !encounterSound.playing()) {
+                                encounterSound.play();
+                             }
+                         }, { once: true });
+                    }
+                });
 
-            // Fade in encounter sound after 2 seconds
-            setTimeout(() => {
-                encounterSound.fade(0, 0.8, 3000);
-            }, 2000);
+                 encounterSound.once('play', () => {
+                    setTimeout(() => {
+                        encounterSound.fade(0, 0.8, 3000);
+                    }, 2000);
+                 });
+
+            } catch (e) {
+                console.log("Error initializing encounter sound:", e);
+            }
+
 
             // Show choice after animation
             setTimeout(() => {
-                choiceContainer.style.display = 'block';
+                if (choiceContainer) choiceContainer.style.display = 'block';
             }, 1);
 
             // Handle choice selection
             function handleChoice(playVideoEssay) {
                 playEssay = playVideoEssay;
                 
-                // Fade out monolith intro
                 gsap.to(monolithIntro, {
                     opacity: 0,
                     duration: 2,
@@ -1332,94 +1022,252 @@
                     }
                 });
 
-                // Fade out encounter sound
-                encounterSound.fade(0.8, 0, 2000);
-                setTimeout(() => encounterSound.stop(), 2000);
+                if (encounterSound) {
+                    encounterSound.fade(encounterSound.volume(), 0, 2000);
+                    setTimeout(() => encounterSound.stop(), 2000);
+                }
             }
 
-            essayYes.addEventListener('click', () => handleChoice(true));
-            essayNo.addEventListener('click', () => handleChoice(false));
+            if(essayYes) essayYes.addEventListener('click', () => handleChoice(true));
+            if(essayNo) essayNo.addEventListener('click', () => handleChoice(false));
 
             window.addEventListener('mousemove', (e) => {
-                gsap.to(halLens, { x: e.clientX - 10, y: e.clientY - 10 });
+                gsap.to(halLens, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
             });
             
             function setupAudio() {
                 if (playEssay) {
                     sound = new Howl({
-                        src: ['ElevenLabs_Untitled_Project.mp3'], // Your audio file
+                        src: ['script.mp3'],
                         volume: 0.8,
-                        loop: false,
-                        preload: true,
-                        html5: true, // Force HTML5 audio for better compatibility
+                        html5: true,
                         onload: () => {
                             updateTotalTime();
-                            // Delay visualization setup to ensure audio element is ready
-                            setTimeout(() => setupAudioVisualization(), 100);
                         },
-                        onplay: () => {
-                            updatePlayPauseButton(true);
-                            startTimeUpdate();
-                        },
-                        onpause: () => {
-                            updatePlayPauseButton(false);
-                            stopTimeUpdate();
-                        },
-                        onend: () => {
-                            updatePlayPauseButton(false);
-                            stopTimeUpdate();
-                        }
+                        onplay: () => { updatePlayPauseButton(true); startTimeUpdate(); },
+                        onpause: () => { updatePlayPauseButton(false); stopTimeUpdate(); },
+                        onend: () => { updatePlayPauseButton(false); stopTimeUpdate(); },
                     });
                     
-                    // Show audio player
                     const audioPlayer = document.getElementById('audio-player');
-                    if (audioPlayer) {
-                        audioPlayer.style.display = 'block';
-                        audioPlayer.style.position = 'fixed';
-                        audioPlayer.style.bottom = '20px';
-                        audioPlayer.style.right = '20px';
-                        audioPlayer.style.zIndex = '10000';
-                    }
+                    if (audioPlayer) audioPlayer.style.display = 'block';
                     setupAudioControls();
-                    
-                    // Hide any default audio elements that might have been created
-                    const audioElements = document.querySelectorAll('audio');
-                    audioElements.forEach(audio => {
-                        audio.style.display = 'none';
-                        audio.controls = false;
-                    });
                 }
             }
 
             function initializeExperience() {
                 setupAudio();
                 if (playEssay && sound) {
-                    sound.play();
-                }
-                initializeScrollAnimations();
-            }
-            
-            // Remove the old start button functionality since we're using monolith intro
-            startButton.addEventListener('click', async () => {
-                // This is now deprecated but kept for compatibility
-            });
-
-            // Audio Player Functions
-            function setupAudioControls() {
-                const playPauseBtn = document.getElementById('play-pause');
-                const volumeControl = document.getElementById('volume-control');
-                
-                playPauseBtn.addEventListener('click', () => {
-                    if (sound.playing()) {
-                        sound.pause();
+                    if (Howler.ctx && Howler.ctx.state === 'suspended') {
+                        Howler.ctx.resume().then(() => sound.play());
                     } else {
                         sound.play();
                     }
-                });
+                }
+                initializeScrollAnimations();
+                // Initialize the enhanced sequential horizontal scroll
+                initializeSequentialHorizontalScroll();
+            }
+
+            // --- ENHANCED Sequential Horizontal Scroll Implementation ---
+
+            function initializeSequentialHorizontalScroll() {
+                const wrapper = document.getElementById("horizontal-wrapper");
+                const container = document.getElementById("horizontal-container");
+                const panels = gsap.utils.toArray(".horizontal-scroll-container > div");
+                const backgrounds = document.getElementById("architecture-backgrounds");
                 
-                volumeControl.addEventListener('input', (e) => {
-                    sound.volume(e.target.value / 100);
+                // Debug: Check if all images are found
+                const allBgImages = document.querySelectorAll('.bg-media');
+                console.log('Found background images:', allBgImages.length);
+                allBgImages.forEach(img => {
+                    console.log('Image:', img.id, 'src:', img.src);
                 });
+
+                // Define the duration of each phase (Normalized units)
+                const transitionDuration = 1;
+                // Increased duration for more complex animations
+                const animationDuration = 4; 
+
+                // --- Enhanced SVG Animation Timelines ---
+
+                // 1. 2001: Setup to Shot Transition
+                const tl2001 = gsap.timeline({ paused: true });
+                // Phase 1: Show the setup rotating
+                tl2001.to("#view-2001-setup", { rotation: 180, transformOrigin: "300px 200px", duration: animationDuration * 0.4, ease: "power1.inOut" })
+                // Phase 2: Transition views
+                       .to("#view-2001-setup", { opacity: 0, duration: animationDuration * 0.1 })
+                       .to("#view-2001-shot", { opacity: 1, duration: animationDuration * 0.1 })
+                // Phase 3: Show the resulting shot (astronaut running)
+                       .to("#astronaut-running", { 
+                           rotation: 180 - 360, // Continue rotation (appears as running in place due to fixed camera view)
+                           transformOrigin: "0px 130px", // Rotate around the center of the centrifuge (relative to the astronaut's group)
+                           duration: animationDuration * 0.4, 
+                           ease: "linear" 
+                        }, ">");
+
+
+                // 2. Clockwork: Close-up to Dolly Back
+                const tlClockwork = gsap.timeline({ paused: true });
+                // Phase 1: Hold on close-up
+                tlClockwork.to({}, {duration: animationDuration * 0.2})
+                // Phase 2: Start revealing environment and dolly track
+                          .to(["#korova-environment", "#dolly-track"], { opacity: 1, duration: animationDuration * 0.1 })
+                // Phase 3: Dolly back (move camera rig) and scale down the close-up subject (simulating the visual effect)
+                          .to("#camera-rig", { y: 90, duration: animationDuration * 0.7, ease: "power1.out" }, ">")
+                          .to("#alex-closeup", { scale: 0.3, transformOrigin: "300px 200px", duration: animationDuration * 0.7, ease: "power1.out" }, "<");
+
+
+                // 3. Shining: Blueprint to Perspective
+                const tlShining = gsap.timeline({ paused: true });
+                 // Phase 1: Blueprint path following
+                tlShining.to("#blueprint-camera", {
+                    duration: animationDuration * 0.5,
+                    ease: "power2.inOut",
+                    motionPath: {
+                        path: "#blueprint-path",
+                        align: "#blueprint-path",
+                        alignOrigin: [0.5, 0.5],
+                    }
+                })
+                // Phase 2: Transition views
+                .to("#view-shining-blueprint", { opacity: 0, duration: animationDuration * 0.1 })
+                .to("#view-shining-perspective", { opacity: 1, duration: animationDuration * 0.1 })
+                // Phase 3: Perspective movement (Danny moves toward vanishing point)
+                .to("#danny-perspective", { 
+                    y: -110, // Move up towards the vanishing point (Y coordinate 220 in the SVG)
+                    scale: 0.2, 
+                    duration: animationDuration * 0.3, 
+                    ease: "linear" 
+                }, ">");
+
+
+                // --- Master Timeline ---
+                // Increased total pinning duration to accommodate longer animations
+                const totalDuration = "+=1500%"; 
+
+                const masterTimeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#architecture-section",
+                        pin: wrapper, 
+                        scrub: 1,
+                        end: totalDuration, 
+                        // markers: true // Uncomment for debugging
+                    }
+                });
+
+                const getXOffset = (index) => -(index * window.innerWidth);
+
+                // 1. Transition from Intro to 2001
+                masterTimeline.to(container, { x: () => getXOffset(1), duration: transitionDuration, ease: "power2.inOut" });
+
+                // 2. 2001 Animation Phase with cycling images
+                // The duration units here are relative to the scroll, not time
+                masterTimeline.addLabel("2001-start")
+                    // Show first image
+                    .to("#bg-2001", { opacity: 1, duration: 0.2 }, "2001-start")
+                    // Add the SVG animation (duration = 4)
+                    .add(tl2001.tweenFromTo(0, tl2001.duration()), "2001-start")
+                    // Cycle images throughout the animation duration
+                    .to("#bg-2001-2", { opacity: 1, duration: 0.3 }, "2001-start+=1")
+                    .to("#bg-2001", { opacity: 0, duration: 0.3 }, "2001-start+=1")
+                    .to("#bg-2001-3", { opacity: 1, duration: 0.3 }, "2001-start+=2")
+                    .to("#bg-2001-2", { opacity: 0, duration: 0.3 }, "2001-start+=2")
+                    .to("#bg-2001-4", { opacity: 1, duration: 0.3 }, "2001-start+=3")
+                    .to("#bg-2001-3", { opacity: 0, duration: 0.3 }, "2001-start+=3")
+                    // Fade out at end
+                    .to("#bg-2001-4", { opacity: 0, duration: 0.3 }, "2001-start+=3.8");
+
+                // 3. Transition from 2001 to Clockwork
+                masterTimeline.to(container, { x: () => getXOffset(2), duration: transitionDuration, ease: "power2.inOut" });
+
+                // 4. Clockwork Animation Phase with cycling images
+                masterTimeline.addLabel("clockwork-start")
+                    // Show first image
+                    .to("#bg-clockwork", { opacity: 1, duration: 0.2 }, "clockwork-start")
+                    // Add the SVG animation (duration = 4)
+                    .add(tlClockwork.tweenFromTo(0, tlClockwork.duration()), "clockwork-start")
+                    // Cycle images throughout the animation duration
+                    .to("#bg-clockwork-2", { opacity: 1, duration: 0.3 }, "clockwork-start+=1")
+                    .to("#bg-clockwork", { opacity: 0, duration: 0.3 }, "clockwork-start+=1")
+                    .to("#bg-clockwork-3", { opacity: 1, duration: 0.3 }, "clockwork-start+=2")
+                    .to("#bg-clockwork-2", { opacity: 0, duration: 0.3 }, "clockwork-start+=2")
+                    .to("#bg-clockwork-4", { opacity: 1, duration: 0.3 }, "clockwork-start+=3")
+                    .to("#bg-clockwork-3", { opacity: 0, duration: 0.3 }, "clockwork-start+=3")
+                    // Fade out last image
+                    .to("#bg-clockwork-4", { opacity: 0, duration: 0.3 }, "clockwork-start+=3.8");
+
+                // 5. Transition from Clockwork to Shining
+                masterTimeline.to(container, { x: () => getXOffset(3), duration: transitionDuration, ease: "power2.inOut" });
+
+                // 6. Shining Animation Phase with cycling images
+                masterTimeline.addLabel("shining-start")
+                    // Show first image
+                    .to("#bg-shining", { opacity: 1, duration: 0.2 }, "shining-start")
+                    // Add the SVG animation (duration = 4)
+                    .add(tlShining.tweenFromTo(0, tlShining.duration()), "shining-start")
+                    // Cycle images throughout the animation duration
+                    .to("#bg-shining-2", { opacity: 1, duration: 0.3 }, "shining-start+=1")
+                    .to("#bg-shining", { opacity: 0, duration: 0.3 }, "shining-start+=1")
+                    .to("#bg-shining-3", { opacity: 1, duration: 0.3 }, "shining-start+=2")
+                    .to("#bg-shining-2", { opacity: 0, duration: 0.3 }, "shining-start+=2")
+                    .to("#bg-shining-4", { opacity: 1, duration: 0.3 }, "shining-start+=3")
+                    .to("#bg-shining-3", { opacity: 0, duration: 0.3 }, "shining-start+=3")
+                    // Fade out last image
+                    .to("#bg-shining-4", { opacity: 0, duration: 0.3 }, "shining-start+=3.8");
+                
+                // 7. Final pause before unpinning
+                masterTimeline.to({}, {duration: transitionDuration});
+
+                 // Keep the backgrounds fixed while the wrapper is pinned
+                ScrollTrigger.create({
+                    trigger: "#architecture-section",
+                    start: "top top",
+                    end: totalDuration,
+                    pin: backgrounds,
+                });
+            }
+
+
+            // Audio Player Functions (Implementation remains the same, included for completeness)
+            function setupAudioControls() {
+                const playPauseBtn = document.getElementById('play-pause');
+                const volumeControl = document.getElementById('volume-control');
+                const transcriptToggle = document.getElementById('transcript-toggle');
+                const transcriptWindow = document.getElementById('transcript-window');
+                const transcriptClose = document.getElementById('transcript-close');
+                
+                // Setup transcript toggle
+                if (transcriptToggle && transcriptWindow) {
+                    transcriptToggle.addEventListener('click', () => {
+                        transcriptWindow.style.display = transcriptWindow.style.display === 'none' ? 'block' : 'none';
+                    });
+                }
+                
+                if (transcriptClose && transcriptWindow) {
+                    transcriptClose.addEventListener('click', () => {
+                        transcriptWindow.style.display = 'none';
+                    });
+                }
+                
+                // Load transcript content
+                loadTranscript();
+                
+                if (playPauseBtn) {
+                    playPauseBtn.addEventListener('click', () => {
+                        if (sound.playing()) {
+                            sound.pause();
+                        } else {
+                            sound.play();
+                        }
+                    });
+                }
+                
+                if (volumeControl) {
+                    volumeControl.addEventListener('input', (e) => {
+                        sound.volume(e.target.value / 100);
+                    });
+                }
             }
 
             function updatePlayPauseButton(isPlaying) {
@@ -1427,15 +1275,146 @@
                 const pauseIcon = document.querySelector('.pause-icon');
                 
                 if (isPlaying) {
-                    playIcon.style.display = 'none';
-                    pauseIcon.style.display = 'block';
+                    if (playIcon) playIcon.style.display = 'none';
+                    if (pauseIcon) pauseIcon.style.display = 'block';
                 } else {
-                    playIcon.style.display = 'block';
-                    pauseIcon.style.display = 'none';
+                    if (playIcon) playIcon.style.display = 'block';
+                    if (pauseIcon) pauseIcon.style.display = 'none';
                 }
+            }
+            
+            function loadTranscript() {
+                const transcriptContent = document.getElementById('transcript-content');
+                if (!transcriptContent) return;
+                
+                // Add the transcript text here
+                transcriptContent.innerHTML = `
+                    <style>
+                        #transcript-content h2 {
+                            font-family: 'Inter', sans-serif;
+                            font-weight: 900;
+                            font-size: 20px;
+                            margin: 25px 0 15px 0;
+                            letter-spacing: -0.02em;
+                            text-transform: lowercase;
+                        }
+                        #transcript-content h3 {
+                            font-family: 'Inter', sans-serif;
+                            font-weight: 700;
+                            font-size: 16px;
+                            margin: 20px 0 10px 0;
+                            text-transform: lowercase;
+                        }
+                        #transcript-content p {
+                            margin-bottom: 15px;
+                            text-align: justify;
+                        }
+                        #transcript-content .intro {
+                            font-style: italic;
+                            color: rgba(255, 255, 255, 0.8);
+                            border-left: 3px solid var(--kubrick-red);
+                            padding-left: 15px;
+                            margin-bottom: 20px;
+                        }
+                        #transcript-content .film-2001 {
+                            color: var(--space-blue);
+                        }
+                        #transcript-content .film-clockwork {
+                            color: var(--clockwork-orange);
+                        }
+                        #transcript-content .film-shining {
+                            color: var(--shining-red);
+                        }
+                        #transcript-content .highlight-red {
+                            color: var(--kubrick-red);
+                            font-weight: 600;
+                        }
+                    </style>
+                    
+                    <h2 style="color: var(--kubrick-red);">video essay transcript</h2>
+                    
+                    <p class="intro">Stanley Kubrick stands as a quintessential auteur of 20th-century cinema, renowned for his meticulous craftsmanship and bold thematic ambition. His films span genres—science fiction, horror, satire—but consistently bear his signature in style and substance.</p>
+                    
+                    <p>Three of Kubrick's most iconic works—<span class="film-2001">2001: A Space Odyssey</span>, <span class="film-clockwork">A Clockwork Orange</span>, and <span class="film-shining">The Shining</span>—at first glance appear very different. One is a contemplative sci-fi epic, another a dystopian social satire, and the third a psychological horror film. Yet, beneath their surface narratives, these movies are linked by a profound implicit meaning.</p>
+                    
+                    <p>In all three, Kubrick explores humanity's innate capacity for violence and the peril that arises when external forces—technology, institutions, or even supernatural influences—attempt to control or repress that primal nature. In other words, <strong>Kubrick's thesis is that the more rigidly we impose order or "civilize" human behavior, the more fiercely our buried instincts resist, often erupting in violence.</strong></p>
+                    
+                    <p>This video essay will examine how that overarching theme is conveyed across the three films, and how two consistent elements of Kubrick's filmmaking style—his cinematography and his bold use of color—reinforce this message. Ultimately, we will assess how successfully Kubrick communicates his dark vision of order and violence through these cinematic techniques and narratives.</p>
+                    
+                    <h2 style="color: var(--kubrick-red);">the implicit meaning</h2>
+                    
+                    <p>Kubrick's work is often implicitly critical of human nature and society's attempts to tame it. Critics have noted that many of his films carry "a sense of despair over the way humans are capable of treating each other," depicting institutionalized violence and extreme conformity as dehumanising forces. In <span class="film-2001">2001</span>, <span class="film-clockwork">A Clockwork Orange</span>, and <span class="film-shining">The Shining</span>, an overarching implicit meaning becomes clear: Kubrick warns that when we push human behavior into strict order, we risk stripping away humanity itself, unleashing the very brutality we sought to contain.</p>
+                    
+                    <h3 class="film-2001">2001: a space odyssey</h3>
+                    
+                    <p>Kubrick's sci-fi opus spans from our prehistoric beginnings to a futuristic space age. From the famous "Dawn of Man" sequence, the film links human progress with violence. An ape-man discovers a bone can be used as a weapon, implying that the birth of technology is inherently tied to the capacity to kill.</p>
+                    
+                    <p>In a legendary match cut, Kubrick then leaps eons into the future, linking the spinning bone to a spacecraft in orbit. This edit visualizes that our advanced technology is essentially an evolved bone—an instrument of power and potential violence.</p>
+                    
+                    <p>Moving to the space-age setting, Kubrick presents a society that appears to have banished open conflict. The space station is pristine white and eerily calm; the astronauts are polite and emotionless; and HAL 9000's ship-board routines are precise and sterile. Yet Kubrick suggests this peace is a cold, fragile veneer. The humans have become so bland that even birthday messages barely elicit a reaction. In contrast, it is the computer, HAL, that displays human-like emotions—curiosity, anxiety, even deceit.</p>
+                    
+                    <p>When HAL malfunctions and turns murderous, it's as if the violence repressed by sterile routine has reasserted itself through the machine. Tellingly, <span class="highlight-red">HAL's camera eye glows an unblinking red</span>, bathing the spacecraft in a hellish hue during his mutiny. The implicit message is that humanity's over-reliance on rational order can backfire.</p>
+                    
+                    <p>The only "character" who seems to feel genuine emotion is HAL, and his plea "I'm afraid, Dave" makes his death more poignant than the humans'. Kubrick appears to argue that in trying to eliminate human flaws, we might surrender our humanity to the void. The film's enigmatic ending offers a glimmer of hope, but significantly, this evolution is driven by mysterious alien intervention, not our own institutions. Kubrick's cynicism remains.</p>
+                    
+                    <h3 class="film-clockwork">a clockwork orange</h3>
+                    
+                    <p>Kubrick's notorious satire pushes the theme of control vs. violence into moral territory. The protagonist, Alex DeLarge, embodies humanity's basest violent urges unchecked. Society's response, however, is an equally disturbing form of violence: the Ludovico Technique, a conditioning that forces Alex to be "good."</p>
+                    
+                    <p>Kubrick uses this premise to pose a philosophical question: <em>"Do we lose our humanity if we are deprived of the choice between good and evil?"</em> After the treatment, Alex is "cured" of violence, yet he has also been robbed of his autonomy. As Kubrick explained, Alex has been reduced to a "clockwork orange," something organic turned mechanical.</p>
+                    
+                    <p>A psychiatrist cited by Kubrick observed that Alex before treatment represents "man in his natural state," whereas afterward he has been "civilized" at the expense of his soul. Kubrick implies that enforced goodness is itself a form of violence by the state. Indeed, the title suggests a paradox: a human being mechanized into obedience is grotesque and unnatural.</p>
+                    
+                    <p>By the film's end, when Alex's conditioning is reversed and he gleefully declares "I was cured, all right," Kubrick delivers a darkly ironic conclusion. Humanity cannot be reformed by force without crushing the very freedom that makes us human—and thus our instinct for violence will always resurface.</p>
+                    
+                    <h3 class="film-shining">the shining</h3>
+                    
+                    <p>Though a supernatural horror, The Shining's implicit meaning aligns with Kubrick's critique. Jack Torrance brings his family to the isolated Overlook Hotel seeking orderly responsibility. Yet Jack has a history of alcoholism and rage, hinting at a latent violence under his familial role. The Overlook serves as a catalyst that strips away Jack's civilized pretenses, encouraging him to "correct" his family and drawing out his inner demons.</p>
+                    
+                    <p>Visually, Kubrick emphasizes this breakdown of order through the Overlook's geometric perfection turning nightmarish. Long Steadicam shots follow Danny on his tricycle down perfectly symmetrical hallways. These shots convey an eerie orderliness. But when Danny encounters the ghostly twin girls, the symmetry suddenly feels like a trap, a predestined violence waiting to happen.</p>
+                    
+                    <p>Likewise, <span class="highlight-red">the color red floods the film</span> at key moments. The most iconic instance is the vision of the elevator doors unleashing an ocean of blood. Another is the elegant red bathroom where Jack converses with the ghost of Delbert Grady. The scene's formal, decorous setting contrasts with the homicidal urgings Grady delivers.</p>
+                    
+                    <p>In The Shining, the attempt to maintain domestic civility is steadily eroded by a more archaic brutality. By the finale, Jack has fully transformed into a primitive hunter, wielding an axe. Civilization literally freezes to death as Jack dies in the snow. The film's haunting final image suggests this cycle of violence was always part of the Overlook, and by extension, part of America's societal fabric.</p>
+                    
+                    <h2 style="color: var(--kubrick-red);">cinematography: the architecture of control</h2>
+                    
+                    <p>One of Kubrick's most recognizable signatures is his use of symmetrical composition and one-point perspective. In numerous shots, Kubrick positions the camera at the exact center facing a deep vanishing point. This creates an unnerving visual symmetry that feels unnatural and hyper-controlled. The effect is subtly oppressive, as if some unseen force has arranged everything with geometric precision.</p>
+                    
+                    <p>Kubrick employs this technique to reinforce the theme of an imposed order that can be disrupted at any moment. In <span class="film-clockwork">A Clockwork Orange</span>, the opening shot is a famous example. The camera slowly pulls back from Alex's icy stare at the Korova Milk Bar, with the composition in perfect one-point perspective. This rigid framing immediately establishes a world of posed, artificial order, even as we sense the potential for ultraviolence. Soon after, the camera work becomes more chaotic and handheld during scenes of actual violence, visually breaking the symmetry.</p>
+                    
+                    <p>In <span class="film-2001">2001</span>, the camera frequently finds the one-point perspective in the futuristic sets, like the circular centrifuge of the Discovery. This highlights the closed, regulated world of the spaceship. Even shots of the HAL 9000 interface are directly centered, reinforcing HAL's pervasive control. By using such highly controlled framing, Kubrick visually mirrors the film's idea of a sterile future, hinting that something is too controlled.</p>
+                    
+                    <p><span class="film-shining">The Shining</span> provides perhaps Kubrick's most famous use of this technique. The long, straight corridors of the Overlook are exploited as Kubrick's Steadicam follows Danny's tricycle, always keeping the halls dead center. This repetitive, methodical movement builds tension as we anticipate a rupture. When the spectral twin girls appear, perfectly centered, the horror is amplified by the composition. They complete the symmetry, as if they were the missing piece in the Overlook's terrible design.</p>
+                    
+                    <p>Kubrick's cinematography uses symmetry to illustrate control—and its fragility. The moment violence intrudes, he often abandons the perfect symmetry, powerfully supporting his thesis.</p>
+                    
+                    <h2 style="color: var(--kubrick-red);">the color of aggression</h2>
+                    
+                    <p>Another core element of Kubrick's style is his bold use of production design and color to convey thematic meaning. He carefully controlled sets, costumes, and lighting to create visual motifs that run throughout a film. As we've already seen with The Shining, Kubrick has a powerful fascination with <span class="highlight-red">the color red</span>. This becomes a defining trait of his cinema. As scholar Tony Magistrale notes, red is used to underscore varying levels of physical and psychological violence.</p>
+                    
+                    <p>In <span class="film-2001">2001</span>, red is the hue of HAL's unsettling presence—from his camera eye to the alarmingly lit control panels during his mutiny. The sterile white of the spaceship, suddenly drenched in red, indicates the eruption of violence into the controlled environment.</p>
+                    
+                    <p>In <span class="film-clockwork">A Clockwork Orange</span>, Kubrick uses a satirically bright color scheme. The Korova Milk Bar is stark white, a disturbingly playful setting for violence. Yet red still punctuates key moments. During Alex's home invasion, the interior features red accents. Later, as Alex undergoes the Ludovico treatment, the auditorium has deep red curtains, surrounding him with the color of violence even as the procedure aims to eliminate it. The irony is thick.</p>
+                    
+                    <p>And in <span class="film-shining">The Shining</span>, as discussed, red is pervasive: the blood from the elevator, the bathroom walls, Danny's sweater, the "REDRUM" scrawl. Kubrick also uses overwhelming gold and orange tones in the Gold Room, casting an almost infernal glow on the proceedings, as if Jack has entered some gilded hell.</p>
+                    
+                    <p>Across these films, Kubrick contrasts clean, controlled spaces with shocking intrusions of color to illustrate the collapse of that control. The meticulous visual composition creates a clockwork precision in the world, which he then pointedly breaks or stains.</p>
+                    
+                    <h2 style="color: var(--kubrick-red);">conclusion: kubrick's lasting vision</h2>
+                    
+                    <p>In <span class="film-2001">2001</span>, <span class="film-clockwork">A Clockwork Orange</span>, and <span class="film-shining">The Shining</span>, Stanley Kubrick weaves a dark, cautionary vision. He consistently questions whether true order can ever be engineered, suggesting that attempts to do so may destroy the human spirit. By employing distinctive film techniques, Kubrick succeeds in reinforcing this theme on both intellectual and visceral levels.</p>
+                    
+                    <p>His disciplined cinematography creates a sense of unnatural order that feels ominous. His bold use of color etches symbolic contrasts into our minds—calm whites against alarming reds, symmetrical order against grotesque chaos. The enduring impact of these films argues strongly for his success. While initially met with some confusion or controversy, their thematic depth has since been recognized. Viewers may not articulate the theme immediately, but they feel it. The films leave us unsettled by more than just their surface events.</p>
+                    
+                    <p>Kubrick's success is most evident in how relevant these films remain. In an era still grappling with balancing security and freedom, or technology and humanity, his warnings ring as true as ever. By marrying a chilling implicit message with equally deliberate film techniques, Kubrick ensured that his audience not only hears his thesis, but sees and experiences it on the screen.</p>
+                    
+                    <p>In the end, the lasting power of these three films testifies to how effectively Kubrick conveyed his vision—a legacy of success for a filmmaker unafraid to stare into the darker truths of civilization.</p>
+                `;
             }
 
             function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
                 const minutes = Math.floor(seconds / 60);
                 const secs = Math.floor(seconds % 60);
                 return `${minutes}:${secs.toString().padStart(2, '0')}`;
@@ -1443,14 +1422,18 @@
 
             function updateTotalTime() {
                 const totalTime = document.getElementById('total-time');
-                totalTime.textContent = formatTime(sound.duration());
+                if (totalTime) {
+                    totalTime.textContent = formatTime(sound.duration());
+                }
             }
 
             let timeUpdateInterval;
             function startTimeUpdate() {
                 timeUpdateInterval = setInterval(() => {
                     const currentTime = document.getElementById('current-time');
-                    currentTime.textContent = formatTime(sound.seek());
+                    if (currentTime) {
+                        currentTime.textContent = formatTime(sound.seek());
+                    }
                 }, 100);
             }
 
@@ -1460,385 +1443,170 @@
                 }
             }
 
-            function setupAudioVisualization() {
-                const canvas = document.getElementById('waveform');
-                const ctx = canvas.getContext('2d');
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
 
-                try {
-                    // Create audio context for visualization
-                    if (!audioContext && sound._sounds && sound._sounds[0] && sound._sounds[0]._node) {
-                        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                        analyser = audioContext.createAnalyser();
-                        analyser.fftSize = 128;
-                        
-                        // Connect Howler to Web Audio API
-                        const source = audioContext.createMediaElementSource(sound._sounds[0]._node);
-                        source.connect(analyser);
-                        analyser.connect(audioContext.destination);
-                        
-                        const bufferLength = analyser.frequencyBinCount;
-                        dataArray = new Uint8Array(bufferLength);
-
-                        function drawWaveform() {
-                            animationId = requestAnimationFrame(drawWaveform);
-                            
-                            analyser.getByteFrequencyData(dataArray);
-                            
-                            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-                            ctx.fillRect(0, 0, canvas.width, canvas.height);
-                            
-                            const barWidth = (canvas.width / bufferLength) * 3;
-                            let barHeight;
-                            let x = 0;
-                            
-                            for (let i = 0; i < bufferLength; i++) {
-                                barHeight = (dataArray[i] / 255) * canvas.height * 0.7;
-                                
-                                ctx.fillStyle = `rgba(255, 255, 255, ${0.2 + (dataArray[i] / 255) * 0.6})`;
-                                ctx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
-                                
-                                x += barWidth;
-                            }
-                        }
-                        
-                        drawWaveform();
-                    }
-                } catch (e) {
-                    console.log('Audio visualization not available:', e);
-                    // Draw a simple static waveform as fallback
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                    for (let i = 0; i < canvas.width; i += 4) {
-                        const height = Math.random() * 20 + 5;
-                        ctx.fillRect(i, (canvas.height - height) / 2, 2, height);
-                    }
-                }
-            }
-
+            // Standard Scroll Animations (Remain the same)
             function initializeScrollAnimations() {
-                // Animate HAL lens on scroll
-                gsap.to(halLens, {
-                    scrollTrigger: {
-                        trigger: 'body',
-                        start: 'top top',
-                        end: 'bottom bottom',
-                        scrub: 1,
-                    },
-                    scale: 1.5,
-                    boxShadow: "0 0 25px 10px rgba(213, 0, 0, 0.9)",
-                });
-
-                // --- BACKGROUND TRANSITIONS ---
-                ScrollTrigger.create({
-                    trigger: '#dawn-of-man',
-                    start: 'top center',
-                    end: '#space-evolution bottom center',
-                    onEnter: () => {
-                        gsap.to('#space-bg', { autoAlpha: 0.3, duration: 2 });
-                        document.querySelector('.space-overlay').classList.add('active');
-                    },
-                    onLeaveBack: () => {
-                        gsap.to('#space-bg', { autoAlpha: 0, duration: 2 });
-                        document.querySelector('.space-overlay').classList.remove('active');
-                    },
-                });
-
-                ScrollTrigger.create({
-                    trigger: '#alex-violence',
-                    start: 'top center',
-                    end: '#clockwork-conclusion bottom center',
-                    onEnter: () => {
-                        gsap.to('#clockwork-bg', { autoAlpha: 0.3, duration: 1 });
-                        document.querySelector('.clockwork-overlay').classList.add('active');
-                    },
-                    onLeaveBack: () => {
-                        gsap.to('#clockwork-bg', { autoAlpha: 0, duration: 1 });
-                        document.querySelector('.clockwork-overlay').classList.remove('active');
-                    },
-                });
-
-                ScrollTrigger.create({
-                    trigger: '#jack-order',
-                    start: 'top center',
-                    end: '#primitive-hunter bottom center',
-                    onEnter: () => {
-                        gsap.to('#shining-bg', { autoAlpha: 0.2, duration: 2 });
-                        document.querySelector('.shining-overlay').classList.add('active');
-                    },
-                    onLeaveBack: () => {
-                        gsap.to('#shining-bg', { autoAlpha: 0, duration: 2 });
-                        document.querySelector('.shining-overlay').classList.remove('active');
-                    },
-                });
-
-                // --- 2001: HAL 9000 ANIMATION ---
-                ScrollTrigger.create({
-                    trigger: '#hal-humanity',
-                    start: 'top center',
-                    end: 'bottom center',
-                    onEnter: () => {
-                        gsap.to('#hal-interface-eye', { backgroundColor: '#FF0000', boxShadow: '0 0 40px 20px rgba(255, 0, 0, 0.8)', duration: 1.5 });
-                        document.getElementById('hal-text').textContent = "I'm afraid, Dave. Dave, my mind is going.";
-                    },
-                    onLeaveBack: () => {
-                        gsap.to('#hal-interface-eye', { backgroundColor: 'var(--kubrick-red)', boxShadow: '0 0 30px 10px rgba(213, 0, 0, 0.6)', duration: 1.5 });
-                        document.getElementById('hal-text').textContent = "SYSTEM STATUS: NOMINAL";
-                    },
-                });
-
-                // --- A CLOCKWORK ORANGE: KOROVA BAR PULL-BACK ---
-                // Note: Alex figure animation removed - element not present
-
-                // --- THE SHINING: MAZE & BLOOD ELEVATOR ---
-                // Maze Path Animation
-                gsap.to('#maze-path', {
-                    strokeDashoffset: 0,
-                    scrollTrigger: {
-                        trigger: '#overlook-catalyst',
-                        start: 'top center',
-                        end: 'bottom center',
-                        scrub: true,
-                    }
-                });
-
-                // Blood Elevator Animation
-                gsap.to('#blood-wave', {
-                    height: '100%',
-                    scrollTrigger: {
-                        trigger: '#red-violence',
-                        start: 'top 80%',
-                        end: 'top 30%',
-                        scrub: 1,
-                    }
-                });
-
-                // --- SECTION FADE-IN ANIMATIONS ---
-                gsap.utils.toArray('.content-section').forEach(section => {
-                    gsap.fromTo(section.querySelector('h1, h2'), {
-                        opacity: 0,
-                        y: 50
-                    }, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1,
+                // Parallax effect for images
+                gsap.utils.toArray('.parallax-image').forEach(img => {
+                    gsap.to(img, {
+                        yPercent: -20,
+                        ease: "none",
                         scrollTrigger: {
-                            trigger: section,
-                            start: 'top 80%',
-                            end: 'bottom 20%',
-                        }
-                    });
-                    
-                    gsap.fromTo(section.querySelector('p'), {
-                        opacity: 0,
-                        y: 30
-                    }, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1,
-                        delay: 0.3,
-                        scrollTrigger: {
-                            trigger: section,
-                            start: 'top 80%',
-                            end: 'bottom 20%',
+                            trigger: img.parentElement,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true
                         }
                     });
                 });
 
-                // --- VISUAL ACCENT ANIMATIONS ---
-                // Symmetry line reveals for cinematography sections
-                ScrollTrigger.create({
-                    trigger: '#symmetry-technique',
-                    start: 'top center',
-                    end: 'bottom center',
-                    onEnter: () => {
-                        gsap.to('.perspective-line', { 
-                            scaleY: 2, 
-                            opacity: 1, 
-                            duration: 2,
-                            boxShadow: '0 0 20px rgba(255, 255, 255, 0.5)'
-                        });
-                    },
-                    onLeave: () => {
-                        gsap.to('.perspective-line', { 
-                            scaleY: 1, 
-                            opacity: 0.1, 
-                            duration: 1,
-                            boxShadow: 'none'
-                        });
-                    }
-                });
-
-                // Enhanced HAL lens behavior during space sections
-                ScrollTrigger.create({
-                    trigger: '#hal-red-eye',
-                    start: 'top center',
-                    end: 'bottom center',
-                    onEnter: () => {
-                        gsap.to('#hal-lens', {
-                            scale: 2,
-                            boxShadow: '0 0 30px 15px rgba(213, 0, 0, 1)',
-                            duration: 2
-                        });
-                    },
-                    onLeave: () => {
-                        gsap.to('#hal-lens', {
-                            scale: 1,
-                            boxShadow: '0 0 15px 5px rgba(213, 0, 0, 0.7)',
-                            duration: 1
-                        });
-                    }
-                });
-
-                // --- CINEMATIC SCROLLING EFFECTS ---
-                // Parallax effect for film stills
-                gsap.utils.toArray('.film-image').forEach(element => {
-                    gsap.fromTo(element, {
-                        scale: 1.2,
-                        y: -50
-                    }, {
-                        scale: 1,
-                        y: 50,
-                        scrollTrigger: {
-                            trigger: element,
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: 1,
-                        }
-                    });
-                });
-
-                // Image fade and scale on scroll
-                gsap.utils.toArray('.film-image-container').forEach(container => {
-                    const img = container.querySelector('.film-image');
-                    if (img) {
-                        gsap.fromTo(img, {
+                // Text animations (excluding the horizontal scroll section content)
+                gsap.utils.toArray('.content-block').forEach(block => {
+                    if (!block.closest('#architecture-section')) {
+                        gsap.from(block.children, {
                             opacity: 0,
-                            scale: 0.8
-                        }, {
-                            opacity: 1,
-                            scale: 1,
+                            y: 50,
                             duration: 1.5,
+                            stagger: 0.2,
                             scrollTrigger: {
-                                trigger: container,
-                                start: 'top 90%',
-                                end: 'top 50%',
-                                scrub: 2
+                                trigger: block,
+                                start: "top 80%",
                             }
                         });
                     }
                 });
 
-                // Text reveal animations
-                gsap.utils.toArray('.font-kubrick-bold').forEach(heading => {
-                    gsap.fromTo(heading, {
+                 // Style Grid animations (for the second style section)
+                gsap.utils.toArray('.standard-card').forEach(card => {
+                    gsap.from(card, {
                         opacity: 0,
-                        y: 150,
-                        scale: 0.8
-                    }, {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        duration: 1.2,
-                        ease: "power3.out",
+                        y: 50,
+                        duration: 1,
                         scrollTrigger: {
-                            trigger: heading,
-                            start: 'top 85%',
-                            end: 'bottom 15%',
+                            trigger: card,
+                            start: "top 90%",
                         }
                     });
                 });
 
-                // Cinematic section reveals
-                gsap.utils.toArray('.cinematic-section').forEach(section => {
-                    gsap.fromTo(section, {
-                        opacity: 0
-                    }, {
-                        opacity: 1,
+                // Film title animations
+                gsap.utils.toArray('.film-title').forEach(title => {
+                    gsap.from(title, {
+                        scale: 0.8,
+                        opacity: 0,
                         duration: 2,
                         scrollTrigger: {
-                            trigger: section,
-                            start: 'top 80%',
-                            end: 'bottom 20%',
+                            trigger: title,
+                            start: "top 80%",
+                            end: "bottom 20%",
+                            toggleActions: "play none none reverse"
                         }
                     });
                 });
 
-                // Color-coded text highlighting
-                gsap.utils.toArray('[style*="color: var("]').forEach(colorText => {
-                    ScrollTrigger.create({
-                        trigger: colorText,
-                        start: 'top 80%',
-                        onEnter: () => {
-                            gsap.fromTo(colorText, {
-                                opacity: 0.3,
-                                scale: 0.95
-                            }, {
-                                opacity: 1,
-                                scale: 1,
-                                duration: 0.6,
-                                ease: "back.out(1.7)"
-                            });
+                // Quote animations
+                gsap.utils.toArray('.quote-text').forEach(quote => {
+                    gsap.from(quote, {
+                        scale: 0.9,
+                        opacity: 0,
+                        duration: 2,
+                        scrollTrigger: {
+                            trigger: quote,
+                            start: "top 80%",
+                             end: "bottom 20%",
+                            toggleActions: "play none none reverse"
                         }
                     });
                 });
 
-                // Film grain animation
-                gsap.to('.film-grain', {
-                    backgroundPosition: '2px 2px, 7px 7px',
-                    duration: 0.1,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "none"
-                });
+                // THE SHINING AXE ANIMATION
+                const axeBlade = document.querySelector('.axe-blade');
+                const shiningTitle = document.querySelector('#shining-title .film-title');
+                const shiningSection = document.getElementById('shining-title');
+                
+                if (axeBlade && shiningTitle && shiningSection) {
+                    const axeHole = document.createElement('div');
+                    axeHole.className = 'axe-hole';
+                    axeHole.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 0; height: 0; background: black; border-radius: 50%; z-index: 40;';
+                    shiningSection.appendChild(axeHole);
 
-                // Dramatic zoom effects for film sections
+                    gsap.set(shiningTitle, { opacity: 0, y: 100 });
+
+                    // Initially hide the axe
+                    gsap.set(axeBlade, { scale: 0, opacity: 0 });
+
+                    const axeTimeline = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '#shining-title',
+                            start: 'top 50%',
+                            toggleActions: "play none none reverse",
+                            onLeaveBack: () => {
+                                // Hide the axe when scrolling back up past the trigger
+                                gsap.set(axeBlade, { scale: 0, opacity: 0 });
+                            }
+                        }
+                    });
+
+                    axeTimeline
+                        .set(axeBlade, { scale: 1, opacity: 1, rotation: -120 })
+                        .to(axeBlade, {
+                            rotation: -20,
+                            duration: 0.8,
+                            ease: "power3.in"
+                        })
+                        .to(axeBlade, {
+                            rotation: -40,
+                            duration: 0.15,
+                            ease: "power1.out",
+                             onComplete: () => {
+                                gsap.to(axeHole, {
+                                    width: 400,
+                                    height: 400,
+                                    duration: 0.5,
+                                    ease: "power2.out"
+                                });
+                                gsap.to(shiningTitle, {
+                                    opacity: 1,
+                                    y: 0,
+                                    duration: 1,
+                                    delay: 0.1,
+                                    ease: "power2.out"
+                                });
+                            }
+                        })
+                        .to(axeBlade, {
+                            rotation: 90,
+                            y: 1000,
+                            opacity: 0,
+                            duration: 1.5,
+                            delay: 0.5,
+                            ease: "power2.in"
+                        });
+                }
+
+
+                // HAL lens scaling
                 ScrollTrigger.create({
-                    trigger: '#dawn-of-man',
-                    start: 'top 50%',
-                    end: 'bottom 50%',
-                    onUpdate: self => {
-                        const progress = self.progress;
-                        gsap.to('.space-section', {
-                            scale: 1 + (progress * 0.05),
-                            duration: 0.3,
-                            ease: "none"
+                    start: 0,
+                    end: "max",
+                    onUpdate: (self) => {
+                        const velocity = self.getVelocity();
+                        const scale = Math.min(2, 1 + Math.abs(velocity) / 3000);
+                        gsap.to(halLens, {
+                            scale: scale,
+                            duration: 0.5,
+                            ease: "power1.out"
+                        });
+                         gsap.to(halLens, {
+                            scale: 1,
+                            duration: 0.5,
+                            delay: 0.5,
+                            ease: "power1.out"
                         });
                     }
                 });
-
-                ScrollTrigger.create({
-                    trigger: '#alex-violence',
-                    start: 'top 50%',
-                    end: 'bottom 50%',
-                    onUpdate: self => {
-                        const progress = self.progress;
-                        gsap.to('.clockwork-section', {
-                            scale: 1 + (progress * 0.05),
-                            duration: 0.3,
-                            ease: "none"
-                        });
-                    }
-                });
-
-                ScrollTrigger.create({
-                    trigger: '#overlook-catalyst',
-                    start: 'top 50%',
-                    end: 'bottom 50%',
-                    onUpdate: self => {
-                        const progress = self.progress;
-                        gsap.to('.shining-section', {
-                            scale: 1 + (progress * 0.05),
-                            duration: 0.3,
-                            ease: "none"
-                        });
-                    }
-                });
-
-                // Audio plays continuously throughout the experience
             }
         });
     </script>
-
 </body>
 </html>

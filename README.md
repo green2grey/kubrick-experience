@@ -95,7 +95,7 @@ This project is for educational purposes. All film imagery and references belong
 ## 🙏 Acknowledgments
 
 - Stanley Kubrick for the cinematic inspiration
-- Film stills from kubrick.life
+- Film stills from various sources
 - Audio narration generated with ElevenLabs
 
 ---
