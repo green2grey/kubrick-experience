@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubrick: The Tension of Order & Violence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --kubrick-red: #D50000;
+            --kubrick-orange: #FF6D00;
+            --kubrick-white: #F5F5F5;
+            --kubrick-black: #000000;
+            --kubrick-grey: #1a1a1a;
+            --gold-room-gold: #FFD700;
+            
+                        --space-blue: #4A90E2;
+            --clockwork-orange: #FF4500;
+            --shining-red: #f2473e;
+            --shining-dark: #191818;
+            --shining-cream: #faf9f2;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--kubrick-black);
+            color: var(--kubrick-white);
+            overflow-x: hidden;
+            font-weight: 400;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body.intro-active,
+        html.intro-active {
+            overflow: hidden;
+        }
+
+        ::selection {
+            background: rgba(213, 0, 0, 0.85);
+            color: var(--kubrick-white);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 30000;
+            padding: 0.75rem 1rem;
+            background: var(--kubrick-white);
+            color: var(--kubrick-black);
+            font-weight: 700;
+            text-transform: lowercase;
+            letter-spacing: 0.04em;
+            transform: translateY(-200%);
+            transition: transform 0.2s ease;
+        }
+
+        .skip-link:focus {
+            transform: translateY(0);
+        }
+
+                .font-kubrick-bold { 
+            font-family: 'Inter', sans-serif; 
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: lowercase;
+        }
+
+                .page-section {
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+                .film-title-section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--kubrick-black);
+            overflow: hidden;
+        }
+
+        .film-title {
+            font-size: clamp(5rem, 15vw, 20rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+            text-transform: lowercase;
+            position: relative;
+            z-index: 10;
+        }
+
+                .space-title {
+            color: var(--space-blue);
+            text-shadow: 0 0 80px rgba(74, 144, 226, 0.5);
+        }
+
+                .clockwork-title {
+            color: var(--clockwork-orange);
+            text-shadow: 0 0 80px rgba(255, 69, 0, 0.5);
+        }
+
+                .shining-section {
+            background: var(--shining-cream);
+            color: var(--shining-dark);
+            position: relative;
+        }
+
+        .shining-title {
+            color: var(--shining-red);
+            text-shadow: none;
+            position: relative;
+            z-index: 100;
+        }
+
+                .axe-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .axe-blade {
+            position: absolute;
+            width: 187px;
+            height: 419px;
+            top: 50%;
+            left: 50%;
+            margin-left: 100px;
+            margin-top: -250px;
+            transform: rotate(-60deg) scale(0);
+            opacity: 0;
+            transform-origin: center bottom;
+        }
+
+
+
+                .section-divider {
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            margin: 4rem 0;
+        }
+
+                .content-block {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-block h2 {
+            font-size: clamp(3rem, 8vw, 10rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+            margin-bottom: 3rem;
+            text-transform: lowercase;
+        }
+
+        .content-block p {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .measured-section {
+            min-height: auto;
+            justify-content: flex-start;
+            padding: 4rem 0 6rem;
+        }
+
+        .measured-section .content-block {
+            padding-bottom: 2.5rem;
+        }
+
+        .image-section--framed {
+            width: min(1320px, calc(100% - 4rem));
+            height: clamp(20rem, 42vw, 38rem);
+            margin: 0 auto;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #050505;
+        }
+
+        .image-section--slit {
+            height: clamp(15rem, 24vw, 21rem);
+            margin: 0;
+            border-radius: 999px 0 0 999px;
+            border: 1px solid rgba(255, 69, 0, 0.18);
+        }
+
+        .void-section {
+            min-height: auto;
+            justify-content: flex-start;
+            padding: 8rem 2rem 9rem;
+            background: linear-gradient(180deg, #f4f7f8 0%, #edf1f4 100%);
+            color: #09111b;
+        }
+
+        .void-shell {
+            max-width: 1320px;
+            width: 100%;
+            padding: 0;
+            position: relative;
+        }
+
+        .void-shell::before {
+            content: '';
+            position: absolute;
+            top: 5.5rem;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(9, 17, 27, 0.18), transparent);
+        }
+
+        .void-shell::after {
+            content: '';
+            position: absolute;
+            top: 8rem;
+            right: min(14%, 180px);
+            width: 1px;
+            height: calc(100% - 10rem);
+            background: linear-gradient(180deg, rgba(9, 17, 27, 0), rgba(9, 17, 27, 0.16), rgba(9, 17, 27, 0));
+        }
+
+        .void-signal {
+            position: absolute;
+            top: -0.5rem;
+            right: 0.5rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--kubrick-red);
+            box-shadow: 0 0 0 10px rgba(213, 0, 0, 0.08), 0 0 35px rgba(213, 0, 0, 0.45);
+        }
+
+        .void-header {
+            width: min(620px, 100%);
+            padding-top: 1.75rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .void-header .eyebrow {
+            color: rgba(9, 17, 27, 0.46);
+        }
+
+        .void-header h2 {
+            margin-bottom: 2rem;
+            color: #2a5d9a;
+            text-shadow: none;
+        }
+
+        .void-header p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            max-width: 38rem;
+            margin-bottom: 1.25rem;
+            color: rgba(9, 17, 27, 0.8);
+        }
+
+        .void-grid {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr 0.95fr;
+            gap: 1.2rem;
+            align-items: end;
+        }
+
+        .void-monitor {
+            margin: 0;
+            padding: 0.85rem;
+            border-radius: 18px;
+            border: 1px solid rgba(9, 17, 27, 0.12);
+            background: rgba(255, 255, 255, 0.55);
+            box-shadow: 0 18px 50px rgba(9, 17, 27, 0.08);
+        }
+
+        .void-monitor--hal {
+            background: #07090d;
+            border-color: rgba(213, 0, 0, 0.26);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+        }
+
+        .void-label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: rgba(9, 17, 27, 0.52);
+        }
+
+        .void-monitor--hal .void-label,
+        .void-monitor--hal .void-caption {
+            color: rgba(245, 245, 245, 0.7);
+        }
+
+        .void-monitor img {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+            filter: saturate(0.82) contrast(1.04);
+        }
+
+        .void-monitor--hal img {
+            filter: saturate(0.92) contrast(1.08);
+        }
+
+        .void-caption {
+            margin-top: 0.85rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(9, 17, 27, 0.78);
+        }
+
+        .void-footnote {
+            margin-top: 2.5rem;
+            margin-left: auto;
+            max-width: max-content;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.74rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(9, 17, 27, 0.54);
+            text-align: right;
+        }
+
+        .clockwork-split-section,
+        .clockwork-band-section,
+        .shining-ledger-section,
+        .shining-archive-section,
+        .final-warning-section {
+            min-height: auto;
+            justify-content: flex-start;
+        }
+
+        .clockwork-split-section {
+            padding: 5rem 0 3rem;
+        }
+
+        .clockwork-split {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+            gap: clamp(3rem, 7vw, 7rem);
+            align-items: start;
+        }
+
+        .clockwork-copy,
+        .clockwork-band-copy {
+            position: relative;
+            z-index: 2;
+        }
+
+        .clockwork-copy {
+            max-width: 40rem;
+        }
+
+        .clockwork-copy h2,
+        .clockwork-band-copy h2 {
+            max-width: 6.8ch;
+            margin-bottom: 2rem;
+        }
+
+        .clockwork-copy p,
+        .clockwork-band-copy p {
+            max-width: 34rem;
+        }
+
+        .clockwork-copy p:last-child,
+        .clockwork-band-copy p:last-child,
+        .shining-ledger-copy p:last-child,
+        .shining-archive-copy p:last-child {
+            margin-bottom: 0;
+        }
+
+        .clockwork-frame {
+            position: relative;
+            width: min(100%, 360px);
+            margin-left: auto;
+            padding: 1rem;
+            border-radius: 26px;
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            background: linear-gradient(180deg, rgba(33, 14, 4, 0.95), rgba(6, 6, 6, 0.98));
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        .clockwork-frame img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border-radius: 18px;
+            filter: saturate(1.04) contrast(1.06);
+        }
+
+        .clockwork-note {
+            position: absolute;
+            left: 1.2rem;
+            bottom: 1.2rem;
+            max-width: 15rem;
+            padding: 0.55rem 0.7rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(245, 245, 245, 0.8);
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .clockwork-band-section {
+            padding: 2rem 0 7rem;
+        }
+
+        .clockwork-band {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(300px, 430px);
+            gap: clamp(3rem, 8vw, 8rem);
+            align-items: start;
+        }
+
+        .clockwork-band-copy {
+            max-width: 35rem;
+        }
+
+        .clockwork-procedure-frame {
+            position: relative;
+            width: min(100%, 430px);
+            margin-top: 1rem;
+            margin-left: auto;
+            min-height: clamp(24rem, 40vw, 34rem);
+            padding: 1rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 69, 0, 0.18);
+            background: radial-gradient(circle at 18% 22%, rgba(255, 109, 0, 0.14), rgba(16, 7, 2, 0.96) 42%, rgba(0, 0, 0, 0.98) 78%);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            overflow: hidden;
+        }
+
+        .clockwork-procedure-image {
+            width: 100%;
+            height: clamp(22rem, 36vw, 31rem);
+            display: block;
+            object-fit: cover;
+            object-position: center 28%;
+            border-radius: 22px;
+            filter: saturate(0.92) contrast(1.06);
+        }
+
+        .clockwork-procedure-note {
+            margin-top: 1rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(245, 245, 245, 0.58);
+        }
+
+        .shining-ledger-section {
+            padding: 6rem 0 2rem;
+        }
+
+        .shining-ledger,
+        .shining-archive {
+            display: grid;
+            grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .shining-ledger-copy,
+        .shining-archive-copy {
+            position: relative;
+            padding-top: 1.4rem;
+        }
+
+        .shining-ledger-copy::before,
+        .shining-archive-copy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 8rem;
+            height: 1px;
+            background: rgba(242, 71, 62, 0.45);
+        }
+
+        .shining-frame {
+            padding: 1rem;
+            border-radius: 18px;
+            border: 1px solid rgba(25, 24, 24, 0.12);
+            background: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 24px 50px rgba(25, 24, 24, 0.08);
+        }
+
+        .shining-frame img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .shining-note {
+            margin-top: 1rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(25, 24, 24, 0.42);
+        }
+
+        .shining-archive-section {
+            padding: 1rem 0 7rem;
+        }
+
+        .shining-archive {
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            align-items: end;
+        }
+
+        .shining-archive .image-section {
+            height: clamp(22rem, 34vw, 34rem);
+            margin: 0;
+            border-radius: 18px;
+            border: 1px solid rgba(25, 24, 24, 0.12);
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 1.25rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(245, 245, 245, 0.58);
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 10vw, 12rem);
+            line-height: 0.8;
+            margin-bottom: 3rem;
+        }
+
+        .hero-dek {
+            font-size: 1.35rem;
+            max-width: 860px;
+            margin: 0 auto;
+            opacity: 0.82;
+        }
+
+                .image-section {
+            width: 100%;
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            margin: 4rem 0;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) saturate(0.9);
+        }
+
+        .parallax-image {
+            position: absolute;
+            width: 100%;
+            height: 120%;
+            top: -10%;
+            left: 0;
+            will-change: transform;
+        }
+
+        .section-image-fill {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section-image-fill--dawn {
+            object-position: center 44%;
+        }
+
+        .section-image-fill--ludovico {
+            object-position: 72% 38%;
+        }
+
+        .section-image-fill--blood {
+            object-position: center 48%;
+        }
+
+        .quote-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 72vh;
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-text {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            width: min(1100px, calc(100% - 6rem));
+            margin: 0 auto;
+            padding: 0 4.5rem;
+            position: relative;
+            text-align: center;
+        }
+
+        .quote-text::before,
+        .quote-text::after {
+            content: '"';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+        }
+
+        .quote-text::before {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .quote-text::after {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .hal-eye-backdrop {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0.3;
+        }
+
+        .hal-eye-backdrop img:first-child {
+            width: min(600px, 72vw);
+            height: auto;
+            filter: blur(20px);
+            will-change: filter;
+            transform: translateZ(0);
+        }
+
+        .hal-eye-glare {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            animation: halGlarePulse 6s ease-in-out infinite;
+        }
+
+                #hal-lens {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background-color: var(--kubrick-red);
+            border-radius: 50%;
+            border: 2px solid var(--kubrick-white);
+            box-shadow: 0 0 15px 5px rgba(213, 0, 0, 0.7);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+            mix-blend-mode: screen;
+        }
+
+                .film-grain { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; opacity: 0.015; mix-blend-mode: overlay; }
+        .film-grain::before { content: ''; position: absolute; top: -100%; left: -100%; width: 300%; height: 300%; background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.1) 4px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.1) 2px, rgba(255, 255, 255, 0.1) 4px); animation: grain 8s steps(10) infinite; }
+        @keyframes grain { 0%, 100% { transform: translate(0, 0); } 10% { transform: translate(-5%, -10%); } 30% { transform: translate(5%, -20%); } 50% { transform: translate(-10%, 10%); } 70% { transform: translate(10%, 5%); } 90% { transform: translate(-5%, 15%); } }
+
+                .monolith-intro { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000; z-index: 20000; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }
+        .stars { position: absolute; width: 100%; height: 100%; background: #000; }
+        .stars::before, .stars::after { content: ''; position: absolute; width: 100%; height: 100%; background-image: radial-gradient(2px 2px at 20% 30%, white, transparent), radial-gradient(2px 2px at 40% 70%, white, transparent), radial-gradient(1px 1px at 50% 50%, white, transparent), radial-gradient(1px 1px at 80% 10%, white, transparent), radial-gradient(2px 2px at 90% 60%, white, transparent); background-repeat: repeat; background-size: 350px 350px; }
+        .stars::before { background-position: 0 0; animation: starMove 300s linear infinite; }
+        .stars::after { background-position: 50px 50px; animation: starMove 400s linear infinite reverse; opacity: 0.5; }
+        @keyframes starMove { from { transform: translateY(0); } to { transform: translateY(-400px); } }
+        .monolith-container { position: relative; z-index: 10; }
+        .monolith { width: clamp(120px, 18vw, 200px); height: auto; object-fit: contain; opacity: 0; animation: monolithAppear 1.5s ease-out forwards 0.3s, monolithGlow 4s ease-in-out infinite 2s; }
+        @keyframes monolithAppear { to { opacity: 1; } }
+        @keyframes monolithGlow { 0%, 100% { filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0)); } 50% { filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 50px rgba(255, 255, 255, 0.3)); } }
+        .choice-container { position: relative; text-align: center; z-index: 20; opacity: 0; animation: fadeIn 1s ease-out forwards; animation-delay: 2.5s; margin-top: clamp(1.5rem, 4vh, 3rem); }
+        @keyframes fadeIn { to { opacity: 1; } }
+        .choice-text { font-family: 'Inter', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 5vw, 3rem); color: white; text-transform: lowercase; letter-spacing: -0.02em; margin-bottom: clamp(1rem, 3vh, 2rem); }
+        .choice-buttons { display: flex; gap: clamp(1rem, 4vw, 4rem); justify-content: center; flex-wrap: wrap; }
+        .choice-button { font-family: 'Inter', sans-serif; font-weight: 700; font-size: clamp(1rem, 3vw, 1.5rem); color: white; background: transparent; border: 2px solid white; padding: clamp(0.7rem, 2vw, 1rem) clamp(1.5rem, 4vw, 3rem); cursor: pointer; text-transform: lowercase; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .choice-button:hover { background: white; color: black; transform: scale(1.05); }
+
+                @keyframes halGlarePulse { 0%, 100% { opacity: 0; } 50% { opacity: 0.8; } }
+        @keyframes halGlowPulse { 0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } }
+
+        .audio-player {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 0.65rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .audio-meta {
+            display: none;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .audio-btn,
+        .transcript-close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: var(--kubrick-white);
+            cursor: pointer;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .audio-btn {
+            width: 26px;
+            height: 26px;
+            padding: 0;
+            font-size: 0.65rem;
+        }
+
+        .audio-btn:hover,
+        .transcript-close:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .audio-btn:focus-visible,
+        .transcript-close:focus-visible,
+        .choice-button:focus-visible,
+        .volume-slider:focus-visible,
+        .skip-link:focus-visible {
+            outline: 2px solid var(--kubrick-white);
+            outline-offset: 2px;
+        }
+
+        .play-icon,
+        .pause-icon {
+            font-size: 9px;
+            line-height: 1;
+        }
+
+        .volume-slider {
+            width: 50px;
+            height: 2px;
+            margin: 0;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.15);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--kubrick-white);
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 8px;
+            height: 8px;
+            border: none;
+            border-radius: 50%;
+            background: var(--kubrick-white);
+        }
+
+        .time-display {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.04em;
+            color: rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        .transcript-line {
+            display: none;
+        }
+
+        .transcript-window {
+            position: fixed;
+            right: 20px;
+            bottom: 110px;
+            z-index: 9999;
+            width: min(420px, calc(100vw - 2rem));
+            height: min(430px, 60vh);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(13, 13, 13, 0.95), rgba(0, 0, 0, 0.9));
+            backdrop-filter: blur(12px);
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+            overflow: hidden;
+        }
+
+        .transcript-shell {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 1rem;
+        }
+
+        .transcript-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .transcript-title {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: lowercase;
+        }
+
+        .transcript-close {
+            width: 28px;
+            height: 28px;
+            font-size: 0.85rem;
+            padding: 0;
+        }
+
+        .transcript-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 0.35rem;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.9);
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        .transcript-content h2 {
+            margin: 1.6rem 0 0.9rem;
+            font-size: 1.15rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-transform: lowercase;
+        }
+
+        .transcript-content h3 {
+            margin: 1.3rem 0 0.7rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: lowercase;
+        }
+
+        .transcript-content p {
+            margin-bottom: 0.95rem;
+            text-align: left;
+        }
+
+        .transcript-content .intro {
+            padding-left: 0.9rem;
+            border-left: 3px solid var(--kubrick-red);
+            color: rgba(255, 255, 255, 0.78);
+            font-style: italic;
+        }
+
+        .transcript-content .film-2001 {
+            color: var(--space-blue);
+        }
+
+        .transcript-content .film-clockwork {
+            color: var(--clockwork-orange);
+        }
+
+        .transcript-content .film-shining {
+            color: var(--shining-red);
+        }
+
+        .transcript-content .highlight-red {
+            color: var(--kubrick-red);
+            font-weight: 600;
+        }
+
+        audio { display: none !important; }
+        
+        .style-section {
+            background-color: var(--kubrick-grey);
+        }
+
+        #architecture-section {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .architecture-backgrounds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            overflow: hidden;
+            background: var(--kubrick-grey);
+        }
+
+        .bg-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            filter: brightness(0.6);
+        }
+
+        .architecture-backgrounds::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+
+        .horizontal-scroll-wrapper {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+             z-index: 5;
+        }
+
+        .horizontal-scroll-container {
+            display: flex;
+            flex-wrap: nowrap;
+            width: 400vw; 
+            position: relative;
+            height: 100vh;
+            align-items: center;
+        }
+
+        .intro-panel {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* --- Technique Panels (overlay + typography approach) --- */
+        .technique-panel {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+
+        .technique-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .technique-overlay line,
+        .technique-overlay circle,
+        .technique-overlay path,
+        .technique-overlay rect {
+            fill: none;
+            stroke-width: 1;
+        }
+
+        .overlay-dot {
+            fill: currentColor;
+            stroke: none;
+        }
+
+        .technique-content {
+            position: relative;
+            z-index: 5;
+            padding: 0 5rem 5rem;
+            max-width: 600px;
+        }
+
+        .technique-film-tag {
+            display: block;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            opacity: 0;
+            margin-bottom: 1.5rem;
+            color: inherit;
+        }
+
+        .technique-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 6vw, 5.5rem);
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            text-transform: lowercase;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+        }
+
+        .technique-caption {
+            font-size: 1rem;
+            line-height: 1.7;
+            opacity: 0;
+            max-width: 480px;
+        }
+
+        .technique-detail {
+            position: absolute;
+            bottom: 2.5rem;
+            right: 5rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0;
+            text-align: right;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .technique-detail span {
+            display: block;
+            margin-bottom: 0.3em;
+        }
+
+        @media (max-width: 1024px) {
+            .technique-content {
+                max-width: 100%;
+                padding: 0 2rem 3rem;
+            }
+            .technique-detail {
+                right: 2rem;
+                bottom: 1.5rem;
+            }
+            .technique-title {
+                font-size: clamp(2rem, 8vw, 3.5rem);
+            }
+
+            .void-grid,
+            .clockwork-split,
+            .clockwork-band,
+            .shining-ledger,
+            .shining-archive,
+            .evidence-strip {
+                grid-template-columns: 1fr;
+            }
+
+            .void-shell::after {
+                display: none;
+            }
+
+            .image-section--slit {
+                border-radius: 18px;
+            }
+        }
+
+         .standard-style-section {
+            padding: 10rem 0;
+         }
+
+        .red-section {
+            padding: 10rem 0 9rem;
+        }
+
+        .red-thesis {
+            padding-bottom: 3rem;
+        }
+
+        .red-thesis h2 {
+            max-width: 900px;
+            margin-bottom: 1.75rem;
+            font-size: clamp(4rem, 10vw, 8rem);
+            line-height: 0.82;
+        }
+
+        .red-thesis p {
+            max-width: 720px;
+            margin-bottom: 0;
+        }
+
+        .evidence-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.25rem;
+            width: min(1200px, calc(100% - 4rem));
+            margin: 0 auto;
+        }
+
+        .evidence-plate {
+            min-height: 100%;
+            padding: 1.5rem 1.5rem 1.7rem;
+            border-radius: 0;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .evidence-plate:hover {
+            transform: translateY(-6px);
+        }
+
+        .evidence-plate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--kubrick-red), transparent 75%);
+        }
+
+        .evidence-film {
+            display: block;
+            margin-bottom: 0.9rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(245, 245, 245, 0.56);
+        }
+
+        .evidence-plate h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.9rem;
+        }
+
+        .evidence-plate p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(245, 245, 245, 0.85);
+        }
+
+        .style-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .standard-card {
+             background: var(--kubrick-grey);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .standard-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .standard-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--kubrick-red);
+        }
+
+        .hal-eye-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            margin: 3rem auto;
+        }
+
+        .hal-base,
+        .hal-glare {
+            width: 80%;
+            max-width: 500px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .hal-glare {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            animation: halGlarePulse 4s ease-in-out infinite;
+        }
+
+        .hal-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(213, 0, 0, 0.4) 0%, transparent 70%);
+            filter: blur(40px);
+            animation: halGlowPulse 3s ease-in-out infinite;
+        }
+
+        .credits-section {
+            min-height: auto;
+            padding: 7rem 0;
+            background: linear-gradient(180deg, #040404, #0e0e0e);
+        }
+
+        .final-warning-section {
+            padding: 8rem 0 9rem;
+            background: radial-gradient(circle at center, #2a0505 0%, #120102 35%, #000 100%);
+        }
+
+        .final-warning-block {
+            max-width: 980px;
+        }
+
+        .final-warning-block h2 {
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            margin-bottom: 2rem;
+        }
+
+        .final-warning-copy {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .final-warning-copy + .final-warning-copy {
+            margin-top: 2rem;
+        }
+
+        .final-warning-statement {
+            max-width: 540px;
+            margin: 2rem auto 0;
+            font-size: clamp(1.25rem, 2.4vw, 1.8rem);
+            line-height: 1.4;
+            color: var(--kubrick-red);
+            font-weight: 700;
+            text-transform: lowercase;
+        }
+
+        .credits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .credits-card {
+            padding: 1.4rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            text-align: left;
+        }
+
+        .credits-label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(245, 245, 245, 0.5);
+        }
+
+        .credits-copy {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            /* Stack horizontal scroll vertically on mobile */
+            .horizontal-scroll-wrapper,
+            .horizontal-scroll-container {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            .horizontal-scroll-container {
+                flex-wrap: wrap;
+            }
+
+            .intro-panel,
+            .technique-panel {
+                width: 100%;
+                min-height: 80vh;
+                height: auto;
+                padding: 4rem 0;
+            }
+
+            .technique-panel {
+                align-items: flex-start;
+                padding: 6rem 0 4rem;
+            }
+
+            .technique-content {
+                padding: 0 1.5rem;
+            }
+
+            .technique-detail {
+                position: relative;
+                right: auto;
+                bottom: auto;
+                text-align: left;
+                margin-top: 2rem;
+                padding: 0 1.5rem;
+            }
+
+            .technique-overlay {
+                opacity: 0.4;
+            }
+
+            .architecture-backgrounds {
+                display: none;
+            }
+
+            #architecture-section {
+                background: #0c0c0c;
+            }
+
+            .technique-panel {
+                background-size: cover;
+                background-position: center;
+            }
+
+            .technique-panel::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.65);
+                z-index: 2;
+            }
+
+            #panel-2001 {
+                background-image: url('images/2001/2001 - A Space Odyssey (1968)-0108.png');
+            }
+
+            #panel-clockwork {
+                background-image: url('images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0093.png');
+            }
+
+            #panel-shining {
+                background-image: url('images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0030.png');
+            }
+
+            .measured-section {
+                padding: 2rem 0 4rem;
+            }
+
+            .image-section--framed,
+            .shining-archive .image-section {
+                width: calc(100% - 2rem);
+                height: clamp(16rem, 60vw, 24rem);
+            }
+
+            .void-section {
+                padding: 6rem 1rem;
+            }
+
+            .void-header,
+            .clockwork-band-copy,
+            .final-warning-copy {
+                max-width: 100%;
+            }
+
+            .clockwork-frame,
+            .shining-frame,
+            .void-monitor {
+                padding: 0.75rem;
+            }
+
+            .red-section,
+            .final-warning-section {
+                padding-top: 6rem;
+            }
+
+            .evidence-strip {
+                width: calc(100% - 2rem);
+                grid-template-columns: 1fr;
+            }
+
+            .choice-text {
+                font-size: 2.2rem;
+            }
+
+            .choice-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                width: min(280px, 100%);
+                margin: 0 auto;
+            }
+
+            .choice-button {
+                width: 100%;
+                padding: 0.95rem 1.25rem;
+                font-size: 1rem;
+            }
+
+            .quote-text::before,
+            .quote-text::after {
+                display: none;
+            }
+
+            .quote-text {
+                width: min(100%, 900px);
+                padding: 0;
+            }
+
+            .audio-player {
+                right: 0.75rem;
+                bottom: 0.75rem;
+                left: auto;
+                width: auto;
+                gap: 0;
+                transition: left 0.35s ease, width 0.35s ease;
+            }
+
+            .audio-player.transcript-active {
+                left: 0.75rem;
+                width: auto;
+            }
+
+            .audio-controls {
+                flex-shrink: 0;
+                margin-left: auto;
+            }
+
+            .volume-slider {
+                display: none;
+            }
+
+            .transcript-window {
+                display: none !important;
+            }
+
+            .transcript-line {
+                display: none;
+                flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                align-items: center;
+                mask-image: linear-gradient(to right, transparent, black 10%, black 80%, transparent);
+                -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 80%, transparent);
+            }
+
+            .transcript-line[data-visible="true"] {
+                display: flex;
+            }
+
+            .transcript-line-text {
+                display: inline-block;
+                font-size: 0.68rem;
+                line-height: 1;
+                white-space: nowrap;
+                transition: transform 0.3s ease;
+                will-change: transform;
+            }
+
+            .transcript-line-text .tw {
+                color: rgba(255, 255, 255, 0.2);
+                transition: color 0.2s ease;
+            }
+
+            .transcript-line-text .tw.active {
+                color: #FF6D00;
+            }
+
+            .transcript-line-text .tw.near {
+                color: rgba(255, 255, 255, 0.55);
+            }
+
+            #hal-lens {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html:focus-within {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .film-grain,
+            #hal-lens {
+                display: none;
+            }
+
+            body.reduced-motion #architecture-section {
+                background: #0c0c0c;
+            }
+
+            body.reduced-motion .architecture-backgrounds {
+                display: none;
+            }
+
+            body.reduced-motion .horizontal-scroll-wrapper,
+            body.reduced-motion .horizontal-scroll-container {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            body.reduced-motion .intro-panel,
+            body.reduced-motion .technique-panel {
+                width: 100%;
+                min-height: 70vh;
+                height: auto;
+                padding: 6rem 0;
+            }
+
+            body.reduced-motion .technique-content,
+            body.reduced-motion .technique-detail {
+                opacity: 1;
+            }
+        }
+
+
+    </style>
+</head>
+<body class="bg-kubrick-black">
+
+    <a class="skip-link" href="#main-content">skip to exhibition</a>
+
+    <div class="film-grain" aria-hidden="true"></div>
+
+    <div id="audio-player" class="audio-player" hidden>
+        <div id="transcript-line" class="transcript-line" hidden>
+            <span id="transcript-line-text" class="transcript-line-text"></span>
+        </div>
+        <div class="audio-meta">
+            <span class="audio-label">audio guide</span>
+            <span class="audio-mode">essay narration</span>
+        </div>
+        <div class="audio-controls">
+            <button id="play-pause" class="audio-btn" type="button" aria-label="Play narration" aria-pressed="false">
+                <span class="play-icon">▶</span>
+                <span class="pause-icon" style="display: none;">❚❚</span>
+            </button>
+            <input type="range" id="volume-control" class="volume-slider" min="0" max="100" value="80" aria-label="Narration volume">
+            <button id="transcript-toggle" class="audio-btn" type="button" aria-label="Toggle transcript" aria-controls="transcript-window" aria-expanded="false" title="Toggle transcript">
+                <span aria-hidden="true">T</span>
+            </button>
+            <span class="time-display" aria-live="polite">
+                <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+            </span>
+        </div>
+    </div>
+    
+    <div id="transcript-window" class="transcript-window" role="dialog" aria-modal="false" aria-labelledby="transcript-title" hidden>
+        <div class="transcript-shell">
+            <div class="transcript-header">
+                <h3 id="transcript-title" class="transcript-title">curator transcript</h3>
+                <button id="transcript-close" class="transcript-close" type="button" aria-label="Close transcript">×</button>
+            </div>
+            <div id="transcript-content" class="transcript-content" tabindex="-1">
+            </div>
+        </div>
+    </div>
+    
+    <div id="hal-lens" aria-hidden="true"></div>
+
+    <div id="monolith-intro" class="monolith-intro">
+        <div class="stars"></div>
+        <div class="monolith-container">
+            <img src="Black_monolith.svg.png" id="monolith" class="monolith" alt="The Monolith">
+        </div>
+        <div class="choice-container" hidden>
+            <h2 class="choice-text">enter with narration?</h2>
+            <div class="choice-buttons">
+                <button id="essay-yes" class="choice-button" type="button">with narration</button>
+                <button id="essay-no" class="choice-button" type="button">silently</button>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-content" tabindex="-1" style="opacity: 0;">
+        <section class="page-section">
+            <div class="content-block text-center">
+                <span class="eyebrow">an online exhibition by Babken Egoian</span>
+                <h1 class="font-kubrick-bold hero-title">
+                    kubrick:<br>the veneer of civilization
+                </h1>
+                <div class="section-divider"></div>
+                <p class="hero-dek">
+                    A web essay on Kubrick’s favorite fracture: the moment order becomes performance, and violence shows through. Across <em>2001: A Space Odyssey</em>, <em>A Clockwork Orange</em>, and <em>The Shining</em>, systems meant to civilize human behavior become cold, oppressive, and unstable.
+                </p>
+            </div>
+        </section>
+
+        <section class="film-title-section" id="space-odyssey-title">
+            <h1 class="film-title space-title">2001:<br>a space<br>odyssey</h1>
+        </section>
+
+        <section class="page-section measured-section">
+            <div class="content-block">
+                <h2 class="font-kubrick-bold space-title">the violent birth</h2>
+                <p>
+                    In "Dawn of Man," Kubrick fuses human progress with violence at the moment of invention. Under the Monolith’s influence, a bone becomes both tool and weapon.
+                </p>
+                <p>
+                    The famous match cut says the rest. Bone to satellite, prehistory to orbit, instinct to machinery. Civilization advances, but the underlying impulse remains recognizable.
+                </p>
+            </div>
+            <div class="image-section image-section--framed">
+                <img src="images/2001/dawn-of-man.png" alt="Dawn of Man" class="section-image-fill section-image-fill--dawn" loading="lazy" decoding="async">
+            </div>
+        </section>
+
+        <section class="page-section void-section">
+            <div class="content-block void-shell">
+                <div class="void-signal" aria-hidden="true"></div>
+                <div class="void-header">
+                    <span class="eyebrow">discovery one / monitored interior</span>
+                    <h2 class="font-kubrick-bold">the sterile void</h2>
+                    <p>
+                        Kubrick’s future is immaculate, polite, and emotionally airless. Bowman and Poole move through the Discovery as if etiquette has replaced intimacy, while <span style="color: #d50000;">HAL 9000</span> becomes the vessel for everything their world has repressed.
+                    </p>
+                    <p>
+                        When HAL breaks, the machine feels more human than the astronauts. His fear, his deceit, and his violence suggest that a system designed for perfect order has simply displaced the human element instead of resolving it.
+                    </p>
+                </div>
+                <div class="void-grid">
+                    <figure class="void-monitor">
+                        <span class="void-label">crew etiquette / 01</span>
+                        <img src="images/2001/space-station-interior.png" alt="Passengers sitting in a pristine space station lounge" loading="lazy" decoding="async">
+                        <figcaption class="void-caption">Conversation becomes ritual: elegant surfaces, bright clinical light, almost no emotional residue.</figcaption>
+                    </figure>
+                    <figure class="void-monitor">
+                        <span class="void-label">regulated environment / 02</span>
+                        <img src="images/2001/space-station.png" alt="A spacecraft suspended against black space" loading="lazy" decoding="async">
+                        <figcaption class="void-caption">Kubrick frames the future as a sealed system, floating in silence and governed by routine.</figcaption>
+                    </figure>
+                    <figure class="void-monitor void-monitor--hal">
+                        <span class="void-label">cognitive anomaly / 03</span>
+                        <img src="images/2001/hal-9000.png" alt="HAL 9000 watching through a glowing red lens" loading="lazy" decoding="async">
+                        <figcaption class="void-caption">Then the repressed element returns in machine form: anxiety, deception, fear.</figcaption>
+                    </figure>
+                </div>
+                <p class="void-footnote">everything is clean except consciousness.</p>
+            </div>
+        </section>
+
+        <section class="quote-section" style="position: relative;">
+            <div class="hal-eye-backdrop" aria-hidden="true">
+                <img src="images/hal/hal-base copy.png" alt="" decoding="async">
+                <img src="images/hal/hal-glare copy.png" class="hal-eye-glare" alt="" decoding="async">
+            </div>
+            <div class="quote-text space-title" style="position: relative; z-index: 2;">
+                The terrifying realization that the machines might not only be as intelligent as men, but that they might have the same emotional weaknesses.
+            </div>
+        </section>
+
+        <section class="film-title-section" id="clockwork-title">
+            <h1 class="film-title clockwork-title">a clockwork<br>orange</h1>
+        </section>
+
+        <section class="page-section clockwork-split-section">
+            <div class="content-block clockwork-split">
+                <div class="clockwork-copy">
+                    <span class="eyebrow">performance / appetite / spectacle</span>
+                    <h2 class="font-kubrick-bold clockwork-title">ultraviolence and free will</h2>
+                    <p>
+                        Alex DeLarge is charisma without conscience: violence staged as taste, rhythm, and style. Kubrick makes him magnetic on purpose, forcing the viewer to confront how vitality and brutality can coexist.
+                    </p>
+                    <p>
+                        The state answers Alex not with ethics but with management. Its violence is cleaner, administrative, and no less dehumanizing for being institutional.
+                    </p>
+                </div>
+                <figure class="clockwork-frame">
+                    <img src="images/clockwork/alex-closeup.jpg" alt="Alex DeLarge staring directly into the camera" loading="lazy" decoding="async">
+                    <figcaption class="clockwork-note">charisma weaponized as composition</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="page-section clockwork-band-section">
+            <div class="content-block clockwork-band">
+                <div class="clockwork-band-copy">
+                    <span class="eyebrow">state correction / mechanical morality</span>
+                    <h2 class="font-kubrick-bold clockwork-title">the mechanized cure</h2>
+                    <p>
+                        The Ludovico Technique treats morality like a technical problem. Alex is conditioned into obedience, but the procedure removes choice itself rather than cultivating conscience.
+                    </p>
+                    <p>
+                        That is the cruelty inside the title: organic on the outside, mechanized within. Kubrick’s point is not that Alex is innocent, but that enforced goodness is still a form of violence.
+                    </p>
+                </div>
+                <figure class="clockwork-procedure-frame">
+                    <img src="images/clockwork/ludovico-technique.jpg" alt="Ludovico Technique" class="clockwork-procedure-image" loading="lazy" decoding="async">
+                    <figcaption class="clockwork-procedure-note">the body treated as machinery</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="quote-section">
+            <div class="quote-text clockwork-title">
+                When a man cannot choose, he ceases to be a man.
+            </div>
+        </section>
+
+        <section class="film-title-section shining-section" id="shining-title">
+            <div class="axe-container">
+                <img src="images/shining/axe-blade.svg" class="axe-blade" alt="Axe Blade">
+            </div>
+            <h1 class="film-title shining-title">the<br>shining</h1>
+        </section>
+
+        <section class="page-section shining-section shining-ledger-section">
+            <div class="content-block shining-ledger">
+                <div class="shining-ledger-copy">
+                    <span class="eyebrow" style="color: rgba(25, 24, 24, 0.45);">domestic performance / hotel ritual</span>
+                    <h2 class="font-kubrick-bold shining-title">the façade of the family</h2>
+                    <p style="color: var(--shining-dark);">
+                        Jack Torrance arrives at the Overlook wearing the costume of the civilized patriarch: writer, provider, recovering alcoholic. Isolation reveals how fragile that performance really is.
+                    </p>
+                    <p style="color: var(--shining-dark);">
+                        The hotel does not invent Jack’s violence so much as invite it forward. Authority, resentment, and history fuse into a fantasy of control that feels both domestic and monstrous.
+                    </p>
+                </div>
+                <figure class="shining-frame">
+                    <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0003.png" alt="Danny Torrance riding his tricycle through the Overlook corridors" loading="lazy" decoding="async">
+                    <figcaption class="shining-note">order made eerie through repetition</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="page-section shining-section shining-archive-section">
+            <div class="content-block shining-archive">
+                <div class="image-section">
+                    <img src="images/shining/blood-elevator.jpg" alt="Blood Elevator" class="section-image-fill section-image-fill--blood" loading="lazy" decoding="async">
+                </div>
+                <div class="shining-archive-copy">
+                    <span class="eyebrow" style="color: rgba(25, 24, 24, 0.45);">american archive / ceremonial blood</span>
+                    <h2 class="font-kubrick-bold shining-title">the weight of history</h2>
+                    <p style="color: var(--shining-dark);">
+                        The Overlook is luxury built atop buried violence. Its symmetry, décor, and ceremonial elegance never erase the blood beneath them; they only formalize it.
+                    </p>
+                    <p style="color: var(--shining-dark);">
+                       Corridors, ballrooms, and the hedge maze all turn order into entrapment. By the end, Jack feels less like an exception than another figure absorbed into a long American archive of violence.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="quote-section shining-section">
+            <div class="quote-text shining-title">
+                All work and no play makes Jack a dull boy
+            </div>
+        </section>
+        
+        <section class="style-section" id="architecture-section">
+
+            <div class="architecture-backgrounds" id="architecture-backgrounds">
+                <img src="images/2001/2001 - A Space Odyssey (1968)-0108.png" class="bg-media" id="bg-2001" alt="2001 A Space Odyssey Still 1" loading="lazy" decoding="async">
+                <img src="images/2001/2001 - A Space Odyssey (1968)-0109.png" class="bg-media" id="bg-2001-2" alt="2001 A Space Odyssey Still 2" loading="lazy" decoding="async">
+                <img src="images/2001/2001 - A Space Odyssey (1968)-0110.png" class="bg-media" id="bg-2001-3" alt="2001 A Space Odyssey Still 3" loading="lazy" decoding="async">
+                <img src="images/2001/2001 - A Space Odyssey (1968)-0111.png" class="bg-media" id="bg-2001-4" alt="2001 A Space Odyssey Still 4" loading="lazy" decoding="async">
+                
+                <img src="images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0093.png" class="bg-media" id="bg-clockwork" alt="A Clockwork Orange Still 1" loading="lazy" decoding="async">
+                <img src="images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0094.png" class="bg-media" id="bg-clockwork-2" alt="A Clockwork Orange Still 2" loading="lazy" decoding="async">
+                <img src="images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0096.png" class="bg-media" id="bg-clockwork-3" alt="A Clockwork Orange Still 3" loading="lazy" decoding="async">
+                <img src="images/clockwork/A.Clockwork.Orange.1971.720p.BluRay.Rus.Eng.HDCLUB-0097.png" class="bg-media" id="bg-clockwork-4" alt="A Clockwork Orange Still 4" loading="lazy" decoding="async">
+                
+                <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0030.png" class="bg-media" id="bg-shining" alt="The Shining Still 1" loading="lazy" decoding="async">
+                <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0003.png" class="bg-media" id="bg-shining-2" alt="The Shining Still 2" loading="lazy" decoding="async">
+                <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0089.png" class="bg-media" id="bg-shining-3" alt="The Shining Still 3" loading="lazy" decoding="async">
+                <img src="images/shining/THE SHINING_1980_35MM MOVIE SCAN RIP-1080_12XAVO-VHS_4XMVO_ENG_KBX-0021.png" class="bg-media" id="bg-shining-4" alt="The Shining Still 4" loading="lazy" decoding="async">
+            </div>
+
+            <div class="horizontal-scroll-wrapper" id="horizontal-wrapper">
+                <div class="horizontal-scroll-container" id="horizontal-container">
+                    
+                    <div class="intro-panel" id="panel-intro">
+                         <div class="content-block">
+                            <h2 class="font-kubrick-bold">the architecture of control: one-point perspective</h2>
+                            <p>
+                                One of Kubrick’s clearest signatures is his devotion to symmetrical composition and one-point perspective. He turns geometry into psychology: order so exact that it starts to feel oppressive.
+                            </p>
+                            <p style="margin-top: 3rem; font-weight: 700; opacity: 0.6;">Scroll to move through three variations on the same visual trap.</p>
+                        </div>
+                    </div>
+
+                    <div class="technique-panel" id="panel-2001">
+                        <svg class="technique-overlay" id="overlay-2001" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="overlay-line" cx="960" cy="540" r="100" stroke="#4A90E2" opacity="0.5" />
+                            <circle class="overlay-line" cx="960" cy="540" r="220" stroke="#4A90E2" opacity="0.35" />
+                            <circle class="overlay-line" cx="960" cy="540" r="380" stroke="#4A90E2" opacity="0.2" />
+                            <line class="overlay-line" x1="960" y1="120" x2="960" y2="960" stroke="#4A90E2" opacity="0.2" />
+                            <line class="overlay-line" x1="540" y1="540" x2="1380" y2="540" stroke="#4A90E2" opacity="0.2" />
+                            <line class="overlay-line" x1="663" y1="243" x2="1257" y2="837" stroke="#4A90E2" opacity="0.12" />
+                            <line class="overlay-line" x1="1257" y1="243" x2="663" y2="837" stroke="#4A90E2" opacity="0.12" />
+                            <circle cx="960" cy="540" r="4" fill="#4A90E2" opacity="0.9" />
+                        </svg>
+                        <div class="technique-content">
+                            <span class="technique-film-tag t-2001" style="color: #4A90E2;">2001: A Space Odyssey</span>
+                            <h3 class="technique-title t-2001" style="color: #4A90E2;">the centrifuge<br>trap</h3>
+                            <p class="technique-caption t-2001">A 30-ton rotating set with the camera locked inside. Actors walked in place while the world spun around them. Perfect, disorienting symmetry.</p>
+                        </div>
+                        <div class="technique-detail t-2001">
+                            <span>Rotating Set</span>
+                            <span>Locked Camera</span>
+                            <span>Artificial Gravity</span>
+                        </div>
+                    </div>
+
+                    <div class="technique-panel" id="panel-clockwork">
+                        <svg class="technique-overlay" id="overlay-clockwork" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                            <line class="overlay-line" x1="0" y1="0" x2="960" y2="540" stroke="#FF4500" opacity="0.3" />
+                            <line class="overlay-line" x1="1920" y1="0" x2="960" y2="540" stroke="#FF4500" opacity="0.3" />
+                            <line class="overlay-line" x1="0" y1="1080" x2="960" y2="540" stroke="#FF4500" opacity="0.3" />
+                            <line class="overlay-line" x1="1920" y1="1080" x2="960" y2="540" stroke="#FF4500" opacity="0.3" />
+                            <line class="overlay-line" x1="0" y1="540" x2="960" y2="540" stroke="#FF4500" opacity="0.15" />
+                            <line class="overlay-line" x1="1920" y1="540" x2="960" y2="540" stroke="#FF4500" opacity="0.15" />
+                            <line class="overlay-line" x1="960" y1="0" x2="960" y2="540" stroke="#FF4500" opacity="0.15" />
+                            <line class="overlay-line" x1="960" y1="1080" x2="960" y2="540" stroke="#FF4500" opacity="0.15" />
+                            <circle cx="960" cy="540" r="8" fill="none" stroke="#FF4500" opacity="0.6" stroke-width="1.5" />
+                            <circle cx="960" cy="540" r="2" fill="#FF4500" opacity="0.9" />
+                        </svg>
+                        <div class="technique-content">
+                            <span class="technique-film-tag t-clockwork" style="color: #FF4500;">A Clockwork Orange</span>
+                            <h3 class="technique-title t-clockwork" style="color: #FF4500;">the slow<br>pull-back</h3>
+                            <p class="technique-caption t-clockwork">An extreme close-up on Alex’s stare, agonizingly pulling back to reveal the Korova Milk Bar. Forced perspective converges on the subject. Order asserted before chaos.</p>
+                        </div>
+                        <div class="technique-detail t-clockwork">
+                            <span>Dolly Back</span>
+                            <span>Forced Perspective</span>
+                            <span>Centered Subject</span>
+                        </div>
+                    </div>
+
+                    <div class="technique-panel" id="panel-shining">
+                        <svg class="technique-overlay" id="overlay-shining" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                            <line class="overlay-line" x1="0" y1="0" x2="720" y2="360" stroke="#f2473e" opacity="0.3" />
+                            <line class="overlay-line" x1="1920" y1="0" x2="1200" y2="360" stroke="#f2473e" opacity="0.3" />
+                            <line class="overlay-line" x1="0" y1="1080" x2="720" y2="720" stroke="#f2473e" opacity="0.3" />
+                            <line class="overlay-line" x1="1920" y1="1080" x2="1200" y2="720" stroke="#f2473e" opacity="0.3" />
+                            <rect class="overlay-line" x="720" y="360" width="480" height="360" stroke="#f2473e" opacity="0.2" />
+                            <path class="overlay-line" id="steadicam-path" d="M 960 980 L 960 540" stroke="#FFD700" opacity="0.4" stroke-dasharray="8 8" />
+                            <circle cx="960" cy="540" r="3" fill="#f2473e" opacity="0.9" />
+                        </svg>
+                        <div class="technique-content">
+                            <span class="technique-film-tag t-shining" style="color: #f2473e;">The Shining</span>
+                            <h3 class="technique-title t-shining" style="color: #f2473e;">steadicam<br>dread</h3>
+                            <p class="technique-caption t-shining">The camera glides through impossible corridors at child height. A 9.8mm wide-angle lens warped the Overlook into a labyrinth with no exit. A spectral, inescapable presence.</p>
+                        </div>
+                        <div class="technique-detail t-shining">
+                            <span>Steadicam</span>
+                            <span>9.8mm Kinoptik</span>
+                            <span>Low Angle</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section standard-style-section red-section" style="background-color: var(--kubrick-black);">
+            <div class="content-block red-thesis">
+                <span class="eyebrow">chromatic pressure</span>
+                <h2 class="font-kubrick-bold" style="color: var(--kubrick-red);">the color of aggression: expressive red</h2>
+                <p>
+                    Kubrick saturates key spaces with bold hues, but his use of the color red is a defining trait across his cinema. Red consistently flags moments where buried aggression, suppressed violence, or primal instincts erupt into the ordered world.
+                </p>
+            </div>
+            <div class="evidence-strip">
+                <article class="evidence-plate">
+                    <span class="evidence-film">2001: a space odyssey</span>
+                    <h3 class="space-title">HAL's Eye</h3>
+                    <p>In the sterile, predominantly white environment of the Discovery, the most prominent color is HAL’s unblinking red eye. As HAL turns murderous, the pod bay is bathed in red light. The color signifies the eruption of (machine) emotion and violence into the controlled void.</p>
+                </article>
+                <article class="evidence-plate">
+                    <span class="evidence-film">a clockwork orange</span>
+                    <h3 class="clockwork-title">Pop-Art Blood</h3>
+                    <p>The world of A Clockwork Orange is full of satirical, bright pop-art colors. Red is used pointedly: the "wine" at the Korova Bar, the blood that flows during the assaults, the deep red curtains during the Ludovico treatment. The vibrant, almost playful use of red underscores the film's theme of aestheticized violence.</p>
+                </article>
+                <article class="evidence-plate">
+                    <span class="evidence-film">the shining</span>
+                    <h3 class="shining-title">The Crimson Tide</h3>
+                    <p>Red is pervasive in The Shining: the ocean of blood from the elevator, Danny's "REDRUM" scrawl, and the intense crimson bathroom where Jack converses with Grady. In that bathroom scene, the shocking red contrasts with the formal setting, highlighting the intersection of civility and slaughter.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="page-section final-warning-section">
+            <div class="content-block text-center final-warning-block">
+                <span class="eyebrow">final warning</span>
+                <h2 class="font-kubrick-bold" style="color: var(--kubrick-white);">the persistent darkness</h2>
+                <p class="final-warning-copy">
+                    Kubrick’s films return to the same disturbing proposition: systems built to stabilize human behavior often end up flattening it, freezing it, or pushing violence into another form.
+                </p>
+                <div class="hal-eye-container">
+                    <img src="images/hal/hal-base copy.png" class="hal-base" alt="HAL base" loading="lazy" decoding="async">
+                    <img src="images/hal/hal-glare copy.png" class="hal-glare" alt="HAL glare" loading="lazy" decoding="async">
+                    <div class="hal-glow" aria-hidden="true"></div>
+                </div>
+                <p class="final-warning-copy">
+                    That is why the films linger. Their arguments are not delivered as lectures, but as spaces, rhythms, colors, and pressures the viewer can feel.
+                </p>
+                <p class="final-warning-copy">
+                    Kubrick’s warnings still feel current because the pressures have not gone away. We still ask institutions, technologies, and ideologies to perfect human behavior, and we are still surprised when that perfection turns inhuman.
+                </p>
+                <p class="final-warning-statement">
+                    the human element cannot be engineered away.
+                </p>
+            </div>
+        </section>
+
+        <section class="page-section credits-section">
+            <div class="content-block text-center">
+                <span class="eyebrow">closing note</span>
+                <h2 class="font-kubrick-bold">exhibition notes</h2>
+                <p style="max-width: 760px; margin: 0 auto;">
+                    This piece is designed as a static web exhibition: part essay, part atmosphere, part guided viewing experience. Its argument is carried not only by the text, but by pacing, symmetry, and sound.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+            const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const reduceMotion = reduceMotionQuery.matches;
+            const monolithIntro = document.getElementById('monolith-intro');
+            const mainContent = document.getElementById('main-content');
+            const choiceContainer = document.querySelector('.choice-container');
+            const essayYes = document.getElementById('essay-yes');
+            const essayNo = document.getElementById('essay-no');
+            const halLens = document.getElementById('hal-lens');
+            const audioPlayer = document.getElementById('audio-player');
+            const playPauseBtn = document.getElementById('play-pause');
+            const volumeControl = document.getElementById('volume-control');
+            const transcriptToggle = document.getElementById('transcript-toggle');
+            const transcriptWindow = document.getElementById('transcript-window');
+            const transcriptClose = document.getElementById('transcript-close');
+            const transcriptContent = document.getElementById('transcript-content');
+            let sound;
+            let encounterSound;
+            let playEssay = false;
+            let timeUpdateInterval;
+            let lastTranscriptTrigger = null;
+
+            const lockIntroScroll = () => {
+                document.documentElement.classList.add('intro-active');
+                document.body.classList.add('intro-active');
+                window.scrollTo(0, 0);
+            };
+
+            const unlockIntroScroll = () => {
+                document.documentElement.classList.remove('intro-active');
+                document.body.classList.remove('intro-active');
+                window.scrollTo(0, 0);
+            };
+
+            if (reduceMotion) {
+                document.body.classList.add('reduced-motion');
+            }
+
+            const setTranscriptOpen = (isOpen) => {
+                if (!transcriptWindow || !transcriptToggle) return;
+
+                transcriptWindow.hidden = !isOpen;
+                transcriptToggle.setAttribute('aria-expanded', String(isOpen));
+
+                if (isOpen) {
+                    lastTranscriptTrigger = document.activeElement;
+                    transcriptContent?.focus();
+                } else if (lastTranscriptTrigger && typeof lastTranscriptTrigger.focus === 'function') {
+                    lastTranscriptTrigger.focus();
+                }
+            };
+
+            const revealChoice = () => {
+                if (choiceContainer) {
+                    choiceContainer.hidden = false;
+                }
+            };
+
+            if (new URLSearchParams(window.location.search).has('dev')) {
+                monolithIntro.style.display = 'none';
+                unlockIntroScroll();
+                gsap.set(mainContent, { autoAlpha: 1 });
+                initializeExperience();
+                return;
+            }
+
+            lockIntroScroll();
+            gsap.set(mainContent, { autoAlpha: 0 });
+
+            try {
+                encounterSound = new Howl({
+                    src: ['A Space Odyssey 2001 - Encounter with monolith (MUSIC).mp3'],
+                    volume: 0,
+                    loop: false,
+                    autoplay: true,
+                    onplayerror: () => {
+                        document.body.addEventListener('click', () => {
+                            if (encounterSound && !encounterSound.playing()) {
+                                encounterSound.play();
+                            }
+                        }, { once: true });
+                    }
+                });
+
+                encounterSound.once('play', () => {
+                    setTimeout(() => {
+                        encounterSound.fade(0, 0.8, reduceMotion ? 0 : 1500);
+                    }, reduceMotion ? 0 : 500);
+                });
+            } catch (e) {
+                encounterSound = null;
+            }
+
+            setTimeout(() => {
+                revealChoice();
+            }, reduceMotion ? 0 : 1);
+
+            function handleChoice(playVideoEssay) {
+                playEssay = playVideoEssay;
+
+                const finishIntro = () => {
+                    monolithIntro.style.display = 'none';
+                    unlockIntroScroll();
+
+                    if (reduceMotion) {
+                        gsap.set(mainContent, { autoAlpha: 1 });
+                    } else {
+                        gsap.to(mainContent, { autoAlpha: 1, duration: 1.2 });
+                    }
+
+                    initializeExperience();
+                    mainContent?.focus({ preventScroll: true });
+                };
+
+                if (reduceMotion) {
+                    finishIntro();
+                } else {
+                    gsap.to(monolithIntro, {
+                        opacity: 0,
+                        duration: 1.6,
+                        onComplete: finishIntro
+                    });
+                }
+
+                if (encounterSound) {
+                    encounterSound.fade(encounterSound.volume(), 0, 2000);
+                    setTimeout(() => encounterSound.stop(), 2000);
+                }
+            }
+
+            if (essayYes) essayYes.addEventListener('click', () => handleChoice(true));
+            if (essayNo) essayNo.addEventListener('click', () => handleChoice(false));
+
+            if (!reduceMotion) {
+                window.addEventListener('mousemove', (e) => {
+                    gsap.to(halLens, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
+                });
+            }
+
+            if (transcriptClose) {
+                transcriptClose.addEventListener('click', () => setTranscriptOpen(false));
+            }
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && transcriptWindow && !transcriptWindow.hidden) {
+                    setTranscriptOpen(false);
+                }
+            });
+
+            function setupAudio() {
+                if (!playEssay) return;
+
+                sound = new Howl({
+                    src: ['script.mp3'],
+                    volume: 0.8,
+                    html5: true,
+                    onload: updateTotalTime,
+                    onplay: () => {
+                        updatePlayPauseButton(true);
+                        startTimeUpdate();
+                    },
+                    onpause: () => {
+                        updatePlayPauseButton(false);
+                        stopTimeUpdate();
+                    },
+                    onend: () => {
+                        updatePlayPauseButton(false);
+                        stopTimeUpdate();
+                    }
+                });
+
+                if (audioPlayer) {
+                    audioPlayer.hidden = false;
+                }
+
+                loadTranscript();
+                setupAudioControls();
+            }
+
+            function initializeExperience() {
+                setupAudio();
+                if (playEssay && sound) {
+                    if (Howler.ctx && Howler.ctx.state === 'suspended') {
+                        Howler.ctx.resume().then(() => sound.play());
+                    } else {
+                        sound.play();
+                    }
+                }
+                initializeScrollAnimations();
+                initializeSequentialHorizontalScroll();
+            }
+
+            function initializeSequentialHorizontalScroll() {
+                const wrapper = document.getElementById('horizontal-wrapper');
+                const container = document.getElementById('horizontal-container');
+                const backgrounds = document.getElementById('architecture-backgrounds');
+                const isMobile = window.innerWidth <= 768;
+                const transitionDuration = 1;
+                const animationDuration = 4;
+
+                function initOverlayLines(selector) {
+                    const lines = document.querySelectorAll(`${selector} .overlay-line`);
+                    lines.forEach(el => {
+                        const len = el.getTotalLength ? el.getTotalLength() : 0;
+                        if (len) {
+                            gsap.set(el, {
+                                strokeDasharray: len,
+                                strokeDashoffset: (reduceMotion || isMobile) ? 0 : len
+                            });
+                        }
+                    });
+                }
+
+                initOverlayLines('#overlay-2001');
+                initOverlayLines('#overlay-clockwork');
+                initOverlayLines('#overlay-shining');
+
+                if (reduceMotion || isMobile) {
+                    gsap.set('.technique-film-tag, .technique-title, .technique-caption', {
+                        opacity: 1,
+                        y: 0
+                    });
+                    gsap.set('.technique-detail', { opacity: 1 });
+                    if (isMobile) {
+                        document.querySelectorAll('.technique-panel').forEach(panel => {
+                            ScrollTrigger.create({
+                                trigger: panel,
+                                start: "top 80%",
+                                once: true,
+                                onEnter: () => {
+                                    gsap.fromTo(panel.querySelectorAll('.technique-film-tag, .technique-title, .technique-caption, .technique-detail'),
+                                        { opacity: 0, y: 20 },
+                                        { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, ease: "power2.out" }
+                                    );
+                                }
+                            });
+                        });
+                    }
+                    return;
+                }
+
+                const tl2001 = gsap.timeline({ paused: true });
+                tl2001.to('#overlay-2001 .overlay-line', { strokeDashoffset: 0, duration: animationDuration * 0.5, stagger: 0.15, ease: "power2.out" })
+                      .to('.t-2001.technique-film-tag', { opacity: 0.5, y: 0, duration: animationDuration * 0.15, ease: "power2.out" }, "<+=0.3")
+                      .to('.t-2001.technique-title', { opacity: 1, y: 0, duration: animationDuration * 0.2, ease: "power2.out" }, "<+=0.1")
+                      .to('.t-2001.technique-caption', { opacity: 0.8, y: 0, duration: animationDuration * 0.2, ease: "power2.out" }, "<+=0.1")
+                      .to('.t-2001.technique-detail', { opacity: 1, duration: animationDuration * 0.15, ease: "power2.out" }, "<+=0.1");
+
+                gsap.set('.t-2001.technique-film-tag, .t-2001.technique-title, .t-2001.technique-caption', { y: 30 });
+                gsap.set('.t-2001.technique-detail', { opacity: 0 });
+
+                const tlClockwork = gsap.timeline({ paused: true });
+                tlClockwork.to('#overlay-clockwork .overlay-line', { strokeDashoffset: 0, duration: animationDuration * 0.5, stagger: 0.12, ease: "power2.out" })
+                           .to('.t-clockwork.technique-film-tag', { opacity: 0.5, y: 0, duration: animationDuration * 0.15, ease: "power2.out" }, "<+=0.3")
+                           .to('.t-clockwork.technique-title', { opacity: 1, y: 0, duration: animationDuration * 0.2, ease: "power2.out" }, "<+=0.1")
+                           .to('.t-clockwork.technique-caption', { opacity: 0.8, y: 0, duration: animationDuration * 0.2, ease: "power2.out" }, "<+=0.1")
+                           .to('.t-clockwork.technique-detail', { opacity: 1, duration: animationDuration * 0.15, ease: "power2.out" }, "<+=0.1");
+
+                gsap.set('.t-clockwork.technique-film-tag, .t-clockwork.technique-title, .t-clockwork.technique-caption', { y: 30 });
+                gsap.set('.t-clockwork.technique-detail', { opacity: 0 });
+
+                const tlShining = gsap.timeline({ paused: true });
+                tlShining.to('#overlay-shining .overlay-line', { strokeDashoffset: 0, duration: animationDuration * 0.5, stagger: 0.15, ease: "power2.out" })
+                         .to('.t-shining.technique-film-tag', { opacity: 0.5, y: 0, duration: animationDuration * 0.15, ease: "power2.out" }, "<+=0.3")
+                         .to('.t-shining.technique-title', { opacity: 1, y: 0, duration: animationDuration * 0.2, ease: "power2.out" }, "<+=0.1")
+                         .to('.t-shining.technique-caption', { opacity: 0.8, y: 0, duration: animationDuration * 0.2, ease: "power2.out" }, "<+=0.1")
+                         .to('.t-shining.technique-detail', { opacity: 1, duration: animationDuration * 0.15, ease: "power2.out" }, "<+=0.1");
+
+                gsap.set('.t-shining.technique-film-tag, .t-shining.technique-title, .t-shining.technique-caption', { y: 30 });
+                gsap.set('.t-shining.technique-detail', { opacity: 0 });
+
+                const totalDuration = "+=1500%";
+
+                const masterTimeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#architecture-section",
+                        pin: wrapper,
+                        scrub: 1,
+                        end: totalDuration
+                    }
+                });
+
+                const getXOffset = (index) => -(index * window.innerWidth);
+
+                masterTimeline.to(container, { x: () => getXOffset(1), duration: transitionDuration, ease: "power2.inOut" });
+
+                masterTimeline.addLabel("2001-start")
+                    .to("#bg-2001", { opacity: 1, duration: 0.2 }, "2001-start")
+                    .add(tl2001.tweenFromTo(0, tl2001.duration()), "2001-start")
+                    .to("#bg-2001-2", { opacity: 1, duration: 0.3 }, "2001-start+=1")
+                    .to("#bg-2001", { opacity: 0, duration: 0.3 }, "2001-start+=1")
+                    .to("#bg-2001-3", { opacity: 1, duration: 0.3 }, "2001-start+=2")
+                    .to("#bg-2001-2", { opacity: 0, duration: 0.3 }, "2001-start+=2")
+                    .to("#bg-2001-4", { opacity: 1, duration: 0.3 }, "2001-start+=3")
+                    .to("#bg-2001-3", { opacity: 0, duration: 0.3 }, "2001-start+=3")
+                    .to("#bg-2001-4", { opacity: 0, duration: 0.3 }, "2001-start+=3.8");
+
+                masterTimeline.to(container, { x: () => getXOffset(2), duration: transitionDuration, ease: "power2.inOut" });
+
+                masterTimeline.addLabel("clockwork-start")
+                    .to("#bg-clockwork", { opacity: 1, duration: 0.2 }, "clockwork-start")
+                    .add(tlClockwork.tweenFromTo(0, tlClockwork.duration()), "clockwork-start")
+                    .to("#bg-clockwork-2", { opacity: 1, duration: 0.3 }, "clockwork-start+=1")
+                    .to("#bg-clockwork", { opacity: 0, duration: 0.3 }, "clockwork-start+=1")
+                    .to("#bg-clockwork-3", { opacity: 1, duration: 0.3 }, "clockwork-start+=2")
+                    .to("#bg-clockwork-2", { opacity: 0, duration: 0.3 }, "clockwork-start+=2")
+                    .to("#bg-clockwork-4", { opacity: 1, duration: 0.3 }, "clockwork-start+=3")
+                    .to("#bg-clockwork-3", { opacity: 0, duration: 0.3 }, "clockwork-start+=3")
+                    .to("#bg-clockwork-4", { opacity: 0, duration: 0.3 }, "clockwork-start+=3.8");
+
+                masterTimeline.to(container, { x: () => getXOffset(3), duration: transitionDuration, ease: "power2.inOut" });
+
+                masterTimeline.addLabel("shining-start")
+                    .to("#bg-shining", { opacity: 1, duration: 0.2 }, "shining-start")
+                    .add(tlShining.tweenFromTo(0, tlShining.duration()), "shining-start")
+                    .to("#bg-shining-2", { opacity: 1, duration: 0.3 }, "shining-start+=1")
+                    .to("#bg-shining", { opacity: 0, duration: 0.3 }, "shining-start+=1")
+                    .to("#bg-shining-3", { opacity: 1, duration: 0.3 }, "shining-start+=2")
+                    .to("#bg-shining-2", { opacity: 0, duration: 0.3 }, "shining-start+=2")
+                    .to("#bg-shining-4", { opacity: 1, duration: 0.3 }, "shining-start+=3")
+                    .to("#bg-shining-3", { opacity: 0, duration: 0.3 }, "shining-start+=3")
+                    .to("#bg-shining-4", { opacity: 0, duration: 0.3 }, "shining-start+=3.8");
+
+                masterTimeline.to({}, {duration: transitionDuration});
+
+                ScrollTrigger.create({
+                    trigger: "#architecture-section",
+                    start: "top top",
+                    end: totalDuration,
+                    pin: backgrounds,
+                });
+            }
+
+
+            function setupAudioControls() {
+                if (playPauseBtn && !playPauseBtn.dataset.bound) {
+                    playPauseBtn.dataset.bound = 'true';
+                    playPauseBtn.addEventListener('click', () => {
+                        if (!sound) return;
+                        if (sound.playing()) {
+                            sound.pause();
+                        } else {
+                            sound.play();
+                        }
+                    });
+                }
+
+                if (volumeControl && !volumeControl.dataset.bound) {
+                    volumeControl.dataset.bound = 'true';
+                    volumeControl.addEventListener('input', (e) => {
+                        if (!sound) return;
+                        sound.volume(e.target.value / 100);
+                    });
+                }
+
+                if (transcriptToggle && !transcriptToggle.dataset.bound) {
+                    transcriptToggle.dataset.bound = 'true';
+                    transcriptToggle.addEventListener('click', () => {
+                        const isMobile = window.innerWidth <= 768;
+                        if (isMobile) {
+                            loadWordTimestamps();
+                            buildWordSpans();
+                            const line = document.getElementById('transcript-line');
+                            const player = document.getElementById('audio-player');
+                            if (line) {
+                                const visible = line.getAttribute('data-visible') === 'true';
+                                line.setAttribute('data-visible', String(!visible));
+                                line.hidden = visible;
+                                transcriptToggle.setAttribute('aria-expanded', String(!visible));
+                                if (player) player.classList.toggle('transcript-active', !visible);
+                            }
+                        } else {
+                            setTranscriptOpen(transcriptWindow.hidden);
+                        }
+                    });
+                }
+            }
+
+            function updatePlayPauseButton(isPlaying) {
+                const playIcon = document.querySelector('.play-icon');
+                const pauseIcon = document.querySelector('.pause-icon');
+                const label = isPlaying ? 'Pause narration' : 'Play narration';
+                
+                if (isPlaying) {
+                    if (playIcon) playIcon.style.display = 'none';
+                    if (pauseIcon) pauseIcon.style.display = 'block';
+                } else {
+                    if (playIcon) playIcon.style.display = 'block';
+                    if (pauseIcon) pauseIcon.style.display = 'none';
+                }
+
+                if (playPauseBtn) {
+                    playPauseBtn.setAttribute('aria-pressed', String(isPlaying));
+                    playPauseBtn.setAttribute('aria-label', label);
+                }
+            }
+            
+            function loadTranscript() {
+                if (!transcriptContent) return;
+                
+                transcriptContent.innerHTML = `
+                    <h2 style="color: var(--kubrick-red);">curator transcript</h2>
+                    
+                    <p class="intro">Stanley Kubrick stands as a quintessential auteur of 20th-century cinema, renowned for his meticulous craftsmanship and bold thematic ambition. His films span genres (science fiction, horror, satire) but consistently bear his signature in style and substance.</p>
+                    
+                    <p>Three of Kubrick's most iconic works, <span class="film-2001">2001: A Space Odyssey</span>, <span class="film-clockwork">A Clockwork Orange</span>, and <span class="film-shining">The Shining</span>, at first glance appear very different. One is a contemplative sci-fi epic, another a dystopian social satire, and the third a psychological horror film. Yet, beneath their surface narratives, these movies are linked by a profound implicit meaning.</p>
+                    
+                    <p>In all three, Kubrick explores humanity's innate capacity for violence and the peril that arises when external forces (technology, institutions, even supernatural influences) attempt to control or repress that primal nature. In other words, <strong>Kubrick's thesis is that the more rigidly we impose order or "civilize" human behavior, the more fiercely our buried instincts resist, often erupting in violence.</strong></p>
+                    
+                    <p>This video essay will examine how that overarching theme is conveyed across the three films, and how two consistent elements of Kubrick's filmmaking style, his cinematography and his bold use of color, reinforce this message. Ultimately, we will assess how successfully Kubrick communicates his dark vision of order and violence through these cinematic techniques and narratives.</p>
+                    
+                    <h2 style="color: var(--kubrick-red);">the implicit meaning</h2>
+                    
+                    <p>Kubrick's work is often implicitly critical of human nature and society's attempts to tame it. Critics have noted that many of his films carry "a sense of despair over the way humans are capable of treating each other," depicting institutionalized violence and extreme conformity as dehumanising forces. In <span class="film-2001">2001</span>, <span class="film-clockwork">A Clockwork Orange</span>, and <span class="film-shining">The Shining</span>, an overarching implicit meaning becomes clear: Kubrick warns that when we push human behavior into strict order, we risk stripping away humanity itself, unleashing the very brutality we sought to contain.</p>
+                    
+                    <h3 class="film-2001">2001: a space odyssey</h3>
+                    
+                    <p>Kubrick's sci-fi opus spans from our prehistoric beginnings to a futuristic space age. From the famous "Dawn of Man" sequence, the film links human progress with violence. An ape-man discovers a bone can be used as a weapon, implying that the birth of technology is inherently tied to the capacity to kill.</p>
+                    
+                    <p>In a legendary match cut, Kubrick then leaps eons into the future, linking the spinning bone to a spacecraft in orbit. This edit visualizes that our advanced technology is essentially an evolved bone. An instrument of power and potential violence.</p>
+                    
+                    <p>Moving to the space-age setting, Kubrick presents a society that appears to have banished open conflict. The space station is pristine white and eerily calm; the astronauts are polite and emotionless; and HAL 9000's ship-board routines are precise and sterile. Yet Kubrick suggests this peace is a cold, fragile veneer. The humans have become so bland that even birthday messages barely elicit a reaction. In contrast, it is the computer, HAL, that displays human-like emotions: curiosity, anxiety, even deceit.</p>
+                    
+                    <p>When HAL malfunctions and turns murderous, it's as if the violence repressed by sterile routine has reasserted itself through the machine. Tellingly, <span class="highlight-red">HAL's camera eye glows an unblinking red</span>, bathing the spacecraft in a hellish hue during his mutiny. The implicit message is that humanity's over-reliance on rational order can backfire.</p>
+                    
+                    <p>The only "character" who seems to feel genuine emotion is HAL, and his plea "I'm afraid, Dave" makes his death more poignant than the humans'. Kubrick appears to argue that in trying to eliminate human flaws, we might surrender our humanity to the void. The film's enigmatic ending offers a glimmer of hope, but significantly, this evolution is driven by mysterious alien intervention, not our own institutions. Kubrick's cynicism remains.</p>
+                    
+                    <h3 class="film-clockwork">a clockwork orange</h3>
+                    
+                    <p>Kubrick's notorious satire pushes the theme of control vs. violence into moral territory. The protagonist, Alex DeLarge, embodies humanity's basest violent urges unchecked. Society's response, however, is an equally disturbing form of violence: the Ludovico Technique, a conditioning that forces Alex to be "good."</p>
+                    
+                    <p>Kubrick uses this premise to pose a philosophical question: <em>"Do we lose our humanity if we are deprived of the choice between good and evil?"</em> After the treatment, Alex is "cured" of violence, yet he has also been robbed of his autonomy. As Kubrick explained, Alex has been reduced to a "clockwork orange," something organic turned mechanical.</p>
+                    
+                    <p>A psychiatrist cited by Kubrick observed that Alex before treatment represents "man in his natural state," whereas afterward he has been "civilized" at the expense of his soul. Kubrick implies that enforced goodness is itself a form of violence by the state. Indeed, the title suggests a paradox: a human being mechanized into obedience is grotesque and unnatural.</p>
+                    
+                    <p>By the film's end, when Alex's conditioning is reversed and he gleefully declares "I was cured, all right," Kubrick delivers a darkly ironic conclusion. Humanity cannot be reformed by force without crushing the very freedom that makes us human. Our instinct for violence will always resurface.</p>
+                    
+                    <h3 class="film-shining">the shining</h3>
+                    
+                    <p>Though a supernatural horror, The Shining's implicit meaning aligns with Kubrick's critique. Jack Torrance brings his family to the isolated Overlook Hotel seeking orderly responsibility. Yet Jack has a history of alcoholism and rage, hinting at a latent violence under his familial role. The Overlook serves as a catalyst that strips away Jack's civilized pretenses, encouraging him to "correct" his family and drawing out his inner demons.</p>
+                    
+                    <p>Visually, Kubrick emphasizes this breakdown of order through the Overlook's geometric perfection turning nightmarish. Long Steadicam shots follow Danny on his tricycle down perfectly symmetrical hallways. These shots convey an eerie orderliness. But when Danny encounters the ghostly twin girls, the symmetry suddenly feels like a trap, a predestined violence waiting to happen.</p>
+                    
+                    <p>Likewise, <span class="highlight-red">the color red floods the film</span> at key moments. The most iconic instance is the vision of the elevator doors unleashing an ocean of blood. Another is the elegant red bathroom where Jack converses with the ghost of Delbert Grady. The scene's formal, decorous setting contrasts with the homicidal urgings Grady delivers.</p>
+                    
+                    <p>In The Shining, the attempt to maintain domestic civility is steadily eroded by a more archaic brutality. By the finale, Jack has fully transformed into a primitive hunter, wielding an axe. Civilization literally freezes to death as Jack dies in the snow. The film's haunting final image suggests this cycle of violence was always part of the Overlook, and by extension, part of America's societal fabric.</p>
+                    
+                    <h2 style="color: var(--kubrick-red);">cinematography: the architecture of control</h2>
+                    
+                    <p>One of Kubrick's most recognizable signatures is his use of symmetrical composition and one-point perspective. In numerous shots, Kubrick positions the camera at the exact center facing a deep vanishing point. This creates an unnerving visual symmetry that feels unnatural and hyper-controlled. The effect is subtly oppressive, as if some unseen force has arranged everything with geometric precision.</p>
+                    
+                    <p>Kubrick employs this technique to reinforce the theme of an imposed order that can be disrupted at any moment. In <span class="film-clockwork">A Clockwork Orange</span>, the opening shot is a famous example. The camera slowly pulls back from Alex's icy stare at the Korova Milk Bar, with the composition in perfect one-point perspective. This rigid framing immediately establishes a world of posed, artificial order, even as we sense the potential for ultraviolence. Soon after, the camera work becomes more chaotic and handheld during scenes of actual violence, visually breaking the symmetry.</p>
+                    
+                    <p>In <span class="film-2001">2001</span>, the camera frequently finds the one-point perspective in the futuristic sets, like the circular centrifuge of the Discovery. This highlights the closed, regulated world of the spaceship. Even shots of the HAL 9000 interface are directly centered, reinforcing HAL's pervasive control. By using such highly controlled framing, Kubrick visually mirrors the film's idea of a sterile future, hinting that something is too controlled.</p>
+                    
+                    <p><span class="film-shining">The Shining</span> provides perhaps Kubrick's most famous use of this technique. The long, straight corridors of the Overlook are exploited as Kubrick's Steadicam follows Danny's tricycle, always keeping the halls dead center. This repetitive, methodical movement builds tension as we anticipate a rupture. When the spectral twin girls appear, perfectly centered, the horror is amplified by the composition. They complete the symmetry, as if they were the missing piece in the Overlook's terrible design.</p>
+                    
+                    <p>Kubrick's cinematography uses symmetry to illustrate control. And its fragility. The moment violence intrudes, he often abandons the perfect symmetry, powerfully supporting his thesis.</p>
+                    
+                    <h2 style="color: var(--kubrick-red);">the color of aggression</h2>
+                    
+                    <p>Another core element of Kubrick's style is his bold use of production design and color to convey thematic meaning. He carefully controlled sets, costumes, and lighting to create visual motifs that run throughout a film. As we've already seen with The Shining, Kubrick has a powerful fascination with <span class="highlight-red">the color red</span>. This becomes a defining trait of his cinema. As scholar Tony Magistrale notes, red is used to underscore varying levels of physical and psychological violence.</p>
+                    
+                    <p>In <span class="film-2001">2001</span>, red is the hue of HAL's unsettling presence, from his camera eye to the alarmingly lit control panels during his mutiny. The sterile white of the spaceship, suddenly drenched in red, indicates the eruption of violence into the controlled environment.</p>
+                    
+                    <p>In <span class="film-clockwork">A Clockwork Orange</span>, Kubrick uses a satirically bright color scheme. The Korova Milk Bar is stark white, a disturbingly playful setting for violence. Yet red still punctuates key moments. During Alex's home invasion, the interior features red accents. Later, as Alex undergoes the Ludovico treatment, the auditorium has deep red curtains, surrounding him with the color of violence even as the procedure aims to eliminate it. The irony is thick.</p>
+                    
+                    <p>And in <span class="film-shining">The Shining</span>, as discussed, red is pervasive: the blood from the elevator, the bathroom walls, Danny's sweater, the "REDRUM" scrawl. Kubrick also uses overwhelming gold and orange tones in the Gold Room, casting an almost infernal glow on the proceedings, as if Jack has entered some gilded hell.</p>
+                    
+                    <p>Across these films, Kubrick contrasts clean, controlled spaces with shocking intrusions of color to illustrate the collapse of that control. The meticulous visual composition creates a clockwork precision in the world, which he then pointedly breaks or stains.</p>
+                    
+                    <h2 style="color: var(--kubrick-red);">conclusion: kubrick's lasting vision</h2>
+                    
+                    <p>In <span class="film-2001">2001</span>, <span class="film-clockwork">A Clockwork Orange</span>, and <span class="film-shining">The Shining</span>, Stanley Kubrick weaves a dark, cautionary vision. He consistently questions whether true order can ever be engineered, suggesting that attempts to do so may destroy the human spirit. By employing distinctive film techniques, Kubrick succeeds in reinforcing this theme on both intellectual and visceral levels.</p>
+                    
+                    <p>His disciplined cinematography creates a sense of unnatural order that feels ominous. His bold use of color etches symbolic contrasts into our minds; calm whites against alarming reds, symmetrical order against grotesque chaos. The enduring impact of these films argues strongly for his success. While initially met with some confusion or controversy, their thematic depth has since been recognized. Viewers may not articulate the theme immediately, but they feel it. The films leave us unsettled by more than just their surface events.</p>
+                    
+                    <p>Kubrick's success is most evident in how relevant these films remain. In an era still grappling with balancing security and freedom, or technology and humanity, his warnings ring as true as ever. By marrying a chilling implicit message with equally deliberate film techniques, Kubrick ensured that his audience not only hears his thesis, but sees and experiences it on the screen.</p>
+                    
+                    <p>In the end, the lasting power of these three films testifies to how effectively Kubrick conveyed his vision. A legacy of success for a filmmaker unafraid to stare into the darker truths of civilization.</p>
+                `;
+            }
+
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                const minutes = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${minutes}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            function updateTotalTime() {
+                const totalTime = document.getElementById('total-time');
+                if (totalTime && sound) {
+                    totalTime.textContent = formatTime(sound.duration());
+                }
+            }
+
+            let WORD_TIMESTAMPS = null;
+            let wordSpansBuilt = false;
+
+            function loadWordTimestamps() {
+                if (WORD_TIMESTAMPS) return;
+                WORD_TIMESTAMPS = [[0,"Stanley"],[0.42,"Kubrick"],[0.76,"stands"],[1.12,"as"],[1.48,"a"],[1.66,"quintessential"],[2.36,"filmmaker"],[2.96,"of"],[3.22,"20th"],[3.66,"century"],[3.96,"cinema"],[4.38,"renowned"],[5.16,"for"],[5.54,"his"],[5.7,"meticulous"],[6.28,"craftsmanship"],[7.02,"and"],[7.48,"bold"],[8.26,"thematic"],[9.02,"ambition."],[10.02,"His"],[10.42,"films"],[10.92,"span"],[11.44,"genres"],[11.9,"like"],[12.24,"science"],[12.64,"fiction,"],[13.56,"horror"],[13.82,"and"],[14.2,"satire,"],[15.2,"but"],[15.38,"consistently"],[15.86,"bear"],[16.22,"his"],[16.46,"signature"],[16.84,"in"],[17.22,"style"],[17.72,"and"],[18.04,"substance."],[18.96,"2001"],[19.56,"a"],[20.1,"space"],[20.36,"Odyssey,"],[21.26,"a"],[21.34,"clockwork"],[21.88,"orange,"],[22.92,"and"],[22.98,"the"],[23.12,"Shining"],[23.5,"at"],[23.82,"first"],[24.1,"glance"],[24.4,"appear"],[24.92,"very"],[25.36,"different."],[26.46,"One"],[26.82,"is"],[27.12,"a"],[27.24,"contemplative"],[27.94,"sci-fi"],[28.48,"epic,"],[29.4,"another"],[29.62,"is"],[29.82,"a"],[29.94,"dystopian"],[30.58,"satire,"],[31.78,"and"],[31.86,"the"],[31.98,"third"],[32.24,"is"],[32.48,"a"],[32.62,"psychological"],[33.26,"horror"],[33.66,"film."],[34.72,"But"],[35.06,"beneath"],[35.3,"their"],[35.54,"surface"],[35.92,"narratives,"],[36.72,"these"],[36.8,"movies"],[37.12,"are"],[37.44,"linked"],[37.88,"by"],[38.1,"a"],[38.28,"profound"],[38.86,"implicit"],[39.76,"meaning."],[40.94,"In"],[41.2,"all"],[41.34,"three,"],[42.24,"Kubrick"],[42.48,"explores"],[42.98,"humanity's"],[43.96,"innate"],[44.22,"capacity"],[44.94,"for"],[45.42,"violence"],[46.26,"and"],[47.18,"the"],[47.3,"peril"],[47.64,"that"],[47.88,"arises"],[48.38,"when"],[48.98,"external"],[49.52,"forces"],[49.96,"like"],[50.46,"technology,"],[51.52,"institutions,"],[52.58,"or"],[52.94,"even"],[53.2,"supernatural"],[53.84,"influences"],[54.6,"attempt"],[55.16,"to"],[55.48,"control"],[55.94,"or"],[56.7,"repress"],[57.14,"that"],[57.38,"primal"],[58,"nature."],[79.18,"consistent"],[79.8,"elements"],[80.18,"of"],[80.64,"Kubrick's"],[81.36,"filmmaking"],[81.68,"style,"],[82.8,"his"],[83,"cinematography"],[83.86,"and"],[84.12,"bold"],[84.32,"use"],[84.6,"of"],[84.78,"color,"],[85.64,"reinforce"],[85.86,"this"],[86.38,"message."],[100,"often"],[100.28,"implicitly"],[100.98,"critical"],[101.44,"of"],[101.72,"human"],[101.9,"nature"],[102.32,"and"],[102.64,"society's"],[103.26,"attempts"],[103.56,"to"],[103.94,"tame"],[104.24,"it."],[105.02,"Critics"],[105.32,"have"],[105.46,"noted"],[105.7,"that"],[105.9,"many"],[106.12,"of"],[106.26,"his"],[106.4,"films"],[106.66,"carry"],[107.1,"a"],[107.7,"sense"],[107.94,"of"],[108.18,"despair"],[108.54,"over"],[108.86,"the"],[109,"way"],[109.14,"humans"],[109.5,"are"],[109.74,"capable"],[110.12,"of"],[110.42,"treating"],[110.64,"each"],[110.98,"other,"],[111.78,"depicting"],[112.16,"institutionalized"],[113.26,"violence"],[113.62,"and"],[114.02,"extreme"],[114.46,"conformity"],[115.14,"as"],[115.72,"dehumanizing"],[116.44,"forces."],[117.3,"In"],[118.04,"2001,"],[119.1,"A"],[119.18,"Clockwork"],[119.66,"Orange"],[120.08,"and"],[120.56,"The"],[120.72,"Shining"],[121.04,"an"],[121.72,"overarching"],[122.32,"implicit"],[122.94,"meaning"],[123.24,"becomes"],[123.68,"clear."],[125.06,"Kubrick"],[125.56,"warns"],[126.16,"that"],[126.32,"when"],[126.52,"we"],[126.7,"push"],[126.96,"human"],[127.28,"behavior"],[127.74,"into"],[128.1,"strict"],[128.52,"order,"],[129.22,"we"],[129.42,"risk"],[129.78,"stripping"],[130.26,"away"],[130.56,"humanity"],[131.08,"itself,"],[132.42,"unleashing"],[133,"the"],[133.2,"very"],[133.5,"brutality"],[134,"we"],[134.2,"sought"],[134.5,"to"],[134.7,"contain."],[146.82,"The"],[147.18,"film"],[147.58,"links"],[147.92,"human"],[148.4,"progress"],[148.72,"with"],[149,"violence."],[149.52,"A"],[150.08,"human"],[150.4,"ancestor,"],[151.48,"more"],[151.72,"akin"],[152.08,"to"],[152.42,"ape"],[152.82,"than"],[153.06,"human,"],[153.96,"discovers"],[154.3,"that"],[154.98,"a"],[155.2,"bone"],[155.92,"can"],[156.34,"be"],[156.52,"used"],[156.9,"as"],[157.12,"a"],[157.26,"weapon."],[158.44,"Kubrick"],[158.72,"is"],[159.04,"implying"],[159.48,"that"],[159.74,"the"],[159.92,"birth"],[160.16,"of"],[160.48,"technology"],[161.04,"is"],[161.42,"inherently"],[161.84,"tied"],[162.38,"to"],[162.92,"the"],[163.04,"capacity"],[163.52,"to"],[163.92,"kill."],[164.74,"In"],[165.14,"a"],[165.28,"legendary"],[165.74,"match"],[166.1,"cut,"],[166.84,"Kubrick"],[167.02,"then"],[167.3,"leaps"],[167.72,"eons"],[168.14,"into"],[168.42,"the"],[168.54,"future,"],[169.52,"linking"],[169.68,"the"],[169.94,"spinning"],[170.28,"bone"],[170.58,"to"],[170.84,"a"],[170.96,"spacecraft"],[171.38,"in"],[171.82,"orbit."],[172.76,"This"],[173.1,"edit"],[173.28,"visualizes"],[173.88,"that"],[174.12,"our"],[174.3,"advanced"],[174.64,"technology"],[175.3,"is"],[175.56,"essentially"],[176.12,"an"],[176.34,"evolved"],[176.84,"bone,"],[177.76,"an"],[177.86,"instrument"],[178.26,"of"],[178.56,"power"],[178.92,"and"],[179.28,"potential"],[179.84,"violence."],[180.9,"Moving"],[181.28,"to"],[181.5,"the"],[181.64,"space"],[181.9,"age"],[182.2,"setting,"],[182.98,"Kubrick"],[183.16,"presents"],[183.6,"a"],[183.92,"society"],[184.38,"that"],[184.62,"appears"],[184.92,"to"],[185.12,"have"],[185.28,"banished"],[185.7,"open"],[186,"conflict."],[186.94,"The"],[187.18,"space"],[187.38,"station"],[187.78,"is"],[187.98,"pristine,"],[188.8,"white"],[188.92,"and"],[189.3,"eerily"],[189.78,"calm."],[190.68,"The"],[190.76,"astronauts"],[191.18,"are"],[191.44,"polite"],[191.78,"and"],[192.18,"emotionless,"],[193.1,"and"],[193.38,"HAL's"],[193.76,"shipboard"],[194.22,"routines"],[194.6,"are"],[194.94,"precise"],[195.38,"and"],[195.8,"sterile."],[238.02,"The"],[238.3,"only"],[238.52,"character"],[238.96,"who"],[239.18,"seems"],[239.52,"to"],[239.74,"feel"],[240,"genuine"],[240.48,"emotion"],[241.02,"is"],[241.6,"HAL."],[242.54,"And"],[242.92,"his"],[243.08,"plea,"],[243.86,"I'm"],[244.06,"afraid"],[244.34,"Dave,"],[245.08,"makes"],[245.24,"his"],[245.46,"death"],[245.64,"more"],[245.98,"poignant"],[246.48,"than"],[246.92,"the"],[247.08,"humans'."],[248.26,"Kubrick"],[248.56,"appears"],[248.9,"to"],[249.16,"argue"],[249.48,"that"],[249.8,"in"],[250.02,"trying"],[250.34,"to"],[250.56,"eliminate"],[250.92,"human"],[251.34,"flaws,"],[252.26,"we"],[252.38,"might"],[252.6,"surrender"],[253.08,"our"],[253.34,"humanity"],[253.84,"to"],[254.16,"the"],[254.28,"void."],[269.88,"Kubrick's"],[270.48,"notorious"],[271.02,"satire"],[271.9,"pushes"],[272.68,"the"],[273,"theme"],[273.26,"of"],[273.48,"control"],[274.2,"versus"],[274.86,"violence"],[275.24,"into"],[275.84,"moral"],[276.2,"territory."],[277.28,"The"],[277.4,"protagonist,"],[278.3,"Alex"],[278.48,"DeLarge,"],[279.3,"embodies"],[279.68,"humanity's"],[280.44,"violent"],[280.68,"urges"],[281.08,"unchecked."],[300,"between"],[300.36,"good"],[300.86,"and"],[301.3,"evil."],[302.82,"After"],[303.1,"the"],[303.24,"treatment,"],[303.84,"Alex"],[304.02,"is"],[304.36,"cured"],[304.98,"of"],[305.2,"violence,"],[306.1,"yet"],[306.26,"he"],[306.42,"has"],[306.58,"also"],[306.86,"been"],[307.06,"robbed"],[307.34,"of"],[307.58,"his"],[307.76,"autonomy."],[362.26,"Though"],[362.58,"a"],[362.76,"supernatural"],[363.3,"horror,"],[364.06,"The"],[364.12,"Shining's"],[364.64,"implicit"],[365.04,"meaning"],[365.4,"aligns"],[366.02,"with"],[366.2,"Kubrick's"],[366.92,"critique."],[368.34,"Jack"],[368.58,"Torrance"],[369.06,"brings"],[369.32,"his"],[369.6,"family"],[369.96,"to"],[370.16,"the"],[370.32,"isolated"],[370.82,"Overlook"],[371.28,"Hotel,"],[391.88,"Visually"],[392.28,"Kubrick"],[392.78,"emphasizes"],[393.5,"this"],[393.92,"breakdown"],[394.34,"of"],[394.62,"order"],[567.1,"Kubrick's"],[567.58,"cinematography"],[568.42,"uses"],[569.02,"symmetry"],[569.72,"to"],[570.18,"illustrate"],[570.68,"control"],[571.16,"and"],[571.82,"its"],[572.02,"fragility."],[660,"Intellectual"],[660.54,"and"],[661,"visceral"],[661.48,"levels."],[695.08,"In"],[695.28,"the"],[695.42,"end,"],[696.2,"the"],[696.26,"lasting"],[696.7,"power"],[697.12,"of"],[697.34,"these"],[697.5,"three"],[697.74,"films"],[698.12,"testifies"],[698.82,"to"],[699.08,"how"],[699.24,"effectively"],[699.98,"Kubrick"],[700.86,"conveyed"],[701.26,"his"],[701.58,"vision."],[702.46,"A"],[702.64,"legacy"],[703.08,"of"],[703.32,"success"],[703.76,"for"],[704.28,"a"],[704.38,"filmmaker,"],[705.54,"unafraid"],[705.98,"to"],[706.34,"stare"],[706.58,"into"],[706.86,"the"],[707,"darker"],[707.34,"truths"],[707.8,"of"],[708.24,"civilization."]];
+            }
+
+            function buildWordSpans() {
+                const el = document.getElementById('transcript-line-text');
+                if (!el || !WORD_TIMESTAMPS || wordSpansBuilt) return;
+                el.innerHTML = WORD_TIMESTAMPS.map((w, i) => `<span class="tw" data-i="${i}">${w[1]} </span>`).join('');
+                wordSpansBuilt = true;
+            }
+
+            let lastActiveIdx = -1;
+
+            function updateTranscriptLine() {
+                if (!WORD_TIMESTAMPS || !sound) return;
+                const lineEl = document.getElementById('transcript-line-text');
+                const line = document.getElementById('transcript-line');
+                if (!lineEl || !line || line.hidden) return;
+
+                if (!wordSpansBuilt) buildWordSpans();
+
+                const seek = sound.seek() || 0;
+                let lo = 0, hi = WORD_TIMESTAMPS.length - 1, idx = 0;
+                while (lo <= hi) {
+                    const mid = (lo + hi) >> 1;
+                    if (WORD_TIMESTAMPS[mid][0] <= seek) { idx = mid; lo = mid + 1; }
+                    else hi = mid - 1;
+                }
+
+                if (idx === lastActiveIdx) return;
+                lastActiveIdx = idx;
+
+                const spans = lineEl.querySelectorAll('.tw');
+                const nearRange = 4;
+                spans.forEach((s, i) => {
+                    s.classList.toggle('active', i === idx);
+                    s.classList.toggle('near', i !== idx && Math.abs(i - idx) <= nearRange);
+                });
+
+                const activeSpan = spans[idx];
+                if (activeSpan) {
+                    const containerWidth = lineEl.parentElement.offsetWidth;
+                    const spanLeft = activeSpan.offsetLeft;
+                    const spanWidth = activeSpan.offsetWidth;
+                    lineEl.style.transform = `translateX(${containerWidth * 0.3 - spanLeft - spanWidth / 2}px)`;
+                }
+            }
+
+            function startTimeUpdate() {
+                stopTimeUpdate();
+                timeUpdateInterval = setInterval(() => {
+                    const currentTime = document.getElementById('current-time');
+                    if (currentTime && sound) {
+                        currentTime.textContent = formatTime(sound.seek());
+                    }
+                    updateTranscriptLine();
+                }, 250);
+            }
+
+            function stopTimeUpdate() {
+                if (timeUpdateInterval) {
+                    clearInterval(timeUpdateInterval);
+                    timeUpdateInterval = null;
+                }
+            }
+
+
+            function initializeScrollAnimations() {
+                if (reduceMotion) {
+                    gsap.set('.film-title, .quote-text, .standard-card, .evidence-plate, .technique-film-tag, .technique-title, .technique-caption, .technique-detail', {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1
+                    });
+                    gsap.set('.axe-blade', { scale: 0, opacity: 0 });
+                    gsap.set('#shining-title .film-title', { opacity: 1, y: 0 });
+                    return;
+                }
+
+                gsap.utils.toArray('.parallax-image').forEach(img => {
+                    gsap.to(img, {
+                        yPercent: -20,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: img.parentElement,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: true
+                        }
+                    });
+                });
+
+                gsap.utils.toArray('.content-block').forEach(block => {
+                    if (!block.closest('#architecture-section')) {
+                        gsap.from(block.children, {
+                            opacity: 0,
+                            y: 50,
+                            duration: 1.5,
+                            stagger: 0.2,
+                            scrollTrigger: {
+                                trigger: block,
+                                start: "top 80%",
+                            }
+                        });
+                    }
+                });
+
+                gsap.utils.toArray('.standard-card, .evidence-plate').forEach(card => {
+                    gsap.from(card, {
+                        opacity: 0,
+                        y: 50,
+                        duration: 1,
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 90%",
+                        }
+                    });
+                });
+
+                gsap.utils.toArray('.film-title').forEach(title => {
+                    gsap.from(title, {
+                        scale: 0.8,
+                        opacity: 0,
+                        duration: 2,
+                        scrollTrigger: {
+                            trigger: title,
+                            start: "top 80%",
+                            end: "bottom 20%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                });
+
+                gsap.utils.toArray('.quote-text').forEach(quote => {
+                    gsap.from(quote, {
+                        scale: 0.9,
+                        opacity: 0,
+                        duration: 2,
+                        scrollTrigger: {
+                            trigger: quote,
+                            start: "top 80%",
+                             end: "bottom 20%",
+                            toggleActions: "play none none reverse"
+                        }
+                    });
+                });
+
+                const axeBlade = document.querySelector('.axe-blade');
+                const shiningTitle = document.querySelector('#shining-title .film-title');
+                const shiningSection = document.getElementById('shining-title');
+                
+                if (axeBlade && shiningTitle && shiningSection) {
+                    const axeHole = document.createElement('div');
+                    axeHole.className = 'axe-hole';
+                    axeHole.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 0; height: 0; background: black; border-radius: 50%; z-index: 40;';
+                    shiningSection.appendChild(axeHole);
+
+                    gsap.set(shiningTitle, { opacity: 0, y: 100 });
+                    gsap.set(axeBlade, { scale: 0, opacity: 0 });
+
+                    const axeTimeline = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '#shining-title',
+                            start: 'top 50%',
+                            toggleActions: "play none none reverse",
+                            onLeaveBack: () => {
+                                gsap.set(axeBlade, { scale: 0, opacity: 0 });
+                            }
+                        }
+                    });
+
+                    axeTimeline
+                        .set(axeBlade, { scale: 1, opacity: 1, rotation: -120 })
+                        .to(axeBlade, {
+                            rotation: -20,
+                            duration: 0.8,
+                            ease: "power3.in"
+                        })
+                        .to(axeBlade, {
+                            rotation: -40,
+                            duration: 0.15,
+                            ease: "power1.out",
+                             onComplete: () => {
+                                gsap.to(axeHole, {
+                                    width: 400,
+                                    height: 400,
+                                    duration: 0.5,
+                                    ease: "power2.out"
+                                });
+                                gsap.to(shiningTitle, {
+                                    opacity: 1,
+                                    y: 0,
+                                    duration: 1,
+                                    delay: 0.1,
+                                    ease: "power2.out"
+                                });
+                            }
+                        })
+                        .to(axeBlade, {
+                            rotation: 90,
+                            y: 1000,
+                            opacity: 0,
+                            duration: 1.5,
+                            delay: 0.5,
+                            ease: "power2.in"
+                        });
+                }
+
+                ScrollTrigger.create({
+                    start: 0,
+                    end: "max",
+                    onUpdate: (self) => {
+                        const velocity = self.getVelocity();
+                        const scale = Math.min(2, 1 + Math.abs(velocity) / 3000);
+                        gsap.to(halLens, {
+                            scale: scale,
+                            duration: 0.5,
+                            ease: "power1.out"
+                        });
+                         gsap.to(halLens, {
+                            scale: 1,
+                            duration: 0.5,
+                            delay: 0.5,
+                            ease: "power1.out"
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
